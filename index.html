@@ -1294,13 +1294,13 @@ var _hmt = _hmt || [];
                 return;
             }
             
-            if (!/^TF-[A-Z0-9]{4}-[A-Z0-9]{4}$/.test(cardCode)) {
-                 if (!/^[A-Z0-9]{8,20}$/.test(cardCode)) {
-                    errorDiv.textContent = '卡号格式不正确';
-                    errorDiv.style.display = 'block';
-                    return;
-                }
-            }
+            if (!/^SH-[A-Z0-9]{4}-[A-Z0-9]{4}$/.test(cardCode)) {
+     if (!/^[A-Z0-9]{8,20}$/.test(cardCode)) {
+        errorDiv.textContent = '卡号格式不正确';
+        errorDiv.style.display = 'block';
+        return;
+    }
+}
             
             const deviceId = getDeviceFingerprint();
             let cards = JSON.parse(localStorage.getItem('socialCards') || '[]');
