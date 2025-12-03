@@ -743,6 +743,91 @@ var _hmt = _hmt || [];
             font-size: 0.9em;
             color: #666;
         }
+
+        /* 新增样式：网盘链接显示区域 */
+        .pan-link-section {
+            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border: 3px solid #4CAF50;
+            text-align: center;
+        }
+
+        .pan-link-section h3 {
+            color: #2E7D32;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+
+        .pan-link-box {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+
+        .pan-link-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 15px 0;
+            padding: 15px;
+            background: #F5F5F5;
+            border-radius: 8px;
+        }
+
+        .pan-link-label {
+            color: #2E7D32;
+            font-weight: bold;
+            font-size: 16px;
+            min-width: 100px;
+        }
+
+        .pan-link-value {
+            flex: 1;
+            color: #333;
+            font-size: 15px;
+            word-break: break-all;
+            margin: 0 15px;
+            font-family: monospace;
+        }
+
+        .copy-pan-btn {
+            padding: 10px 20px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .copy-pan-btn:hover {
+            background: #45a049;
+        }
+
+        .save-tip {
+            background: #FFF9C4;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border-left: 4px solid #FBC02D;
+        }
+
+        .save-tip h4 {
+            color: #F57C00;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .save-tip p {
+            color: #666;
+            line-height: 1.8;
+            margin: 5px 0;
+        }
         
         @media (max-width: 768px) {
             body {
@@ -787,6 +872,21 @@ var _hmt = _hmt || [];
             
             .rpi-score {
                 font-size: 3em;
+            }
+
+            .pan-link-item {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .pan-link-label,
+            .pan-link-value {
+                width: 100%;
+                text-align: center;
+            }
+
+            .copy-pan-btn {
+                width: 100%;
             }
         }
         
@@ -896,7 +996,7 @@ var _hmt = _hmt || [];
                     <li>40题专业心理量表</li>
                     <li>4大核心维度分析</li>
                     <li>社会化程度等级评定</li>
-                    <li><strong style="color:#D55D30;">完整《社会化手册》100万字+6大部分67课 (¥99解锁)</strong></li>
+                    <li><strong style="color:#D55D30;">完整《社会化手册》100万字+6大部分67课 (¥19.9解锁)</strong></li>
                 </ul>
             </div>
             
@@ -1007,35 +1107,13 @@ var _hmt = _hmt || [];
                 </div>
                 
                 <div class="price-tag">
-                    <div class="original-price">原价 ¥299</div>
-                    <div class="current-price">¥99</div>
-                    <div class="price-note">限时特惠 · 100万字干货，一顿饭的价格换来终身受用的社交能力</div>
+                    <div class="original-price">原价 ¥99</div>
+                    <div class="current-price">¥19.9</div>
+                    <div class="price-note">限时特惠 · 100万字干货，一杯奶茶的价格换来终身受用的社交能力</div>
                 </div>
                 
-                <div class="email-collection" style="margin: 30px 0; background: linear-gradient(135deg, #FFF9F0 0%, #FFF3E0 100%); padding: 25px; border-radius: 15px; border: 2px solid #FFE0B2;">
-                    <h4 style="text-align: center; color: #D55D30; margin-bottom: 15px; font-size: 1.3em;">
-                        📮 第一步：填写接收邮箱
-                    </h4>
-                    <input 
-                        type="email" 
-                        id="userEmail" 
-                        placeholder="请输入QQ邮箱（如：123456@qq.com）" 
-                        style="width: 100%; padding: 18px; border: 2px solid #FFE0B2; border-radius: 12px; font-size: 16px; text-align: center; transition: all 0.3s; box-sizing: border-box;"
-                        onfocus="this.style.borderColor='#D55D30'; this.style.boxShadow='0 0 0 4px rgba(213,93,48,0.1)';"
-                        onblur="this.style.borderColor='#FFE0B2'; this.style.boxShadow='none';"
-                    >
-                    <div style="text-align: center; margin-top: 15px;">
-                        <p style="color: #07C160; font-size: 14px; margin: 5px 0; font-weight: bold;">
-                            ✅ 付款后10分钟内发送到邮箱
-                        </p>
-                        <p style="color: #999; font-size: 13px;">
-                            💡 建议使用QQ邮箱，确保能收到资料
-                        </p>
-                    </div>
-                </div>
-                
-                <h4 style="text-align: center; color: #D55D30; margin: 30px 0 20px 0; font-size: 1.2em;">
-                    💳 第二步：选择支付方式
+                <h4 style="text-align: center; color: #D55D30; margin: 30px 0 20px 0; font-size: 1.3em;">
+                    💳 选择支付方式
                 </h4>
                 
                 <div class="payment-section">
@@ -1081,17 +1159,17 @@ var _hmt = _hmt || [];
                 </div>
                 
                 <h4 style="text-align: center; color: #D55D30; margin: 30px 0 20px 0; font-size: 1.2em;">
-                    📸 第三步：上传付款截图
+                    📸 上传付款截图，立即获取手册
                 </h4>
                 
                 <label for="paymentProofInput" class="btn btn-primary" style="margin-top: 15px; display: flex; align-items: center; justify-content: center; cursor: pointer; background: #D55D30;">
-                    📸 点击上传付款截图，立即获取手册
+                    📸 点击上传付款截图
                 </label>
                 <input type="file" id="paymentProofInput" accept="image/*" onchange="handlePaymentProof(event)" style="display: none;">
                 
                 <div style="text-align: center; margin-top: 20px; padding: 15px; background: #E3F2FD; border-radius: 10px;">
                     <p style="color: #1976D2; font-size: 14px; margin: 0;">
-                        🔒 信息安全保证：您的邮箱仅用于发送手册，不会用于其他用途
+                        🔒 信息安全保证：付款后立即显示网盘链接，无需等待
                     </p>
                 </div>
             </div>
@@ -1100,7 +1178,38 @@ var _hmt = _hmt || [];
         <div id="fullReportPage" class="card hidden">
             <div class="thank-banner">
                 <h3>🎓 感谢你的支持！</h3>
-                <p>《社会化完全手册》已发送至您的邮箱，请注意查收</p>
+                <p>付款成功，下方是您的专属资料</p>
+            </div>
+
+            <!-- 新增：百度网盘链接显示区域 -->
+            <div class="pan-link-section">
+                <h3>📦 您的《社会化完全手册》</h3>
+                <div class="pan-link-box">
+                    <div class="pan-link-item">
+                        <span class="pan-link-label">🔗 网盘链接</span>
+                        <span class="pan-link-value" id="panLinkText">https://pan.baidu.com/s/1TPexZexAwxC-is2dfD_LeA</span>
+                        <button class="copy-pan-btn" onclick="copyPanLink()">一键复制</button>
+                    </div>
+                    <div class="pan-link-item">
+                        <span class="pan-link-label">🔑 提取码</span>
+                        <span class="pan-link-value" id="panCodeText">8888</span>
+                        <button class="copy-pan-btn" onclick="copyPanCode()">一键复制</button>
+                    </div>
+                </div>
+
+                <div class="save-tip">
+                    <h4>💾 重要提示：请务必保存资料！</h4>
+                    <p>✅ 方法1：将链接和提取码发送到<strong>微信文件传输助手</strong>或<strong>任意微信好友</strong></p>
+                    <p>✅ 方法2：保存到手机<strong>备忘录</strong>或<strong>笔记应用</strong></p>
+                    <p>✅ 方法3：截图保存此页面</p>
+                    <p style="color: #D55D30; margin-top: 10px;"><strong>⚠️ 网页关闭后将无法找回，请立即保存！</strong></p>
+                </div>
+
+                <div style="text-align: center; margin-top: 25px;">
+                    <a href="https://pan.baidu.com/s/1TPexZexAwxC-is2dfD_LeA" target="_blank" style="display: inline-block; padding: 15px 40px; background: #2196F3; color: white; text-decoration: none; border-radius: 10px; font-size: 18px; font-weight: bold;">
+                        🚀 立即打开百度网盘
+                    </a>
+                </div>
             </div>
             
             <div class="result-banner">
@@ -1121,7 +1230,7 @@ var _hmt = _hmt || [];
             </div>
             
             <div class="report-section">
-                <h3>📚 第二部分：手册核心内容（已发送邮箱）</h3>
+                <h3>📚 第二部分：手册核心内容</h3>
                 <div style="background: #FFF9F0; padding: 25px; border-radius: 12px; border-left: 4px solid #D55D30;">
                     <h4 style="color: #D55D30; margin-bottom: 15px;">📖 100万字完整手册包含：</h4>
                     <ul style="line-height: 2; color: #666;">
@@ -1132,9 +1241,6 @@ var _hmt = _hmt || [];
                         <li><strong>第五部分</strong> - 自我成长进阶：沟通能力、情绪管理、人际关系</li>
                         <li><strong>第六部分</strong> - 实用工具包：各种场合应对话术模板</li>
                     </ul>
-                    <p style="margin-top: 20px; color: #D55D30; font-weight: bold;">
-                        💡 手册已通过百度网盘发送到您的邮箱，请注意查收！
-                    </p>
                 </div>
             </div>
             
@@ -1151,10 +1257,13 @@ var _hmt = _hmt || [];
                 </div>
             </div>
             
-            <div style="background: linear-gradient(135deg, #D55D30 0%, #B54825 100%); color: white; padding: 30px; border-radius: 15px; text-align: center; margin: 30px 0;">
-                <h3 style="margin-bottom: 15px;">📮 请立即查收邮箱</h3>
-                <p style="font-size: 18px; margin-bottom: 20px;">《社会化完全手册》已发送至您的QQ邮箱</p>
-                <p style="font-size: 14px; opacity: 0.9;">如未收到，请检查垃圾箱或联系客服微信：jsh9109</p>
+            <div style="background: linear-gradient(135deg, #FF6B6B 0%, #FF5252 100%); color: white; padding: 25px; border-radius: 15px; text-align: center; margin: 30px 0;">
+                <h3 style="margin-bottom: 15px; font-size: 1.5em;">⚠️ 最后提醒</h3>
+                <p style="font-size: 16px; line-height: 1.8;">
+                    网盘链接已在上方显示，请<strong>立即保存</strong>！<br>
+                    页面关闭后将<strong>无法找回</strong>链接<br>
+                    如有问题，请联系客服微信：<strong>HCH91178</strong>
+                </p>
             </div>
             
             <button class="btn btn-secondary" onclick="location.reload()">重新测评</button>
@@ -1179,6 +1288,7 @@ var _hmt = _hmt || [];
         const CUSTOMER_SERVICE_WECHAT = 'HCH91178'; // 客服微信
         const ADMIN_PASSWORD = 'lss900201'; // 管理员密码
         const MASTER_CODE = "GEMINI-MASTER"; // 万能卡密
+        const PRODUCT_PRICE = 19.9; // 产品价格
         // ============================================================
         
         /* 40道社会化测试题目 */
@@ -1295,12 +1405,12 @@ var _hmt = _hmt || [];
             }
             
             if (!/^SH-[A-Z0-9]{4}-[A-Z0-9]{4}$/.test(cardCode)) {
-     if (!/^[A-Z0-9]{8,20}$/.test(cardCode)) {
-        errorDiv.textContent = '卡号格式不正确';
-        errorDiv.style.display = 'block';
-        return;
-    }
-}
+                if (!/^[A-Z0-9]{8,20}$/.test(cardCode)) {
+                    errorDiv.textContent = '卡号格式不正确';
+                    errorDiv.style.display = 'block';
+                    return;
+                }
+            }
             
             const deviceId = getDeviceFingerprint();
             let cards = JSON.parse(localStorage.getItem('socialCards') || '[]');
@@ -1548,47 +1658,28 @@ var _hmt = _hmt || [];
             });
         }
         
-        /* ==================== [核心功能] 处理付款截图上传 ==================== */
+        /* ==================== [核心功能] 处理付款截图上传 - 改为直接显示网盘链接 ==================== */
         function handlePaymentProof(event) {
             const file = event.target.files[0];
-            const emailInput = document.getElementById('userEmail');
-            const userEmail = emailInput.value.trim();
-            
-            if (!userEmail) {
-                alert('⚠️ 请先填写QQ邮箱！');
-                emailInput.focus();
-                emailInput.style.borderColor = '#f44336';
-                emailInput.style.animation = 'shake 0.5s';
-                return;
-            }
-            
-            const qqEmailRegex = /^[\w\.-]+@qq\.com$/i;
-            if (!qqEmailRegex.test(userEmail)) {
-                alert('⚠️ 请输入正确的QQ邮箱格式\n\n示例：123456@qq.com');
-                emailInput.focus();
-                emailInput.style.borderColor = '#f44336';
-                return;
-            }
             
             if (file) {
                 showLoadingAnimation();
-                localStorage.setItem('userEmail', userEmail);
-                sendWechatNotification(userEmail, file.name);
-                saveOrderRecord(userEmail);
+                sendWechatNotification(file.name);
+                saveOrderRecord();
                 
                 setTimeout(() => {
                     closeLoadingAnimation();
-                    showSuccessMessage(userEmail);
+                    showSuccessMessage();
                     setTimeout(() => {
                         showFullReport();
-                    }, 2000);
+                    }, 1500);
                 }, 1500);
             }
         }
         
         /* ==================== [微信通知] 通过Server酱发送 ==================== */
-        function sendWechatNotification(email, fileName) {
-            const title = '💰 新订单：社会化手册';
+        function sendWechatNotification(fileName) {
+            const title = `💰 新订单：社会化手册（¥${PRODUCT_PRICE}）`;
             
             const orderTime = new Date().toLocaleString('zh-CN', {
                 year: 'numeric',
@@ -1601,64 +1692,28 @@ var _hmt = _hmt || [];
             });
             
             const content = `
-## 📮 客户信息
-- **邮箱：** ${email}
+## 📮 订单信息
 - **截图文件：** ${fileName}
+- **支付金额：** ¥${PRODUCT_PRICE}
 
 ---
 
 ## 💰 订单详情
 - **产品：** 社会化完全手册（100万字）
-- **金额：** ¥99
 - **时间：** ${orderTime}
+- **状态：** 用户已自动获取网盘链接
 
 ---
 
-## 📋 发货步骤
-### 1️⃣ 复制邮箱地址
-\`\`\`
-${email}
-\`\`\`
-
-### 2️⃣ 打开QQ邮箱发送
-- 登录：https://mail.qq.com
-- 收件人：${email}
-- 主题：【社会化完全手册】您的资料已到达
-
-### 3️⃣ 邮件内容模板
-\`\`\`
-感谢购买《社会化完全手册》！
-
-📦 百度网盘链接：${BAIDU_PAN_LINK}
-🔑 提取码：${BAIDU_PAN_CODE}
-
-📚 手册包含（100万字）：
-• 开篇寄语 - 社会化成长的底层逻辑
-• 第二部分 - 职场那些事儿（67课）
-• 第三部分 - 人情往来指南（67课）
-• 第四部分 - 提升你的情商
-• 第五部分 - 自我成长进阶
-• 第六部分 - 实用工具包
-
-使用建议：
-1. 先完整浏览目录，找到你最需要的部分
-2. 重点学习你测试中得分较低的维度
-3. 每天学习1-2课，边学边实践
-
-如有任何问题，请随时联系我：
-📱 微信：${CUSTOMER_SERVICE_WECHAT}
-
-祝您学习愉快，社交能力快速提升！💪
-\`\`\`
-
-### 4️⃣ 发送完成后
-- 返回管理员后台：打开测试页面 → 点击底部「管理员入口」
-- 输入密码：${ADMIN_PASSWORD}
-- 点击「标记已发货」
+## 📋 网盘信息
+- **链接：** ${BAIDU_PAN_LINK}
+- **提取码：** ${BAIDU_PAN_CODE}
 
 ---
 
-🔗 **快捷操作：** 复制邮箱后直接打开 https://mail.qq.com
+💡 **说明：** 用户上传付款截图后，系统已自动显示网盘链接，无需手动发货。此通知仅用于订单统计。
+
+如需查看更多订单数据，请访问管理员后台（密码：${ADMIN_PASSWORD}）
             `.trim();
             
             fetch(`https://sctapi.ftqq.com/${SERVER_JIANG_KEY}.send`, {
@@ -1684,16 +1739,15 @@ ${email}
             });
         }
         
-        function saveOrderRecord(email) {
+        function saveOrderRecord() {
             const orders = JSON.parse(localStorage.getItem('orderHistory') || '[]');
             
             const newOrder = {
                 id: Date.now(),
-                email: email,
-                amount: 99,
+                amount: PRODUCT_PRICE,
                 product: '社会化完全手册',
                 time: new Date().toISOString(),
-                status: '待发货',
+                status: '已完成',
                 panLink: BAIDU_PAN_LINK,
                 panCode: BAIDU_PAN_CODE
             };
@@ -1722,10 +1776,10 @@ ${email}
             
             loadingDiv.innerHTML = `
                 <div style="background: white; padding: 50px 40px; border-radius: 20px; text-align: center; max-width: 400px;">
-                    <div style="font-size: 60px; margin-bottom: 20px; animation: pulse 1.5s infinite;">📮</div>
+                    <div style="font-size: 60px; margin-bottom: 20px; animation: pulse 1.5s infinite;">📦</div>
                     <h3 style="color: #A07F56; margin-bottom: 15px; font-size: 1.5em;">正在处理订单...</h3>
                     <p style="color: #666; line-height: 1.6; font-size: 1.1em;">
-                        系统正在通知客服发货<br>
+                        正在为您准备资料<br>
                         请稍候...
                     </p>
                     <div style="margin-top: 25px;">
@@ -1746,7 +1800,7 @@ ${email}
             }
         }
         
-        function showSuccessMessage(email) {
+        function showSuccessMessage() {
             const messageDiv = document.createElement('div');
             messageDiv.id = 'successMessage';
             messageDiv.style.cssText = `
@@ -1766,19 +1820,13 @@ ${email}
             
             messageDiv.innerHTML = `
                 <div style="font-size: 80px; margin-bottom: 20px;">✅</div>
-                <h3 style="color: #07C160; margin-bottom: 20px; font-size: 1.8em;">付款信息已提交</h3>
+                <h3 style="color: #07C160; margin-bottom: 20px; font-size: 1.8em;">付款成功！</h3>
                 <div style="background: #F0F9FF; padding: 20px; border-radius: 12px; margin-bottom: 20px; border-left: 4px solid #2196F3;">
                     <p style="color: #666; line-height: 1.8; font-size: 1.05em;">
-                        我们将在 <strong style="color: #D55D30; font-size: 1.3em;">10分钟内</strong> 发送手册到：
-                    </p>
-                    <p style="color: #333; font-size: 1.2em; font-weight: bold; margin-top: 10px; word-break: break-all;">
-                        📮 ${email}
+                        正在为您显示<strong style="color: #D55D30;">网盘链接</strong><br>
+                        请注意保存，页面关闭后无法找回
                     </p>
                 </div>
-                <p style="color: #999; font-size: 14px; line-height: 1.6;">
-                    请注意查收邮箱（含垃圾箱）<br>
-                    如超时未收到，请联系微信：<strong>${CUSTOMER_SERVICE_WECHAT}</strong>
-                </p>
             `;
             
             document.body.appendChild(messageDiv);
@@ -1788,12 +1836,55 @@ ${email}
                 setTimeout(() => {
                     messageDiv.remove();
                 }, 300);
+            }, 1500);
+        }
+        
+        /* ==================== [新增] 复制网盘链接和提取码的功能 ==================== */
+        function copyPanLink() {
+            const link = BAIDU_PAN_LINK;
+            navigator.clipboard.writeText(link).then(() => {
+                showCopySuccess('网盘链接已复制！');
+            }).catch(err => {
+                alert('复制失败，请手动复制：' + link);
+            });
+        }
+        
+        function copyPanCode() {
+            const code = BAIDU_PAN_CODE;
+            navigator.clipboard.writeText(code).then(() => {
+                showCopySuccess('提取码已复制！');
+            }).catch(err => {
+                alert('复制失败，请手动复制：' + code);
+            });
+        }
+        
+        function showCopySuccess(message) {
+            const toast = document.createElement('div');
+            toast.style.cssText = `
+                position: fixed;
+                top: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: #4CAF50;
+                color: white;
+                padding: 15px 30px;
+                border-radius: 8px;
+                font-size: 16px;
+                z-index: 10000;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                animation: slideDown 0.3s ease;
+            `;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.animation = 'fadeOut 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
             }, 2000);
         }
         
         function showFullReport() {
             const result = JSON.parse(sessionStorage.getItem('testResult'));
-            const userEmail = localStorage.getItem('userEmail');
             
             document.getElementById('cardVerifyPage').classList.add('hidden');
             document.getElementById('testPage').classList.add('hidden');
@@ -1801,26 +1892,9 @@ ${email}
             document.getElementById('fullReportPage').classList.remove('hidden');
             document.getElementById('adminPanel').classList.add('hidden');
             
-            const banner = document.createElement('div');
-            banner.style.cssText = `
-                background: linear-gradient(135deg, #07C160 0%, #05A650 100%);
-                color: white;
-                padding: 20px;
-                border-radius: 15px;
-                text-align: center;
-                margin-bottom: 30px;
-                animation: slideDown 0.5s ease;
-            `;
-            banner.innerHTML = `
-                <h3 style="margin-bottom: 10px; font-size: 1.5em;">✅ 资料已发送成功！</h3>
-                <p style="font-size: 1.1em;">《社会化完全手册》已发送至：<strong>${userEmail}</strong></p>
-                <p style="font-size: 0.9em; margin-top: 10px; opacity: 0.9;">
-                    💡 请检查邮箱（含垃圾箱），如未收到请联系客服微信：${CUSTOMER_SERVICE_WECHAT}
-                </p>
-            `;
-            
-            const reportPage = document.getElementById('fullReportPage');
-            reportPage.insertBefore(banner, reportPage.firstChild);
+            // 显示网盘链接
+            document.getElementById('panLinkText').textContent = BAIDU_PAN_LINK;
+            document.getElementById('panCodeText').textContent = BAIDU_PAN_CODE;
             
             document.getElementById('fullSocialScore').textContent = result.totalScore + '分';
             document.getElementById('fullSocialLevel').textContent = result.level;
@@ -1841,21 +1915,6 @@ ${email}
             
             window.scrollTo(0, 0);
         }
-        
-        const slideDownStyle = document.createElement('style');
-        slideDownStyle.textContent = `
-            @keyframes slideDown {
-                from {
-                    opacity: 0;
-                    transform: translateY(-20px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-        `;
-        document.head.appendChild(slideDownStyle);
         
         function showWechatScan() {
             const qrElement = document.getElementById('wechatQR');
@@ -1906,8 +1965,7 @@ ${email}
             const devices = new Set(cards.filter(c => c.deviceId).map(c => c.deviceId)).size;
             
             const orders = JSON.parse(localStorage.getItem('orderHistory') || '[]');
-            const pendingOrders = orders.filter(o => o.status === '待发货');
-            const completedOrders = orders.filter(o => o.status === '已发货');
+            const totalRevenue = orders.reduce((sum, order) => sum + (order.amount || 0), 0);
             
             const adminContent = document.getElementById('adminContent');
             adminContent.innerHTML = `
@@ -1921,12 +1979,12 @@ ${email}
                         <div class="stat-label">已使用</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-number">${total - used}</div>
-                        <div class="stat-label">未使用</div>
+                        <div class="stat-number">${orders.length}</div>
+                        <div class="stat-label">订单总数</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-number">${devices}</div>
-                        <div class="stat-label">绑定设备数</div>
+                        <div class="stat-number">¥${totalRevenue.toFixed(1)}</div>
+                        <div class="stat-label">总收入</div>
                     </div>
                 </div>
                 
@@ -1935,6 +1993,18 @@ ${email}
                     <input type="number" id="cardCount" placeholder="输入生成数量（1-1000）" min="1" max="1000" value="10">
                 </div>
                 <button class="btn btn-primary" onclick="generateCards()">生成卡密</button>
+                
+                <h3 style="margin: 30px 0 15px 0;">最近订单记录</h3>
+                <div class="recent-records">
+                    ${orders.length === 0 ? 
+                        '<div class="record-item">暂无订单</div>' :
+                        orders.slice(0, 10).map(order => {
+                            const date = new Date(order.time);
+                            const dateStr = `${date.getFullYear()}-${(date.getMonth()+1).toString().padStart(2,'0')}-${date.getDate().toString().padStart(2,'0')} ${date.getHours().toString().padStart(2,'0')}:${date.getMinutes().toString().padStart(2,'0')}`;
+                            return `<div class="record-item">¥${order.amount} - ${dateStr} - ${order.status}</div>`;
+                        }).join('')
+                    }
+                </div>
                 
                 <h3 style="margin: 30px 0 15px 0;">最近使用记录</h3>
                 <div class="recent-records">
@@ -1951,186 +2021,8 @@ ${email}
                     }
                 </div>
                 
-                <div style="margin-top: 40px;">
-                    <h3 style="color: #D55D30; margin-bottom: 20px; font-size: 1.5em; border-left: 5px solid #D55D30; padding-left: 15px;">
-                        📦 订单管理（共${orders.length}单，待发货${pendingOrders.length}单）
-                    </h3>
-                    
-                    <div style="background: #FFF3E0; padding: 20px; border-radius: 12px; margin-bottom: 20px; border-left: 4px solid #FF9800;">
-                        <h4 style="color: #E65100; margin-bottom: 15px; font-size: 1.2em;">
-                            🔴 待发货订单（${pendingOrders.length}）
-                        </h4>
-                        <div style="max-height: 400px; overflow-y: auto;">
-                            ${pendingOrders.length === 0 ? 
-                                '<div style="text-align: center; color: #999; padding: 20px;">暂无待发货订单</div>' : 
-                                pendingOrders.map(order => `
-                                    <div style="background: white; padding: 20px; border-radius: 10px; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                                        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
-                                            <div style="flex: 1;">
-                                                <div style="font-size: 16px; font-weight: bold; color: #333; margin-bottom: 8px;">
-                                                    📮 ${order.email}
-                                                </div>
-                                                <div style="font-size: 13px; color: #999;">
-                                                    下单时间：${new Date(order.time).toLocaleString('zh-CN')}
-                                                </div>
-                                                <div style="font-size: 14px; color: #D55D30; margin-top: 5px; font-weight: bold;">
-                                                    金额：¥${order.amount}
-                                                </div>
-                                            </div>
-                                            <div style="text-align: right;">
-                                                <button onclick="copyEmail('${order.email}')" style="padding: 10px 20px; background: #2196F3; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; margin-bottom: 8px; display: block; width: 120px;">
-                                                    📋 复制邮箱
-                                                </button>
-                                                <button onclick="markAsDelivered(${order.id})" style="padding: 10px 20px; background: #07C160; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; display: block; width: 120px;">
-                                                    ✓ 标记已发货
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div style="background: #F5F5F5; padding: 12px; border-radius: 6px; font-size: 13px; line-height: 1.6; color: #666;">
-                                            <strong style="color: #D55D30;">📦 发货信息：</strong><br>
-                                            链接：${order.panLink}<br>
-                                            提取码：${order.panCode}
-                                        </div>
-                                    </div>
-                                `).join('')
-                            }
-                        </div>
-                    </div>
-                    
-                    <div style="background: #E8F5E9; padding: 20px; border-radius: 12px; border-left: 4px solid #4CAF50;">
-                        <h4 style="color: #2E7D32; margin-bottom: 15px; font-size: 1.2em;">
-                            ✅ 已发货订单（${completedOrders.length}）
-                        </h4>
-                        <div style="max-height: 300px; overflow-y: auto;">
-                            ${completedOrders.length === 0 ? 
-                                '<div style="text-align: center; color: #999; padding: 20px;">暂无已发货订单</div>' : 
-                                completedOrders.slice(0, 10).map(order => `
-                                    <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 10px; opacity: 0.7;">
-                                        <div style="display: flex; justify-content: space-between; align-items: center;">
-                                            <div>
-                                                <div style="font-size: 14px; color: #333; font-weight: bold;">
-                                                    ${order.email}
-                                                </div>
-                                                <div style="font-size: 12px; color: #999; margin-top: 3px;">
-                                                    发货时间：${new Date(order.deliveredTime).toLocaleString('zh-CN')}
-                                                </div>
-                                            </div>
-                                            <span style="color: #07C160; font-size: 14px; font-weight: bold;">
-                                                ✓ 已完成
-                                            </span>
-                                        </div>
-                                    </div>
-                                `).join('')
-                            }
-                        </div>
-                    </div>
-                    
-                    <div style="background: linear-gradient(135deg, #FFF9F0 0%, #FFE082 100%); padding: 25px; border-radius: 15px; margin-top: 30px; border: 3px solid #FFA726;">
-                        <h4 style="color: #E65100; margin-bottom: 20px; font-size: 1.3em; text-align: center;">
-                            📮 发货邮件模板（直接复制使用）
-                        </h4>
-                        
-                        <div style="background: white; padding: 20px; border-radius: 12px; margin-bottom: 15px;">
-                            <div style="color: #666; font-size: 14px; margin-bottom: 10px;">
-                                <strong style="color: #D55D30;">邮件主题：</strong>
-                            </div>
-                            <div id="emailSubject" style="background: #F5F5F5; padding: 15px; border-radius: 8px; font-family: monospace; font-size: 15px; color: #333; border-left: 4px solid #2196F3;">
-【社会化完全手册】您的资料已到达
-                            </div>
-                            <button onclick="copyText('emailSubject')" style="margin-top: 10px; padding: 8px 20px; background: #2196F3; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 13px;">
-                                📋 复制主题
-                            </button>
-                        </div>
-                        
-                        <div style="background: white; padding: 20px; border-radius: 12px;">
-                            <div style="color: #666; font-size: 14px; margin-bottom: 10px;">
-                                <strong style="color: #D55D30;">邮件正文：</strong>
-                            </div>
-                            <div id="emailBody" style="background: #F5F5F5; padding: 20px; border-radius: 8px; font-size: 14px; line-height: 1.8; color: #333; border-left: 4px solid #07C160; max-height: 300px; overflow-y: auto;">
-感谢购买《社会化完全手册》！
-
-📦 百度网盘链接：${BAIDU_PAN_LINK}
-🔑 提取码：${BAIDU_PAN_CODE}
-
-📚 手册包含（100万字）：
-• 开篇寄语 - 社会化成长的底层逻辑
-• 第二部分 - 职场那些事儿（67课）
-• 第三部分 - 人情往来指南（67课）
-• 第四部分 - 提升你的情商
-• 第五部分 - 自我成长进阶
-• 第六部分 - 实用工具包
-
-使用建议：
-1. 先完整浏览目录，找到你最需要的部分
-2. 重点学习你测试中得分较低的维度
-3. 每天学习1-2课，边学边实践
-
-如有任何问题，请随时联系我：
-📱 微信：${CUSTOMER_SERVICE_WECHAT}
-
-祝您学习愉快，社交能力快速提升！💪
-                            </div>
-                            <button onclick="copyText('emailBody')" style="margin-top: 10px; padding: 8px 20px; background: #07C160; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 13px;">
-                                📋 复制正文
-                            </button>
-                        </div>
-                        
-                        <div style="text-align: center; margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.8); border-radius: 8px;">
-                            <a href="https://mail.qq.com" target="_blank" style="display: inline-block; padding: 12px 30px; background: #D55D30; color: white; text-decoration: none; border-radius: 8px; font-size: 16px; font-weight: bold;">
-                                🚀 打开QQ邮箱发送
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
                 <button class="btn btn-secondary" onclick="backToMain()" style="margin-top: 30px;">返回主页</button>
             `;
-        }
-        
-        function copyEmail(email) {
-            navigator.clipboard.writeText(email).then(() => {
-                alert(`✅ 已复制邮箱：\n${email}\n\n现在可以打开QQ邮箱发送了！`);
-            }).catch(err => {
-                alert('复制失败，请手动复制：' + email);
-            });
-        }
-        
-        function copyText(elementId) {
-            const element = document.getElementById(elementId);
-            const text = element.textContent.trim();
-            
-            navigator.clipboard.writeText(text).then(() => {
-                const btn = event.target;
-                const originalText = btn.textContent;
-                btn.textContent = '✅ 已复制';
-                btn.style.background = '#07C160';
-                setTimeout(() => {
-                    btn.textContent = originalText;
-                    btn.style.background = '';
-                }, 2000);
-            }).catch(err => {
-                alert('复制失败，请手动复制');
-            });
-        }
-        
-        function markAsDelivered(orderId) {
-            if (!confirm('确认已经发送邮件了吗？')) {
-                return;
-            }
-            
-            const orders = JSON.parse(localStorage.getItem('orderHistory') || '[]');
-            const orderIndex = orders.findIndex(o => o.id === orderId);
-            
-            if (orderIndex !== -1) {
-                orders[orderIndex].status = '已发货';
-                orders[orderIndex].deliveredTime = new Date().toISOString();
-                localStorage.setItem('orderHistory', JSON.stringify(orders));
-                
-                alert('✅ 已标记为已发货！');
-                
-                document.getElementById('adminContent').innerHTML = '';
-                loadAdminStats();
-            }
         }
         
         function generateCards() {
@@ -2207,6 +2099,16 @@ ${email}
                 console.log('已生成10个测试卡密，请在管理员后台查看（密码：lss900201）');
             }
         };
+
+        // 添加fadeOut动画
+        const fadeOutStyle = document.createElement('style');
+        fadeOutStyle.textContent = `
+            @keyframes fadeOut {
+                from { opacity: 1; }
+                to { opacity: 0; }
+            }
+        `;
+        document.head.appendChild(fadeOutStyle);
     </script>
 </body>
 </html>
