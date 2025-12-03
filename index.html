@@ -950,6 +950,33 @@ var _hmt = _hmt || [];
             25% { transform: translateX(-10px); }
             75% { transform: translateX(10px); }
         }
+        /* 目录展示优化样式 */
+        .catalog-showcase {
+            background: linear-gradient(135deg, #FFF9F0 0%, #FFE082 100%);
+            padding: 35px;
+            border-radius: 20px;
+            margin: 30px 0;
+            border: 3px solid #FFA726;
+        }
+
+        .catalog-image-container img {
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .catalog-image-container img:hover {
+            transform: scale(1.02);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
     </style>
 </head>
 <body>
@@ -1082,7 +1109,76 @@ var _hmt = _hmt || [];
                     您的<strong style="color: #D55D30;">基础版</strong>报告已出 👇<br>
                     如需 <strong style="color: #D55D30;">《社会化完全手册》</strong> + <strong style="color: #D55D30;">定制化改进方案</strong>，可付费解锁：
                 </h3>
-                
+                <!-- 目录展示区域 - 开始 -->
+                <div style="background: linear-gradient(135deg, #FFF9F0 0%, #FFE082 100%); padding: 35px; border-radius: 20px; margin: 30px 0; border: 3px solid #FFA726;">
+                    <h3 style="color: #E65100; font-size: 1.6em; text-align: center; margin-bottom: 20px;">
+                        🎓 解锁后你将获得什么？
+                    </h3>
+                    
+                    <div style="background: white; padding: 25px; border-radius: 15px; margin-bottom: 20px;">
+                        <p style="color: #333; font-size: 16px; line-height: 2; text-align: center; margin-bottom: 20px;">
+                            <strong style="color: #D55D30; font-size: 18px;">《普通人社会化指南》完整版手册</strong><br>
+                            涵盖社交能力培养的方方面面
+                        </p>
+                        
+                        <div style="background: #F5F5F5; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                            <h4 style="color: #D55D30; text-align: center; margin-bottom: 15px; font-size: 1.2em;">
+                                📚 6大核心板块 + 400+页实战内容
+                            </h4>
+                            <ul style="list-style: none; padding: 0; margin: 0; color: #666; line-height: 2.2;">
+                                <li style="padding: 8px 0; border-bottom: 1px solid #E0E0E0;">
+                                    <strong style="color: #2E7D32;">✅ 开篇寄语：</strong>揭秘社会化成长的底层逻辑
+                                </li>
+                                <li style="padding: 8px 0; border-bottom: 1px solid #E0E0E0;">
+                                    <strong style="color: #2E7D32;">✅ 第二部分：</strong>23课实战技巧 - 从社交到职场的全方位攻略
+                                </li>
+                                <li style="padding: 8px 0; border-bottom: 1px solid #E0E0E0;">
+                                    <strong style="color: #2E7D32;">✅ 第三部分：</strong>67课职场篇 - 教你成为真正的"会来事"的人
+                                </li>
+                                <li style="padding: 8px 0; border-bottom: 1px solid #E0E0E0;">
+                                    <strong style="color: #2E7D32;">✅ 第四部分：</strong>67课人情篇 - 人情往来的智慧与边界感
+                                </li>
+                                <li style="padding: 8px 0; border-bottom: 1px solid #E0E0E0;">
+                                    <strong style="color: #2E7D32;">✅ 第五部分：</strong>自我成长 - 从内到外的全面提升
+                                </li>
+                                <li style="padding: 8px 0;">
+                                    <strong style="color: #2E7D32;">✅ 第六部分：</strong>实用工具 - 各种场景的应对话术模板
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div style="text-align: center; margin: 25px 0;">
+                            <h4 style="color: #D55D30; margin-bottom: 15px; font-size: 1.2em;">
+                                📖 完整目录预览 👇
+                            </h4>
+                            <img src="catalog.jpg" alt="完整目录" style="width: 100%; max-width: 600px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); cursor: pointer;" onclick="showCatalogFullscreen(this)">
+                            <p style="color: #999; font-size: 13px; margin-top: 10px;">
+                                💡 点击图片可放大查看
+                            </p>
+                        </div>
+
+                        <div style="background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%); padding: 20px; border-radius: 12px; margin-top: 20px; border-left: 4px solid #4CAF50;">
+                            <div style="display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                                <div style="text-align: center;">
+                                    <div style="font-size: 2em; color: #2E7D32; font-weight: bold;">100万字</div>
+                                    <div style="color: #666; font-size: 14px;">干货内容</div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <div style="font-size: 2em; color: #2E7D32; font-weight: bold;">400+页</div>
+                                    <div style="color: #666; font-size: 14px;">专业指南</div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <div style="font-size: 1.6em; color: #2E7D32; font-weight: bold;">累计超157课</div>
+                                    <div style="color: #D55D30; font-size: 13px; font-weight: bold;">（持续增加中）</div>
+                                </div>
+                            </div>
+                            <p style="text-align: center; color: #2E7D32; margin-top: 15px; font-size: 15px; font-weight: bold;">
+                                📱 百度网盘在线阅读 · 支持手机/电脑 · 随时随地学习
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- 目录展示区域 - 结束 -->
                 <div class="comparison-table">
                     <div class="comparison-row">
                         <span class="comparison-free">基础诊断（4维度分数）</span>
@@ -2084,7 +2180,41 @@ var _hmt = _hmt || [];
             document.getElementById('freeResultPage').classList.add('hidden');
             document.getElementById('fullReportPage').classList.add('hidden');
         }
-        
+        // 目录图片点击放大功能
+        function showCatalogFullscreen(img) {
+            const overlay = document.createElement('div');
+            overlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.9);
+                z-index: 10000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: zoom-out;
+                animation: fadeIn 0.3s ease;
+            `;
+            
+            const fullImg = document.createElement('img');
+            fullImg.src = img.src;
+            fullImg.style.cssText = `
+                max-width: 95%;
+                max-height: 95%;
+                border-radius: 8px;
+                box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            `;
+            
+            overlay.appendChild(fullImg);
+            document.body.appendChild(overlay);
+            
+            overlay.onclick = function() {
+                overlay.style.animation = 'fadeOut 0.3s ease';
+                setTimeout(() => overlay.remove(), 300);
+            };
+        }
         window.onload = function() {
             const cards = JSON.parse(localStorage.getItem('socialCards') || '[]');
             if (cards.length === 0) {
