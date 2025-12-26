@@ -257,6 +257,37 @@
         .wx-id { color: #333; font-weight: bold; background: #EEE; padding: 2px 8px; border-radius: 4px; user-select: text; }
 
         @keyframes pulse { 0% {transform: scale(1);} 50% {transform: scale(1.05);} 100% {transform: scale(1);} }
+
+        /* === 新增：招募学徒样式 (棕色主题) === */
+        .recruit-card {
+            background: #FFFBF5;
+            border: 1px dashed #8B6E4E;
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            margin-top: 30px;
+        }
+        .recruit-copy-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            width: fit-content;
+            margin: 10px auto 0 auto;
+            border: 1px solid #E2C08D;
+        }
+        .btn-copy-orange {
+            background: #D35400; /* 与主题红色一致 */
+            color: white;
+            border: none;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -408,6 +439,16 @@
                     </div>
                 </div>
             </div>
+
+            <div class="recruit-card">
+                <div style="font-weight:bold; color:#8B6E4E; margin-bottom:5px; font-size:1.05em;">📢 招心理测试项目学徒</div>
+                <div style="color:#666; font-size:0.9em;">项目实操 · 流量变现 · 长期带教</div>
+                <div class="recruit-copy-box">
+                    <span style="font-weight:bold; color:#333;">HCH91178</span>
+                    <span style="color:#999; font-size:0.85em;">(备注:学习测试)</span>
+                    <button class="btn-copy-orange" onclick="copyWx()">复制</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -474,6 +515,16 @@
         <div class="report-module" style="border-top-color:#D35400;">
             <div class="module-title" style="color:#D35400;">⚠️ 您的专属避坑指南</div>
             <div id="pitfallGuide"></div>
+        </div>
+
+        <div class="recruit-card">
+            <div style="font-weight:bold; color:#8B6E4E; margin-bottom:5px; font-size:1.05em;">📢 招心理测试项目学徒</div>
+            <div style="color:#666; font-size:0.9em;">项目实操 · 流量变现 · 长期带教</div>
+            <div class="recruit-copy-box">
+                <span style="font-weight:bold; color:#333;">HCH91178</span>
+                <span style="color:#999; font-size:0.85em;">(备注:学习测试)</span>
+                <button class="btn-copy-orange" onclick="copyWx()">复制</button>
+            </div>
         </div>
 
         <div class="cs-footer">
@@ -754,6 +805,14 @@
     }
 
     function copyTxt(t) { navigator.clipboard.writeText(t).then(()=>alert('复制成功')).catch(()=>alert('复制失败')); }
+    
+    function copyWx() {
+        navigator.clipboard.writeText("HCH91178").then(()=>{
+            alert('微信号已复制！\n即将跳转微信...');
+            setTimeout(()=>{ window.location.href="weixin://"; }, 500);
+        }).catch(()=>alert('复制失败，请手动复制'));
+    }
+
     function showAdmin() { document.getElementById('homePage').classList.add('hidden'); document.getElementById('adminPage').classList.remove('hidden'); }
     function checkAdmin() {
         if(document.getElementById('adminPwd').value === CONFIG.ADMIN_PWD) { document.getElementById('adminContent').innerHTML = '<div style="color:green">登录成功，请前往Server酱查看订单数据。</div>'; }
