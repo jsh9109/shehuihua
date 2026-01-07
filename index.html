@@ -2,14 +2,14 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>社会化程度测试 - 2025深度版</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         /* ================= 视觉系统：高端知识付费风 ================= */
         :root {
             --primary: #8B6E4E;       /* 主色：深棕 */
-            --primary-light: #A07F56;  /* 辅色 */
+            --primary-light: #A07F56; /* 辅色 */
             --bg-body: #F9F3EB;       /* 背景米色 */
             --bg-card: #FFFFFF;       /* 卡片白 */
             --red-price: #D35400;     /* 强调红 */
@@ -17,27 +17,46 @@
             --green-light: #E8F5E9;   /* 浅绿背景 */
             --text-main: #333333;
             --border-gold: #E2C08D;   /* 金色边框 */
+            --card-radius: 16px;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
             background: var(--bg-body);
             color: var(--text-main);
             line-height: 1.6;
             padding: 15px;
+            padding-bottom: constant(safe-area-inset-bottom); /* 兼容旧iOS */
+            padding-bottom: env(safe-area-inset-bottom); /* 兼容新全面屏 */
             min-height: 100vh;
+            font-size: 15px; /* 移动端基准字号 */
         }
-        .container { max-width: 600px; margin: 0 auto; padding-bottom: 80px; }
+
+        .container { max-width: 600px; margin: 0 auto; padding-bottom: 50px; }
         .hidden { display: none !important; }
 
-        /* 通用卡片 */
+        /* === 核心修复：稳健的卡片布局系统 === */
+        /* 移除 padding，改为在子元素 card-body 中控制，解决负边距重叠问题 */
         .card {
             background: var(--bg-card);
-            border-radius: 16px;
-            padding: 25px;
+            border-radius: var(--card-radius);
             box-shadow: 0 8px 30px rgba(139, 110, 78, 0.06);
             margin-bottom: 20px;
+            overflow: hidden; /* 关键：防止头部溢出 */
+            position: relative;
+        }
+
+        /* 内容容器：所有非通栏内容都放在这里 */
+        .card-body {
+            padding: 25px;
+        }
+
+        /* 针对小屏旧手机的适配 */
+        @media (max-width: 360px) {
+            .card-body { padding: 18px; } /* 缩小间距 */
+            body { font-size: 14px; } /* 缩小字号 */
         }
 
         /* 按钮体系 */
@@ -52,7 +71,7 @@
 
         /* ================= 首页样式 ================= */
         .header { text-align: center; margin-bottom: 25px; }
-        .header h1 { color: var(--primary); font-size: 1.8em; margin-bottom: 8px; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 8px;}
+        .header h1 { color: var(--primary); font-size: 1.8em; margin-bottom: 8px; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 8px; line-height: 1.3;}
         .header p { color: #888; font-size: 0.9em; margin-bottom: 8px; }
         .tag-pill { background: var(--primary); color: #fff; padding: 4px 15px; border-radius: 20px; font-size: 0.75em; display: inline-block; }
 
@@ -61,10 +80,10 @@
             display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 25px 0;
         }
         .dim-card {
-            background: #FFFBF5; border: 1px solid #F0E6D8; border-radius: 12px; padding: 20px 10px; text-align: center;
+            background: #FFFBF5; border: 1px solid #F0E6D8; border-radius: 12px; padding: 15px 10px; text-align: center;
             transition: all 0.3s;
         }
-        .dim-icon { font-size: 2.2em; margin-bottom: 8px; display: block; }
+        .dim-icon { font-size: 2em; margin-bottom: 5px; display: block; }
         .dim-name { font-weight: bold; color: var(--primary); font-size: 1em; margin-bottom: 4px; display: block; }
         .dim-desc { font-size: 0.75em; color: #999; }
 
@@ -73,32 +92,33 @@
             background: linear-gradient(180deg, #FFFDF9 0%, #FFF5E6 100%);
             border: 2px solid var(--border-gold);
             border-radius: 15px;
-            padding: 25px;
+            padding: 20px;
             margin-bottom: 30px;
         }
         .feature-title { font-weight: bold; color: var(--text-main); font-size: 1.1em; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
         .feature-list li {
-            list-style: none; margin-bottom: 12px; font-size: 0.95em; color: #555; display: flex; align-items: flex-start;
+            list-style: none; margin-bottom: 10px; font-size: 0.95em; color: #555; display: flex; align-items: flex-start; line-height: 1.5;
         }
-        .feature-list li::before { content: "✅"; margin-right: 10px; font-weight: bold; color: var(--primary); }
+        .feature-list li::before { content: "✅"; margin-right: 8px; font-weight: bold; color: var(--primary); flex-shrink: 0; }
         .highlight-text { color: var(--red-price); font-weight: bold; border-bottom: 1px dashed var(--red-price); }
 
         .input-group input {
             width: 100%; padding: 16px; border: 1px solid #ddd; border-radius: 12px;
-            text-align: center; font-size: 1em; background: #FAFAFA; margin-bottom: 15px; outline: none;
+            text-align: center; font-size: 1em; background: #FAFAFA; margin-bottom: 15px; outline: none; -webkit-appearance: none;
         }
         .input-group input:focus { border-color: var(--primary); background: #fff; }
 
         /* ================= 答题页 ================= */
         .progress-bar { height: 6px; background: #EEE; border-radius: 3px; margin: 10px 0 25px 0; overflow: hidden; }
         .progress-fill { height: 100%; background: var(--primary); width: 0%; transition: width 0.3s; }
-        .question-text { font-size: 1.25em; font-weight: bold; margin-bottom: 25px; color: #333; line-height: 1.5; }
+        .question-text { font-size: 1.25em; font-weight: bold; margin-bottom: 25px; color: #333; line-height: 1.5; min-height: 60px; }
         
         .option {
-            padding: 18px; background: #F9F9F9; border: 1px solid #EEE;
+            padding: 16px; background: #F9F9F9; border: 1px solid #EEE;
             border-radius: 12px; margin-bottom: 12px; cursor: pointer; transition: all 0.2s;
             font-size: 1em; color: #444; font-weight: 500;
         }
+        .option:active { background: #EEE; } /* 移动端点击反馈 */
         .option.selected { background: var(--primary); color: white; border-color: var(--primary); }
         
         .nav-buttons { display: flex; gap: 15px; margin-top: 30px; }
@@ -106,12 +126,14 @@
         .btn-prev { background: #F5F5F5; color: #999; }
         .btn-next { background: var(--primary); color: white; }
 
-        /* ================= 结果页 (免费版) ================= */
+        /* ================= 结果页 (修复重叠关键) ================= */
+        /* Header直接在Card内顶部，无负边距，不重叠 */
         .result-header {
             background: var(--primary); color: white; text-align: center;
-            padding: 35px 20px; border-radius: 16px 16px 0 0; margin: -25px -25px 20px -25px;
+            padding: 40px 20px 30px 20px; 
+            margin: 0; /* 修复点：移除负边距 */
         }
-        .score-big { font-size: 4.5em; font-weight: 800; line-height: 1; margin: 10px 0; text-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .score-big { font-size: 4em; font-weight: 800; line-height: 1; margin: 10px 0; text-shadow: 0 2px 10px rgba(0,0,0,0.1); }
         .level-badge { background: rgba(255,255,255,0.2); padding: 6px 20px; border-radius: 20px; font-size: 1em; font-weight: bold; display: inline-block; }
 
         .persona-card {
@@ -149,7 +171,7 @@
         }
         .catalog-tag {
             position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
-            background: var(--primary); color: white; padding: 5px 25px; border-radius: 20px; font-size: 0.9em; font-weight: bold;
+            background: var(--primary); color: white; padding: 5px 20px; border-radius: 20px; font-size: 0.85em; font-weight: bold; white-space: nowrap;
         }
         .catalog-img { width: 100%; border-radius: 8px; margin-top: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
 
@@ -165,16 +187,17 @@
         .unlock-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10;
+            background: rgba(255,255,255,0.7); /* 兼容：增加半透明底，防止文字重叠难看 */
         }
         .unlock-btn {
             background: linear-gradient(135deg, #D35400 0%, #E67E22 100%); 
-            color: white; border: none; padding: 14px 40px; border-radius: 40px; font-weight: bold; 
+            color: white; border: none; padding: 12px 30px; border-radius: 40px; font-weight: bold; 
             box-shadow: 0 8px 25px rgba(211, 84, 0, 0.4); animation: pulse 2s infinite; font-size: 1.1em; cursor: pointer;
         }
 
         /* 支付区 */
         .pay-card-new {
-            background: #FFF; border-radius: 15px; padding: 30px 20px; margin-top: 30px; 
+            background: #FFF; border-radius: 15px; padding: 25px 20px; margin-top: 30px; 
             box-shadow: 0 10px 40px rgba(0,0,0,0.08); border: 1px solid #FFF3E0;
         }
         .pay-price-box { text-align: center; margin-bottom: 25px; }
@@ -184,7 +207,7 @@
         .pay-method-title { text-align: center; color: #E65100; font-weight: bold; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; gap: 8px; }
         
         .quick-pay-btn {
-            width: 100%; padding: 12px; margin-bottom: 10px; border-radius: 8px; border: none;
+            width: 100%; padding: 14px; margin-bottom: 12px; border-radius: 8px; border: none;
             color: white; font-weight: bold; font-size: 1.05em; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer;
         }
         .btn-ali { background: #00A0E9; }
@@ -195,17 +218,17 @@
         .pay-divider span { padding: 0 10px; }
 
         .qr-section { text-align: center; }
-        .qr-flex { display: flex; justify-content: center; gap: 15px; margin-top: 15px; }
-        .qr-item-new { background: white; border: 1px solid #EEE; border-radius: 8px; padding: 10px; width: 140px; }
-        .qr-head { color: white; padding: 4px; border-radius: 4px 4px 0 0; font-size: 0.8em; margin: -10px -10px 10px -10px; }
+        .qr-flex { display: flex; justify-content: center; gap: 10px; margin-top: 15px; flex-wrap: wrap; }
+        .qr-item-new { background: white; border: 1px solid #EEE; border-radius: 8px; padding: 8px; width: 130px; }
+        .qr-head { color: white; padding: 4px; border-radius: 4px 4px 0 0; font-size: 0.8em; margin: -8px -8px 8px -8px; }
         .head-wx { background: #07C160; }
         .head-ali { background: #00A0E9; }
-        .qr-img-new { width: 100%; display: block; }
+        .qr-img-new { width: 100%; display: block; border-radius: 4px; }
         .scan-tip { background: #F9F9F9; color: #666; font-size: 0.85em; padding: 8px; border-radius: 4px; margin-top: 15px; }
 
         .copy-row { display: flex; justify-content: space-between; align-items: center; background: #F5F5F5; padding: 12px 15px; border-radius: 8px; margin-bottom: 10px; }
-        .copy-txt { color: #333; font-weight: 500; font-size: 0.95em; }
-        .btn-copy-brown { background: #8D6E63; color: white; border: none; padding: 6px 15px; border-radius: 4px; font-size: 0.85em; cursor: pointer; }
+        .copy-txt { color: #333; font-weight: 500; font-size: 0.9em; word-break: break-all; } /* 防止长账号撑破 */
+        .btn-copy-brown { background: #8D6E63; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 0.85em; cursor: pointer; flex-shrink: 0; margin-left: 10px;}
 
         .upload-btn-lg {
             background: linear-gradient(180deg, #E65100 0%, #BF360C 100%);
@@ -223,20 +246,20 @@
         .guide-step-text { font-size: 0.9em; color: #666; line-height: 1.6; }
         .guide-step-text strong { color: #E65100; }
 
-        /* ================= 成功页 (重点优化：网盘引导) ================= */
+        /* ================= 成功页 ================= */
         .success-header { text-align: center; padding: 30px 0; border-bottom: 1px dashed #DDD; }
         .delivery-card { background: #E8F5E9; border: 2px solid #2E7D32; border-radius: 16px; padding: 25px 20px; margin: 25px 0; }
         .delivery-title { text-align: center; color: #2E7D32; font-weight: 800; font-size: 1.3em; margin-bottom: 20px; }
         .steps-row { display: flex; justify-content: space-between; margin-bottom: 25px; text-align: center; font-size: 0.9em; color: #555; }
         .step-item { position: relative; flex: 1; }
-        .step-num { width: 30px; height: 30px; line-height: 30px; background: #2E7D32; color: white; border-radius: 50%; margin: 0 auto 8px auto; font-weight: bold; }
-        .step-arrow { position: absolute; right: -15px; top: 8px; color: #BDBDBD; font-size: 1.2em; }
-        .link-info-box { background: white; border-radius: 10px; padding: 15px; margin-bottom: 20px; }
-        .link-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .step-num { width: 28px; height: 28px; line-height: 28px; background: #2E7D32; color: white; border-radius: 50%; margin: 0 auto 8px auto; font-weight: bold; font-size: 0.9em; }
+        .step-arrow { position: absolute; right: -50%; top: 8px; color: #BDBDBD; font-size: 1.2em; width: 100%; }
+        .link-info-box { background: white; border-radius: 10px; padding: 15px; margin-bottom: 20px; word-break: break-all; }
+        .link-row { display: flex; flex-direction: column; margin-bottom: 12px; gap: 5px; }
         .link-label { color: #666; font-size: 0.9em; }
-        .link-val { font-family: monospace; font-weight: bold; color: #333; background: #F5F5F5; padding: 4px 8px; border-radius: 4px; max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+        .link-val { font-family: monospace; font-weight: bold; color: #333; background: #F5F5F5; padding: 6px; border-radius: 4px; display: block;}
         .code-val { font-size: 1.4em; color: #D35400; letter-spacing: 2px; }
-        .btn-copy-big { width: 100%; padding: 15px; background: #2E7D32; color: white; border: none; border-radius: 50px; font-size: 1.2em; font-weight: bold; cursor: pointer; box-shadow: 0 4px 15px rgba(46, 125, 50, 0.3); display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.2s; }
+        .btn-copy-big { width: 100%; padding: 15px; background: #2E7D32; color: white; border: none; border-radius: 50px; font-size: 1.1em; font-weight: bold; cursor: pointer; box-shadow: 0 4px 15px rgba(46, 125, 50, 0.3); display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.2s; }
         
         .no-app-tip { margin-top: 15px; background: #FFF8E1; border: 1px dashed #FFB74D; border-radius: 10px; padding: 12px; text-align: center; }
         .tip-title { color: #F57C00; font-weight: bold; font-size: 0.9em; margin-bottom: 5px; }
@@ -295,49 +318,53 @@
 <div class="container">
 
     <div id="homePage" class="card">
-        <div class="header">
-            <h1>⭐ 社会化程度测试</h1>
-            <p>2025新版 · 0-100分制 · 精准评估</p>
-            <div class="tag-pill">基于100万字社交实战手册</div>
-        </div>
+        <div class="card-body">
+            <div class="header">
+                <h1>⭐ 社会化程度测试</h1>
+                <p>2025新版 · 0-100分制 · 精准评估</p>
+                <div class="tag-pill">基于100万字社交实战手册</div>
+            </div>
 
-        <div class="dimensions-grid">
-            <div class="dim-card"><span class="dim-icon">👁️</span><span class="dim-name">人情洞察</span><span class="dim-desc">识别潜规则</span></div>
-            <div class="dim-card"><span class="dim-icon">🎯</span><span class="dim-name">边界掌控</span><span class="dim-desc">恰当分寸感</span></div>
-            <div class="dim-card"><span class="dim-icon">⚖️</span><span class="dim-name">利益平衡</span><span class="dim-desc">人情往来智慧</span></div>
-            <div class="dim-card"><span class="dim-icon">🎭</span><span class="dim-name">情绪管理</span><span class="dim-desc">复杂场景控制</span></div>
-        </div>
+            <div class="dimensions-grid">
+                <div class="dim-card"><span class="dim-icon">👁️</span><span class="dim-name">人情洞察</span><span class="dim-desc">识别潜规则</span></div>
+                <div class="dim-card"><span class="dim-icon">🎯</span><span class="dim-name">边界掌控</span><span class="dim-desc">恰当分寸感</span></div>
+                <div class="dim-card"><span class="dim-icon">⚖️</span><span class="dim-name">利益平衡</span><span class="dim-desc">人情往来智慧</span></div>
+                <div class="dim-card"><span class="dim-icon">🎭</span><span class="dim-name">情绪管理</span><span class="dim-desc">复杂场景控制</span></div>
+            </div>
 
-        <div class="feature-box">
-            <div class="feature-title">📋 测评包含专业服务</div>
-            <ul class="feature-list">
-                <li>40题专业心理学量表评估</li>
-                <li>4大核心维度精准雷达图</li>
-                <li>社会化程度等级评定</li>
-                <li><span class="highlight-text">解锁完整《社会化手册》100万字+6大板块 (限时¥9.9)</span></li>
-            </ul>
-        </div>
+            <div class="feature-box">
+                <div class="feature-title">📋 测评包含专业服务</div>
+                <ul class="feature-list">
+                    <li>40题专业心理学量表评估</li>
+                    <li>4大核心维度精准雷达图</li>
+                    <li>社会化程度等级评定</li>
+                    <li><span class="highlight-text">解锁完整《社会化手册》100万字+6大板块 (限时¥9.9)</span></li>
+                </ul>
+            </div>
 
-        <div class="input-group">
-            <input type="text" id="cardInput" placeholder="请输入测评卡号 (不区分大小写)">
+            <div class="input-group">
+                <input type="text" id="cardInput" placeholder="请输入测评卡号 (不区分大小写)">
+            </div>
+            <button class="btn-primary" onclick="startTest()">开始测评</button>
+            <div id="homeError" style="color:red; font-size:0.9em; text-align:center; margin-top:10px; display:none;"></div>
+            
+            <div style="text-align:center; margin-top:20px; font-size:0.8em; color:#ccc; cursor:pointer;" onclick="showAdmin()">管理员入口 -></div>
         </div>
-        <button class="btn-primary" onclick="startTest()">开始测评</button>
-        <div id="homeError" style="color:red; font-size:0.9em; text-align:center; margin-top:10px; display:none;"></div>
-        
-        <div style="text-align:center; margin-top:20px; font-size:0.8em; color:#ccc; cursor:pointer;" onclick="showAdmin()">管理员入口 -></div>
     </div>
 
     <div id="testPage" class="card hidden">
-        <div style="display:flex; justify-content:space-between; color:#999; font-size:0.9em; margin-bottom:5px;">
-            <span id="progressText">进度 1/40</span>
-            <span>单选</span>
-        </div>
-        <div class="progress-bar"><div class="progress-fill" id="progressBar"></div></div>
-        <div class="question-text" id="qText">题目加载中...</div>
-        <div id="optionsBox"></div>
-        <div class="nav-buttons">
-            <button class="nav-btn btn-prev" onclick="prevQ()" id="prevBtn" style="visibility:hidden">上一题</button>
-            <button class="nav-btn btn-next" onclick="nextQ()">下一题</button>
+        <div class="card-body">
+            <div style="display:flex; justify-content:space-between; color:#999; font-size:0.9em; margin-bottom:5px;">
+                <span id="progressText">进度 1/40</span>
+                <span>单选</span>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" id="progressBar"></div></div>
+            <div class="question-text" id="qText">题目加载中...</div>
+            <div id="optionsBox"></div>
+            <div class="nav-buttons">
+                <button class="nav-btn btn-prev" onclick="prevQ()" id="prevBtn" style="visibility:hidden">上一题</button>
+                <button class="nav-btn btn-next" onclick="nextQ()">下一题</button>
+            </div>
         </div>
     </div>
 
@@ -348,7 +375,7 @@
             <div class="level-badge" id="simpleLevel">评估中</div>
         </div>
 
-        <div style="padding: 0 25px 25px 25px;">
+        <div class="card-body">
             <div style="height:260px; position:relative; width:100%;">
                 <canvas id="radarChart"></canvas>
             </div>
@@ -453,92 +480,96 @@
     </div>
 
     <div id="successPage" class="card hidden">
-        <div class="success-header">
-            <div style="font-size:60px; line-height:1;">✅</div>
-            <h2 style="color:var(--green-success); margin-top:10px;">支付成功</h2>
-            <p style="color:#666; font-size:0.9em;">感谢支持，您的专属资料已准备就绪</p>
-        </div>
+        <div class="card-body">
+            <div class="success-header">
+                <div style="font-size:60px; line-height:1;">✅</div>
+                <h2 style="color:var(--green-success); margin-top:10px;">支付成功</h2>
+                <p style="color:#666; font-size:0.9em;">感谢支持，您的专属资料已准备就绪</p>
+            </div>
 
-        <div class="delivery-card">
-            <div class="delivery-title">🚀 您的资料领取指南</div>
-            
-            <div class="steps-row">
-                <div class="step-item">
-                    <div class="step-num">1</div><div>点击复制</div><div class="step-arrow">→</div>
+            <div class="delivery-card">
+                <div class="delivery-title">🚀 您的资料领取指南</div>
+                
+                <div class="steps-row">
+                    <div class="step-item">
+                        <div class="step-num">1</div><div>点击复制</div><div class="step-arrow">→</div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-num">2</div><div>打开网盘App</div><div class="step-arrow">→</div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-num">3</div><div>自动识别</div>
+                    </div>
                 </div>
-                <div class="step-item">
-                    <div class="step-num">2</div><div>打开网盘App</div><div class="step-arrow">→</div>
+
+                <div class="link-info-box">
+                    <div class="link-row"><span class="link-label">网盘链接：</span><span class="link-val" id="panLinkTxt">https://pan.baidu.com/s/1TPexZexAwxC-is2dfD_LeA</span></div>
+                    <div class="link-row"><span class="link-label">提取码：</span><span class="link-val code-val" id="panCodeTxt">8888</span></div>
                 </div>
-                <div class="step-item">
-                    <div class="step-num">3</div><div>自动识别</div>
+
+                <button class="btn-copy-big" id="mainCopyBtn" onclick="copyAllInfo()">📋 一键复制链接与提取码</button>
+                <div style="text-align:center; color:#888; font-size:0.85em; margin-top:15px;">提示：复制后请打开「百度网盘App」即可自动识别</div>
+
+                <div class="no-app-tip">
+                    <div class="tip-title">💡 没有百度网盘APP怎么办？</div>
+                    <div class="tip-steps">
+                        <span>1. 复制链接发送到微信文件助手</span>
+                        <span>2. 在微信内点击链接注册</span>
+                        <span>3. 即可直接转存观看</span>
+                    </div>
                 </div>
             </div>
 
-            <div class="link-info-box">
-                <div class="link-row"><span class="link-label">网盘链接：</span><span class="link-val" id="panLinkTxt">https://pan.baidu.com/s/1TPexZexAwxC-is2dfD_LeA</span></div>
-                <div class="link-row"><span class="link-label">提取码：</span><span class="link-val code-val" id="panCodeTxt">8888</span></div>
+            <div style="text-align:center; margin-bottom:30px;">
+                <h2 style="color:#333; font-size:1.4em;">📊 完整社会化深度分析报告</h2>
+                <div style="font-size:3.5em; color:var(--primary); font-weight:800;" id="finalScore">--</div>
+                <div style="color:#666;" id="finalLevel">--</div>
             </div>
 
-            <button class="btn-copy-big" id="mainCopyBtn" onclick="copyAllInfo()">📋 一键复制链接与提取码</button>
-            <div style="text-align:center; color:#888; font-size:0.85em; margin-top:15px;">提示：复制后请打开「百度网盘App」即可自动识别</div>
+            <div style="height:250px; position:relative; width:100%; margin-bottom:30px;">
+                <canvas id="finalRadarChart"></canvas>
+            </div>
 
-            <div class="no-app-tip">
-                <div class="tip-title">💡 没有百度网盘APP怎么办？</div>
-                <div class="tip-steps">
-                    <span>1. 复制链接发送到微信文件助手</span>
-                    <span>2. 在微信内点击链接注册</span>
-                    <span>3. 即可直接转存观看</span>
+            <div class="report-module">
+                <div class="module-title">🔍 全维度深度拆解</div>
+                <div id="fullDimensionAnalysis"></div>
+            </div>
+
+            <div class="report-module" style="border-top-color:#2E7D32;">
+                <div class="module-title" style="color:#2E7D32;">📖 手册重点阅读指引</div>
+                <div id="guideContent"></div>
+            </div>
+
+            <div class="report-module" style="border-top-color:#D35400;">
+                <div class="module-title" style="color:#D35400;">⚠️ 您的专属避坑指南</div>
+                <div id="pitfallGuide"></div>
+            </div>
+
+            <div class="recruit-card">
+                <div style="font-weight:bold; color:#8B6E4E; margin-bottom:5px; font-size:1.05em;">📢 招心理测试项目学徒</div>
+                <div style="color:#666; font-size:0.9em;">项目实操 · 流量变现 · 长期带教</div>
+                <div class="recruit-copy-box">
+                    <span style="font-weight:bold; color:#333;">HCH91178</span>
+                    <span style="color:#999; font-size:0.85em;">(备注:学习测试)</span>
+                    <button class="btn-copy-orange" onclick="copyWx()">复制</button>
                 </div>
             </div>
-        </div>
 
-        <div style="text-align:center; margin-bottom:30px;">
-            <h2 style="color:#333; font-size:1.4em;">📊 完整社会化深度分析报告</h2>
-            <div style="font-size:3.5em; color:var(--primary); font-weight:800;" id="finalScore">--</div>
-            <div style="color:#666;" id="finalLevel">--</div>
-        </div>
-
-        <div style="height:250px; position:relative; width:100%; margin-bottom:30px;">
-            <canvas id="finalRadarChart"></canvas>
-        </div>
-
-        <div class="report-module">
-            <div class="module-title">🔍 全维度深度拆解</div>
-            <div id="fullDimensionAnalysis"></div>
-        </div>
-
-        <div class="report-module" style="border-top-color:#2E7D32;">
-            <div class="module-title" style="color:#2E7D32;">📖 手册重点阅读指引</div>
-            <div id="guideContent"></div>
-        </div>
-
-        <div class="report-module" style="border-top-color:#D35400;">
-            <div class="module-title" style="color:#D35400;">⚠️ 您的专属避坑指南</div>
-            <div id="pitfallGuide"></div>
-        </div>
-
-        <div class="recruit-card">
-            <div style="font-weight:bold; color:#8B6E4E; margin-bottom:5px; font-size:1.05em;">📢 招心理测试项目学徒</div>
-            <div style="color:#666; font-size:0.9em;">项目实操 · 流量变现 · 长期带教</div>
-            <div class="recruit-copy-box">
-                <span style="font-weight:bold; color:#333;">HCH91178</span>
-                <span style="color:#999; font-size:0.85em;">(备注:学习测试)</span>
-                <button class="btn-copy-orange" onclick="copyWx()">复制</button>
+            <div class="cs-footer">
+                <p>如资料领取有问题，请添加客服微信：<span class="wx-id">HCH91178</span></p>
+                <p style="margin-top:5px;">备注：社会化资料</p>
             </div>
-        </div>
-
-        <div class="cs-footer">
-            <p>如资料领取有问题，请添加客服微信：<span class="wx-id">HCH91178</span></p>
-            <p style="margin-top:5px;">备注：社会化资料</p>
         </div>
     </div>
     
     <div id="adminPage" class="card hidden">
-        <h3>后台管理</h3>
-        <input type="password" id="adminPwd" placeholder="密码" style="width:100%; padding:10px; margin:10px 0; border:1px solid #ddd; border-radius:8px;">
-        <button onclick="checkAdmin()" class="btn-primary" style="font-size:0.9em; padding:10px;">登录</button>
-        <div id="adminContent" style="margin-top:20px;"></div>
-        <button onclick="location.reload()" style="margin-top:20px; border:none; background:none; color:#999; cursor:pointer;">返回</button>
+        <div class="card-body">
+            <h3>后台管理</h3>
+            <input type="password" id="adminPwd" placeholder="密码" style="width:100%; padding:10px; margin:10px 0; border:1px solid #ddd; border-radius:8px;">
+            <button onclick="checkAdmin()" class="btn-primary" style="font-size:0.9em; padding:10px;">登录</button>
+            <div id="adminContent" style="margin-top:20px;"></div>
+            <button onclick="location.reload()" style="margin-top:20px; border:none; background:none; color:#999; cursor:pointer;">返回</button>
+        </div>
     </div>
 
 </div>
@@ -597,6 +628,7 @@
     ];
 
     let state = { qIdx: 0, ans: [], code: '' };
+    let logHistory = [];
 
     function startTest() {
         const val = document.getElementById('cardInput').value.trim();
@@ -814,9 +846,57 @@
     }
 
     function showAdmin() { document.getElementById('homePage').classList.add('hidden'); document.getElementById('adminPage').classList.remove('hidden'); }
+    
+    // === 核心修改部分：重写管理员逻辑，加入卡号生成 ===
     function checkAdmin() {
-        if(document.getElementById('adminPwd').value === CONFIG.ADMIN_PWD) { document.getElementById('adminContent').innerHTML = '<div style="color:green">登录成功，请前往Server酱查看订单数据。</div>'; }
-        else { alert('密码错误'); }
+        if(document.getElementById('adminPwd').value === CONFIG.ADMIN_PWD) {
+            // 动态插入卡号生成器界面
+            document.getElementById('adminContent').innerHTML = `
+                <div style="background:#F9F9F9; padding:15px; border-radius:8px; border:1px solid #EEE;">
+                    <h4 style="margin-bottom:10px; color:#333;">🛠️ 卡号生成器</h4>
+                    <div style="display:flex; gap:10px; margin-bottom:10px;">
+                        <input type="number" id="genCount" placeholder="数量" style="flex:1; padding:8px; border:1px solid #ccc; border-radius:4px;">
+                        <button onclick="generateAndExport()" style="padding:8px 15px; background:#8B6E4E; color:white; border:none; border-radius:4px; cursor:pointer;">生成并导出</button>
+                    </div>
+                    <div id="logArea" style="font-size:12px; color:#999; margin-top:10px; max-height:100px; overflow-y:auto;"></div>
+                </div>
+            `;
+        } else {
+            alert('密码错误');
+        }
+    }
+
+    function generateAndExport() {
+        const countInput = document.getElementById('genCount');
+        let count = parseInt(countInput.value);
+        if(isNaN(count) || count < 1) count = 1;
+        if(count > 1000) { alert('一次最多1000个'); count = 1000; }
+
+        const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+        let newCodes = [];
+
+        for(let i=0; i<count; i++) {
+            // 简单随机生成，适配社会化测试的简单逻辑
+            let str = '';
+            for(let j=0; j<10; j++) str += chars.charAt(Math.floor(Math.random() * chars.length));
+            newCodes.push(`VIP-${str}`);
+        }
+
+        // 导出TXT
+        const blob = new Blob([newCodes.join('\n')], { type: "text/plain;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `社交测评卡号_${count}个.txt`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+
+        // 日志记录
+        const now = new Date();
+        const timeStr = `${now.getHours()}:${now.getMinutes()<10?'0'+now.getMinutes():now.getMinutes()}`;
+        logHistory.unshift(`[${timeStr}] 生成 ${count} 个 (已导出)`);
+        document.getElementById('logArea').innerHTML = logHistory.map(t=>`<div>${t}</div>`).join('');
     }
 </script>
 </body>
