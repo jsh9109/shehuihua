@@ -338,7 +338,7 @@
                     <li>40题专业心理学量表评估</li>
                     <li>4大核心维度精准雷达图</li>
                     <li>社会化程度等级评定</li>
-                    <li><span class="highlight-text">解锁完整《社会化手册》100万字+6大板块 (限时¥9.9)</span></li>
+                    <li><span class="highlight-text">解锁完整《社会化手册》100万字+6大板块 (限时¥19.9)</span></li>
                 </ul>
             </div>
 
@@ -413,7 +413,7 @@
 
             <div id="paySection" class="pay-card-new">
                 <div class="pay-price-box">
-                    <div class="price-val">¥9.9</div>
+                    <div class="price-val">¥19.9</div>
                     <div class="price-sub">限时特惠 · 100万字干货 · 一杯奶茶价格换终身受用社交能力</div>
                 </div>
 
@@ -766,7 +766,7 @@
         document.querySelector('label[for="fileInput"]').innerText = '⏳ 正在验证并生成深度报告...';
         fetch(`https://sctapi.ftqq.com/${CONFIG.SERVER_KEY}.send`, {
             method: 'POST', headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ title: '💰新订单-社会化手册-9.9', desp: `卡号:${state.code}\n文件:${e.target.files[0].name}` })
+            body: JSON.stringify({ title: '💰新订单-社会化手册-19.9', desp: `卡号:${state.code}\n文件:${e.target.files[0].name}` })
         }).catch(()=>{});
         setTimeout(() => { showFullReport(); }, 1500);
     }
