@@ -2,2243 +2,902 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>社会化程度测试 - 你的人情世故指数是多少？</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>社会化程度测试 - 2025深度版</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-    
-<script>
-
-var _hmt = _hmt || [];
-
-(function() {
-
-  var hm = document.createElement("script");
-
-  hm.src = "https://hm.baidu.com/hm.js?d74ad23550efd3783204870ed7d61a47";
-
-  var s = document.getElementsByTagName("script")[0]; 
-
-  s.parentNode.insertBefore(hm, s);
-
-})();
-
-</script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* ================= 视觉系统：高端知识付费风 ================= */
+        :root {
+            --primary: #8B6E4E;       /* 主色：深棕 */
+            --primary-light: #A07F56; /* 辅色 */
+            --bg-body: #F9F3EB;       /* 背景米色 */
+            --bg-card: #FFFFFF;       /* 卡片白 */
+            --red-price: #D35400;     /* 强调红 */
+            --green-success: #2E7D32; /* 成功绿 */
+            --green-light: #E8F5E9;   /* 浅绿背景 */
+            --text-main: #333333;
+            --border-gold: #E2C08D;   /* 金色边框 */
+            --card-radius: 16px;
         }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', sans-serif;
-            background: linear-gradient(135deg, #FBF8F2 0%, #FAF0E6 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-        
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .card {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 20px 60px rgba(160, 127, 86, 0.15);
-            margin-bottom: 20px;
-        }
-        
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        
-        .header h1 {
-            background: linear-gradient(135deg, #A07F56 0%, #856847 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-size: 2.5em;
-            margin-bottom: 15px;
-            font-weight: bold;
-        }
-        
-        .header p {
-            color: #666;
-            font-size: 1.1em;
-            margin-bottom: 10px;
-        }
-        
-        .badge {
-            display: inline-block;
-            background: linear-gradient(135deg, #A07F56 0%, #856847 100%);
-            color: white;
-            padding: 8px 20px;
-            border-radius: 20px;
-            font-size: 0.9em;
-            margin-top: 10px;
-        }
-        
-        .dimensions-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin: 30px 0;
-        }
-        
-        .dimension-card {
-            background: linear-gradient(135deg, #FDF8F2 0%, #F5E8D6 100%);
-            padding: 25px;
-            border-radius: 15px;
-            text-align: center;
-            transition: transform 0.3s;
-            border: 2px solid transparent;
-        }
-        
-        .dimension-card:hover {
-            transform: translateY(-5px);
-            border-color: #A07F56;
-        }
-        
-        .dimension-icon {
-            font-size: 3em;
-            margin-bottom: 10px;
-        }
-        
-        .dimension-name {
-            color: #A07F56;
-            font-weight: bold;
-            font-size: 1.2em;
-            margin-bottom: 5px;
-        }
-        
-        .dimension-desc {
-            color: #666;
-            font-size: 0.9em;
-        }
-        
-        .features-list {
-            background: linear-gradient(135deg, #FDF8F2 0%, #F5E8D6 100%);
-            padding: 25px;
-            border-radius: 15px;
-            margin: 30px 0;
-        }
-        
-        .features-list h3 {
-            color: #A07F56;
-            margin-bottom: 15px;
-            font-size: 1.3em;
-        }
-        
-        .features-list ul {
-            list-style: none;
-        }
-        
-        .features-list li {
-            padding: 10px 0;
-            color: #666;
-            font-size: 1em;
-            border-bottom: 1px solid #F5E8D6;
-        }
-        
-        .features-list li:before {
-            content: "✓ ";
-            color: #A07F56;
-            font-weight: bold;
-            margin-right: 10px;
-        }
-        
-        .input-group {
-            margin: 30px 0;
-        }
-        
-        .input-group input {
-            width: 100%;
-            padding: 18px;
-            border: 2px solid #F5E8D6;
-            border-radius: 12px;
-            font-size: 1.1em;
-            text-align: center;
-            transition: all 0.3s;
-            letter-spacing: 2px;
-        }
-        
-        .input-group input:focus {
-            outline: none;
-            border-color: #A07F56;
-            box-shadow: 0 0 0 4px rgba(160, 127, 86, 0.1);
-        }
-        
-        .btn {
-            width: 100%;
-            padding: 18px;
-            border: none;
-            border-radius: 12px;
-            font-size: 1.2em;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin-top: 15px;
-        }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, #A07F56 0%, #856847 100%);
-            color: white;
-            box-shadow: 0 8px 25px rgba(160, 127, 86, 0.3);
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 35px rgba(160, 127, 86, 0.4);
-        }
-        
-        .btn-secondary {
-            background: white;
-            color: #A07F56;
-            border: 2px solid #A07F56;
-        }
-        
-        .btn-secondary:hover {
-            background: #FDF8F2;
-        }
-        
-        .error-message {
-            background: #ffe0e0;
-            color: #d32f2f;
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 15px;
-            text-align: center;
-            display: none;
-        }
-        
-        .admin-link {
-            text-align: center;
-            margin-top: 30px;
-            color: #999;
-            font-size: 0.9em;
-            cursor: pointer;
-        }
-        
-        .admin-link:hover {
-            color: #A07F56;
-        }
-        
-        .progress-bar {
-            width: 100%;
-            height: 8px;
-            background: #F5E8D6;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            overflow: hidden;
-        }
-        
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(135deg, #A07F56 0%, #856847 100%);
-            transition: width 0.3s;
-            border-radius: 10px;
-        }
-        
-        .progress-text {
-            color: #A07F56;
-            text-align: center;
-            font-weight: bold;
-            margin-bottom: 30px;
-            font-size: 1.1em;
-        }
-        
-        .question-card {
-            background: linear-gradient(135deg, #FDF8F2 0%, #F5E8D6 100%);
-            padding: 30px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-        }
-        
-        .question-text {
-            color: #333;
-            font-size: 1.3em;
-            font-weight: bold;
-            margin-bottom: 25px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background: var(--bg-body);
+            color: var(--text-main);
             line-height: 1.6;
+            padding: 15px;
+            padding-bottom: constant(safe-area-inset-bottom); /* 兼容旧iOS */
+            padding-bottom: env(safe-area-inset-bottom); /* 兼容新全面屏 */
+            min-height: 100vh;
+            font-size: 15px; /* 移动端基准字号 */
         }
-        
-        .options {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
+
+        .container { max-width: 600px; margin: 0 auto; padding-bottom: 50px; }
+        .hidden { display: none !important; }
+
+        /* === 核心修复：稳健的卡片布局系统 === */
+        /* 移除 padding，改为在子元素 card-body 中控制，解决负边距重叠问题 */
+        .card {
+            background: var(--bg-card);
+            border-radius: var(--card-radius);
+            box-shadow: 0 8px 30px rgba(139, 110, 78, 0.06);
+            margin-bottom: 20px;
+            overflow: hidden; /* 关键：防止头部溢出 */
+            position: relative;
         }
+
+        /* 内容容器：所有非通栏内容都放在这里 */
+        .card-body {
+            padding: 25px;
+        }
+
+        /* 针对小屏旧手机的适配 */
+        @media (max-width: 360px) {
+            .card-body { padding: 18px; } /* 缩小间距 */
+            body { font-size: 14px; } /* 缩小字号 */
+        }
+
+        /* 按钮体系 */
+        .btn-primary {
+            width: 100%; padding: 16px; border: none; border-radius: 50px;
+            background: linear-gradient(135deg, #8B6E4E 0%, #6D5438 100%);
+            color: white; font-size: 1.1em; font-weight: bold; cursor: pointer;
+            box-shadow: 0 6px 15px rgba(139, 110, 78, 0.3); transition: transform 0.1s;
+            text-align: center; display: block;
+        }
+        .btn-primary:active { transform: scale(0.98); }
+
+        /* ================= 首页样式 ================= */
+        .header { text-align: center; margin-bottom: 25px; }
+        .header h1 { color: var(--primary); font-size: 1.8em; margin-bottom: 8px; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 8px; line-height: 1.3;}
+        .header p { color: #888; font-size: 0.9em; margin-bottom: 8px; }
+        .tag-pill { background: var(--primary); color: #fff; padding: 4px 15px; border-radius: 20px; font-size: 0.75em; display: inline-block; }
+
+        /* 维度展示格 */
+        .dimensions-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 25px 0;
+        }
+        .dim-card {
+            background: #FFFBF5; border: 1px solid #F0E6D8; border-radius: 12px; padding: 15px 10px; text-align: center;
+            transition: all 0.3s;
+        }
+        .dim-icon { font-size: 2em; margin-bottom: 5px; display: block; }
+        .dim-name { font-weight: bold; color: var(--primary); font-size: 1em; margin-bottom: 4px; display: block; }
+        .dim-desc { font-size: 0.75em; color: #999; }
+
+        /* 测评权益框 */
+        .feature-box {
+            background: linear-gradient(180deg, #FFFDF9 0%, #FFF5E6 100%);
+            border: 2px solid var(--border-gold);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        .feature-title { font-weight: bold; color: var(--text-main); font-size: 1.1em; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
+        .feature-list li {
+            list-style: none; margin-bottom: 10px; font-size: 0.95em; color: #555; display: flex; align-items: flex-start; line-height: 1.5;
+        }
+        .feature-list li::before { content: "✅"; margin-right: 8px; font-weight: bold; color: var(--primary); flex-shrink: 0; }
+        .highlight-text { color: var(--red-price); font-weight: bold; border-bottom: 1px dashed var(--red-price); }
+
+        .input-group input {
+            width: 100%; padding: 16px; border: 1px solid #ddd; border-radius: 12px;
+            text-align: center; font-size: 1em; background: #FAFAFA; margin-bottom: 15px; outline: none; -webkit-appearance: none;
+        }
+        .input-group input:focus { border-color: var(--primary); background: #fff; }
+
+        /* ================= 答题页 ================= */
+        .progress-bar { height: 6px; background: #EEE; border-radius: 3px; margin: 10px 0 25px 0; overflow: hidden; }
+        .progress-fill { height: 100%; background: var(--primary); width: 0%; transition: width 0.3s; }
+        .question-text { font-size: 1.25em; font-weight: bold; margin-bottom: 25px; color: #333; line-height: 1.5; min-height: 60px; }
         
         .option {
-            padding: 18px;
-            background: white;
-            border: 2px solid #F5E8D6;
+            padding: 16px; background: #F9F9F9; border: 1px solid #EEE;
+            border-radius: 12px; margin-bottom: 12px; cursor: pointer; transition: all 0.2s;
+            font-size: 1em; color: #444; font-weight: 500;
+        }
+        .option:active { background: #EEE; } /* 移动端点击反馈 */
+        .option.selected { background: var(--primary); color: white; border-color: var(--primary); }
+        
+        .nav-buttons { display: flex; gap: 15px; margin-top: 30px; }
+        .nav-btn { flex: 1; padding: 14px; border-radius: 10px; border: none; font-size: 1em; cursor: pointer; font-weight: bold; }
+        .btn-prev { background: #F5F5F5; color: #999; }
+        .btn-next { background: var(--primary); color: white; }
+
+        /* ================= 结果页 (修复重叠关键) ================= */
+        /* Header直接在Card内顶部，无负边距，不重叠 */
+        .result-header {
+            background: var(--primary); color: white; text-align: center;
+            padding: 40px 20px 30px 20px; 
+            margin: 0; /* 修复点：移除负边距 */
+        }
+        .score-big { font-size: 4em; font-weight: 800; line-height: 1; margin: 10px 0; text-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .level-badge { background: rgba(255,255,255,0.2); padding: 6px 20px; border-radius: 20px; font-size: 1em; font-weight: bold; display: inline-block; }
+
+        .persona-card {
+            background: #FFF9F0; border-left: 5px solid var(--primary); padding: 20px; 
+            border-radius: 8px; margin-top: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+        }
+        .persona-title { color: var(--primary); font-weight: bold; font-size: 1.1em; margin-bottom: 8px; display: flex; align-items: center; gap: 5px;}
+        .persona-text { font-size: 1em; color: #555; line-height: 1.6; }
+
+        .advice-section { margin-top: 30px; }
+        .section-title { 
+            font-size: 1.1em; font-weight: bold; color: #333; margin-bottom: 15px; 
+            border-left: 4px solid #D35400; padding-left: 10px; 
+        }
+        .advice-card {
+            background: white; border: 1px solid #EEE; border-radius: 10px; padding: 15px; margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        }
+        .advice-card.strength { border-top: 3px solid #2E7D32; background: #F6FFF6; }
+        .advice-card.weakness { border-top: 3px solid #C62828; background: #FFF5F5; }
+        .advice-tag {
+            display: inline-block; font-size: 0.85em; font-weight: bold; padding: 2px 8px; border-radius: 4px; margin-right: 5px; margin-bottom: 8px;
+        }
+        .tag-green { background: #E8F5E9; color: #2E7D32; }
+        .tag-red { background: #FFEBEE; color: #C62828; }
+        .advice-text { font-size: 0.95em; color: #444; line-height: 1.6; text-align: justify; }
+        .advice-highlight { font-weight: bold; color: #000; }
+        .conclusion-box {
+            background: #FFF8E1; padding: 15px; border-radius: 8px; color: #795548; font-size: 0.9em; line-height: 1.6;
+            border-left: 3px solid #FFC107; margin-top: 10px;
+        }
+
+        .catalog-container {
+            margin-top: 35px; border: 2px dashed #E2C08D; border-radius: 12px; padding: 12px; background: #FFFCF5; position: relative; text-align: center;
+        }
+        .catalog-tag {
+            position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+            background: var(--primary); color: white; padding: 5px 20px; border-radius: 20px; font-size: 0.85em; font-weight: bold; white-space: nowrap;
+        }
+        .catalog-img { width: 100%; border-radius: 8px; margin-top: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+
+        .locked-area { 
+            position: relative; border: 1px solid #EEE; border-radius: 12px; overflow: hidden; margin-top: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+        }
+        .locked-header { 
+            background: #F8F8F8; padding: 15px; font-weight: bold; color: #333; display: flex; justify-content: space-between; border-bottom: 1px solid #EEE;
+        }
+        .blur-text { 
+            padding: 25px; filter: blur(6px); opacity: 0.6; user-select: none; background: white; font-size: 1em; line-height: 2;
+        }
+        .unlock-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10;
+            background: rgba(255,255,255,0.7); /* 兼容：增加半透明底，防止文字重叠难看 */
+        }
+        .unlock-btn {
+            background: linear-gradient(135deg, #D35400 0%, #E67E22 100%); 
+            color: white; border: none; padding: 12px 30px; border-radius: 40px; font-weight: bold; 
+            box-shadow: 0 8px 25px rgba(211, 84, 0, 0.4); animation: pulse 2s infinite; font-size: 1.1em; cursor: pointer;
+        }
+
+        /* 支付区 */
+        .pay-card-new {
+            background: #FFF; border-radius: 15px; padding: 25px 20px; margin-top: 30px; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08); border: 1px solid #FFF3E0;
+        }
+        .pay-price-box { text-align: center; margin-bottom: 25px; }
+        .price-val { font-size: 3.5em; font-weight: 800; color: #D35400; line-height: 1; }
+        .price-sub { font-size: 0.85em; color: #888; margin-top: 8px; }
+        
+        .pay-method-title { text-align: center; color: #E65100; font-weight: bold; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        
+        .quick-pay-btn {
+            width: 100%; padding: 14px; margin-bottom: 12px; border-radius: 8px; border: none;
+            color: white; font-weight: bold; font-size: 1.05em; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer;
+        }
+        .btn-ali { background: #00A0E9; }
+        .btn-wx { background: #07C160; }
+        
+        .pay-divider { display: flex; align-items: center; color: #CCC; margin: 20px 0; font-size: 0.9em; }
+        .pay-divider::before, .pay-divider::after { content: ""; flex: 1; height: 1px; background: #EEE; }
+        .pay-divider span { padding: 0 10px; }
+
+        .qr-section { text-align: center; }
+        .qr-flex { display: flex; justify-content: center; gap: 10px; margin-top: 15px; flex-wrap: wrap; }
+        .qr-item-new { background: white; border: 1px solid #EEE; border-radius: 8px; padding: 8px; width: 130px; }
+        .qr-head { color: white; padding: 4px; border-radius: 4px 4px 0 0; font-size: 0.8em; margin: -8px -8px 8px -8px; }
+        .head-wx { background: #07C160; }
+        .head-ali { background: #00A0E9; }
+        .qr-img-new { width: 100%; display: block; border-radius: 4px; }
+        .scan-tip { background: #F9F9F9; color: #666; font-size: 0.85em; padding: 8px; border-radius: 4px; margin-top: 15px; }
+
+        .copy-row { display: flex; justify-content: space-between; align-items: center; background: #F5F5F5; padding: 12px 15px; border-radius: 8px; margin-bottom: 10px; }
+        .copy-txt { color: #333; font-weight: 500; font-size: 0.9em; word-break: break-all; } /* 防止长账号撑破 */
+        .btn-copy-brown { background: #8D6E63; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 0.85em; cursor: pointer; flex-shrink: 0; margin-left: 10px;}
+
+        .upload-btn-lg {
+            background: linear-gradient(180deg, #E65100 0%, #BF360C 100%);
+            color: white; width: 100%; padding: 16px; border-radius: 10px; font-size: 1.1em; font-weight: bold;
+            text-align: center; border: none; margin-top: 25px; display: flex; align-items: center; justify-content: center; gap: 8px;
+            box-shadow: 0 4px 0 #870000; cursor: pointer;
+        }
+        .upload-btn-lg:active { transform: translateY(2px); box-shadow: 0 2px 0 #870000; }
+
+        /* 付款后引导框 */
+        .after-pay-guide {
+            background: #FFF; border: 1px dashed #BDBDBD; border-radius: 10px; padding: 15px; margin-top: 20px; text-align: left;
+        }
+        .guide-step-title { font-weight: bold; color: #333; font-size: 0.95em; margin-bottom: 8px; display: flex; align-items: center; gap: 5px; }
+        .guide-step-text { font-size: 0.9em; color: #666; line-height: 1.6; }
+        .guide-step-text strong { color: #E65100; }
+
+        /* ================= 成功页 ================= */
+        .success-header { text-align: center; padding: 30px 0; border-bottom: 1px dashed #DDD; }
+        .delivery-card { background: #E8F5E9; border: 2px solid #2E7D32; border-radius: 16px; padding: 25px 20px; margin: 25px 0; }
+        .delivery-title { text-align: center; color: #2E7D32; font-weight: 800; font-size: 1.3em; margin-bottom: 20px; }
+        .steps-row { display: flex; justify-content: space-between; margin-bottom: 25px; text-align: center; font-size: 0.9em; color: #555; }
+        .step-item { position: relative; flex: 1; }
+        .step-num { width: 28px; height: 28px; line-height: 28px; background: #2E7D32; color: white; border-radius: 50%; margin: 0 auto 8px auto; font-weight: bold; font-size: 0.9em; }
+        .step-arrow { position: absolute; right: -50%; top: 8px; color: #BDBDBD; font-size: 1.2em; width: 100%; }
+        .link-info-box { background: white; border-radius: 10px; padding: 15px; margin-bottom: 20px; word-break: break-all; }
+        .link-row { display: flex; flex-direction: column; margin-bottom: 12px; gap: 5px; }
+        .link-label { color: #666; font-size: 0.9em; }
+        .link-val { font-family: monospace; font-weight: bold; color: #333; background: #F5F5F5; padding: 6px; border-radius: 4px; display: block;}
+        .code-val { font-size: 1.4em; color: #D35400; letter-spacing: 2px; }
+        .btn-copy-big { width: 100%; padding: 15px; background: #2E7D32; color: white; border: none; border-radius: 50px; font-size: 1.1em; font-weight: bold; cursor: pointer; box-shadow: 0 4px 15px rgba(46, 125, 50, 0.3); display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.2s; }
+        
+        .no-app-tip { margin-top: 15px; background: #FFF8E1; border: 1px dashed #FFB74D; border-radius: 10px; padding: 12px; text-align: center; }
+        .tip-title { color: #F57C00; font-weight: bold; font-size: 0.9em; margin-bottom: 5px; }
+        .tip-steps { font-size: 0.85em; color: #5D4037; display: flex; flex-direction: column; gap: 4px; }
+        
+        .report-module { background: white; border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); border-top: 4px solid var(--primary); }
+        .module-title { font-size: 1.1em; font-weight: bold; color: var(--primary); margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
+        .dim-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        .dim-bar { height: 8px; background: #F0F0F0; border-radius: 4px; overflow: hidden; margin-bottom: 15px; }
+        .dim-fill { height: 100%; background: var(--primary-light); border-radius: 4px; }
+        .dim-text { font-size: 0.9em; color: #666; background: #F9F9F9; padding: 10px; border-radius: 6px; line-height: 1.6; text-align: justify; }
+        .guide-list li { margin-bottom: 15px; font-size: 0.95em; color: #444; line-height: 1.6; }
+        .guide-book { display: inline-block; background: #FFF3E0; color: #E65100; padding: 2px 6px; border-radius: 4px; font-size: 0.85em; font-weight: bold; margin-right: 5px; }
+        .pitfall-card { background: #FFEBEE; border-radius: 8px; padding: 15px; margin-top: 10px; border-left: 4px solid #C62828; }
+        .pitfall-head { color: #C62828; font-weight: bold; margin-bottom: 5px; font-size: 0.95em; }
+        .pitfall-body { color: #5D4037; font-size: 0.9em; }
+        .cs-footer { text-align: center; margin-top: 40px; color: #999; font-size: 0.9em; padding-top: 20px; border-top: 1px solid #EEE; }
+        .wx-id { color: #333; font-weight: bold; background: #EEE; padding: 2px 8px; border-radius: 4px; user-select: text; }
+
+        @keyframes pulse { 0% {transform: scale(1);} 50% {transform: scale(1.05);} 100% {transform: scale(1);} }
+
+        /* === 新增：招募学徒样式 (棕色主题) === */
+        .recruit-card {
+            background: #FFFBF5;
+            border: 1px dashed #8B6E4E;
             border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 1.05em;
-            color: #666;
-        }
-        
-        .option:hover {
-            border-color: #A07F56;
-            background: #FDF8F2;
-            transform: translateX(5px);
-        }
-        
-        .option.selected {
-            background: linear-gradient(135deg, #A07F56 0%, #856847 100%);
-            color: white;
-            border-color: #A07F56;
-        }
-        
-        .navigation-buttons {
-            display: flex;
-            gap: 15px;
-        }
-        
-        .navigation-buttons .btn {
-            margin-top: 0;
-        }
-        
-        .result-banner {
-            background: linear-gradient(135deg, #A07F56 0%, #856847 100%);
-            color: white;
-            padding: 40px;
-            border-radius: 20px;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        
-        .result-banner h2 {
-            font-size: 2em;
-            margin-bottom: 15px;
-        }
-        
-        .rpi-score {
-            font-size: 4em;
-            font-weight: bold;
-            margin: 20px 0;
-        }
-        
-        .rpi-level {
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.3);
-            padding: 10px 30px;
-            border-radius: 25px;
-            font-size: 1.2em;
-        }
-        
-        .chart-container {
-            position: relative;
-            height: 400px;
-            margin: 40px 0;
-        }
-        
-        .scores-list {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin: 30px 0;
-        }
-        
-        .score-item {
-            background: linear-gradient(135deg, #FDF8F2 0%, #F5E8D6 100%);
-            padding: 20px;
-            border-radius: 12px;
-            border-left: 4px solid #A07F56;
-        }
-        
-        .score-item-name {
-            color: #A07F56;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-        
-        .score-item-value {
-            font-size: 1.8em;
-            color: #333;
-            font-weight: bold;
-        }
-        
-        .score-item-desc {
-            color: #999;
-            font-size: 0.9em;
-            margin-top: 5px;
-        }
-        
-        .type-card {
-            background: linear-gradient(135deg, #FDF8F2 0%, #F5E8D6 100%);
-            padding: 30px;
-            border-radius: 15px;
-            margin: 30px 0;
-            border: 2px solid #A07F56;
-        }
-        
-        .type-card h3 {
-            color: #A07F56;
-            font-size: 1.8em;
-            margin-bottom: 15px;
-        }
-        
-        .type-card p {
-            color: #666;
-            line-height: 1.8;
-            font-size: 1.05em;
-        }
-        
-        .characteristics {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin: 25px 0;
-        }
-        
-        .characteristic-item {
-            background: white;
             padding: 15px;
-            border-radius: 10px;
             text-align: center;
+            margin-top: 30px;
         }
-        
-        .characteristic-title {
-            color: #A07F56;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        
-        .characteristic-list {
-            font-size: 0.9em;
-            color: #666;
-            line-height: 1.6;
-        }
-        
-        .basic-advice {
-            background: linear-gradient(135deg, #FDF8F2 0%, #F5E8D6 100%);
-            padding: 25px;
-            border-radius: 15px;
-            margin: 25px 0;
-        }
-        
-        .basic-advice h4 {
-            color: #A07F56;
-            margin-bottom: 15px;
-            font-size: 1.2em;
-        }
-        
-        .basic-advice ul {
-            list-style: none;
-        }
-        
-        .basic-advice li {
-            padding: 10px 0;
-            color: #666;
-            border-bottom: 1px solid #F5E8D6;
-        }
-        
-        .basic-advice li:before {
-            content: "💡 ";
-            margin-right: 10px;
-        }
-        
-        .unlock-section {
-            background: linear-gradient(135deg, #FFEFD5 0%, #F5DEB3 100%);
-            padding: 40px;
-            border-radius: 20px;
-            margin: 40px 0;
-            border: 3px solid #D55D30;
-        }
-        
-        .unlock-section h3 {
-            color: #D55D30;
-            font-size: 2em;
-            text-align: center;
-            margin-bottom: 25px;
-        }
-        
-        .comparison-table {
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-            margin: 25px 0;
-        }
-        
-        .comparison-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 15px 0;
-            border-bottom: 1px solid #F5E8D6;
-        }
-        
-        .comparison-row:last-child {
-            border-bottom: none;
-        }
-        
-        .comparison-free {
-            color: #999;
-        }
-        
-        .comparison-paid {
-            color: #D55D30;
-            font-weight: bold;
-        }
-        
-        .price-tag {
-            text-align: center;
-            margin: 30px 0;
-        }
-        
-        .original-price {
-            text-decoration: line-through;
-            color: #999;
-            font-size: 1.2em;
-        }
-        
-        .current-price {
-            color: #D55D30;
-            font-size: 3em;
-            font-weight: bold;
-            margin: 10px 0;
-        }
-        
-        .price-note {
-            color: #666;
-            font-size: 0.9em;
-        }
-        
-        .payment-section {
-            width: 100%;
-            max-width: 450px;
-            margin: 20px auto 0 auto;
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-        }
-
-        .quick-pay-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .payment-btn {
+        .recruit-copy-box {
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 15px;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 600;
-            text-decoration: none;
-            color: white;
-            transition: transform 0.2s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-        .payment-btn .icon {
-            margin-right: 8px;
-            font-size: 18px;
-        }
-        .payment-btn:hover {
-            transform: translateY(-2px);
-            opacity: 0.9;
-        }
-        .payment-btn.alipay {
-            background: #00A3EE;
-        }
-        .payment-btn.wechat {
-            background: #07C160;
-        }
-
-        .divider-or {
-            text-align: center;
-            color: #aaa;
-            margin: 25px 0;
-            position: relative;
-        }
-        .divider-or span {
+            gap: 10px;
             background: white;
-            padding: 0 10px;
-            position: relative;
-            z-index: 1;
-        }
-        .divider-or:before {
-            content: "";
-            position: absolute;
-            left: 0;
-            top: 50%;
-            width: 100%;
-            height: 1px;
-            background: #e0e0e0;
-            z-index: 0;
-        }
-
-        .scan-title, .transfer-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #333;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .qr-code-grid {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 25px;
-            text-align: center;
-        }
-        .qr-code-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .qr-code-item img {
-            width: 140px;
-            height: 140px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        .scan-tip {
-            text-align: center;
-            font-size: 13px;
-            color: #888;
-            background: #fafafa;
-            padding: 10px;
-            border-radius: 6px;
-            margin-top: 20px;
-        }
-
-        .transfer-payment {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        .copy-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #f8f9fa;
-            padding: 12px 15px;
-            border-radius: 8px;
-        }
-        .copy-item span {
-            font-size: 15px;
-            color: #333;
-            font-weight: 500;
-            word-break: break-all;
-        }
-        .copy-item button {
-            padding: 8px 14px;
-            border: none;
-            background: #A07F56;
-            color: white;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 13px;
-            font-weight: 600;
-            margin-left: 10px;
-            flex-shrink: 0;
-        }
-        .copy-item button:hover {
-            background: #856847;
-        }
-        
-        .report-section {
-            background: white;
-            padding: 35px;
-            border-radius: 15px;
-            margin: 30px 0;
-            border-left: 5px solid #A07F56;
-        }
-        
-        .report-section h3 {
-            color: #A07F56;
-            font-size: 1.8em;
-            margin-bottom: 20px;
-        }
-        
-        .report-section h4 {
-            color: #856847;
-            font-size: 1.3em;
-            margin: 25px 0 15px 0;
-        }
-        
-        .report-section p {
-            color: #666;
-            line-height: 1.8;
-            font-size: 1.05em;
-            margin-bottom: 15px;
-        }
-        
-        .thank-banner {
-            background: linear-gradient(135deg, #A07F56 0%, #856847 100%);
-            color: white;
-            padding: 30px;
-            border-radius: 15px;
-            text-align: center;
-            margin: 30px 0;
-        }
-        
-        .thank-banner h3 {
-            font-size: 1.8em;
-            margin-bottom: 10px;
-        }
-        
-        .admin-panel {
-            background: white;
-            padding: 40px;
+            padding: 8px 15px;
             border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            width: fit-content;
+            margin: 10px auto 0 auto;
+            border: 1px solid #E2C08D;
         }
-        
-        .admin-panel h2 {
-            color: #A07F56;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-            margin: 30px 0;
-        }
-        
-        .stat-card {
-            background: linear-gradient(135deg, #FDF8F2 0%, #F5E8D6 100%);
-            padding: 20px;
-            border-radius: 12px;
-            text-align: center;
-        }
-        
-        .stat-number {
-            color: #A07F56;
-            font-size: 2.5em;
-            font-weight: bold;
-        }
-        
-        .stat-label {
-            color: #666;
-            margin-top: 10px;
-            font-size: 0.9em;
-        }
-        
-        .recent-records {
-            background: #f9f9f9;
-            padding: 20px;
-            border-radius: 12px;
-            margin: 25px 0;
-            max-height: 300px;
-            overflow-y: auto;
-        }
-        
-        .record-item {
-            padding: 12px;
-            border-bottom: 1px solid #eee;
-            font-size: 0.9em;
-            color: #666;
-        }
-
-        /* 新增样式：网盘链接显示区域 */
-        .pan-link-section {
-            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
-            padding: 30px;
-            border-radius: 15px;
-            margin: 30px 0;
-            border: 3px solid #4CAF50;
-            text-align: center;
-        }
-
-        .pan-link-section h3 {
-            color: #2E7D32;
-            font-size: 1.8em;
-            margin-bottom: 20px;
-        }
-
-        .pan-link-box {
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            margin: 20px 0;
-        }
-
-        .pan-link-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin: 15px 0;
-            padding: 15px;
-            background: #F5F5F5;
-            border-radius: 8px;
-        }
-
-        .pan-link-label {
-            color: #2E7D32;
-            font-weight: bold;
-            font-size: 16px;
-            min-width: 100px;
-        }
-
-        .pan-link-value {
-            flex: 1;
-            color: #333;
-            font-size: 15px;
-            word-break: break-all;
-            margin: 0 15px;
-            font-family: monospace;
-        }
-
-        .copy-pan-btn {
-            padding: 10px 20px;
-            background: #4CAF50;
+        .btn-copy-orange {
+            background: #D35400; /* 与主题红色一致 */
             color: white;
             border: none;
-            border-radius: 8px;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.85em;
             cursor: pointer;
-            font-size: 14px;
-            font-weight: bold;
-            white-space: nowrap;
-        }
-
-        .copy-pan-btn:hover {
-            background: #45a049;
-        }
-
-        .save-tip {
-            background: #FFF9C4;
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 20px;
-            border-left: 4px solid #FBC02D;
-        }
-
-        .save-tip h4 {
-            color: #F57C00;
-            margin-bottom: 10px;
-            font-size: 1.2em;
-        }
-
-        .save-tip p {
-            color: #666;
-            line-height: 1.8;
-            margin: 5px 0;
-        }
-        
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-            
-            .card {
-                padding: 25px;
-            }
-            
-            .header h1 {
-                font-size: 1.8em;
-            }
-            
-            .header p {
-                font-size: 1em;
-            }
-            
-            .dimensions-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .chart-container {
-                height: 320px;
-            }
-            
-            .scores-list {
-                grid-template-columns: 1fr;
-            }
-            
-            .characteristics {
-                grid-template-columns: 1fr;
-            }
-            
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .navigation-buttons {
-                flex-direction: column;
-            }
-            
-            .rpi-score {
-                font-size: 3em;
-            }
-
-            .pan-link-item {
-                flex-direction: column;
-                gap: 10px;
-            }
-
-            .pan-link-label,
-            .pan-link-value {
-                width: 100%;
-                text-align: center;
-            }
-
-            .copy-pan-btn {
-                width: 100%;
-            }
-        }
-        
-        @media (max-width: 600px) {
-            .card {
-                padding: 20px;
-            }
-            
-            .header h1 {
-                font-size: 1.5em;
-            }
-            
-            .question-text {
-                font-size: 1.1em;
-            }
-            
-            .option {
-                padding: 15px;
-                font-size: 1em;
-            }
-        }
-        
-        .hidden {
-            display: none !important;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-        
-        @keyframes loading {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-        
-        @keyframes scaleIn {
-            from {
-                opacity: 0;
-                transform: translate(-50%, -50%) scale(0.8);
-            }
-            to {
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(1);
-            }
-        }
-        
-        @keyframes scaleOut {
-            from {
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(1);
-            }
-            to {
-                opacity: 0;
-                transform: translate(-50%, -50%) scale(0.8);
-            }
-        }
-        
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
-        }
-        /* 目录展示优化样式 */
-        .catalog-showcase {
-            background: linear-gradient(135deg, #FFF9F0 0%, #FFE082 100%);
-            padding: 35px;
-            border-radius: 20px;
-            margin: 30px 0;
-            border: 3px solid #FFA726;
-        }
-
-        .catalog-image-container img {
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-
-        .catalog-image-container img:hover {
-            transform: scale(1.02);
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes fadeOut {
-            from { opacity: 1; }
-            to { opacity: 0; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div id="cardVerifyPage" class="card">
-<div class="header">
-    <h1>⭐ 社会化程度测试</h1>
-    <p>你的人情世故指数是多少？</p>
-    <span class="badge">专业评估 · 基于100万字社交能力实战手册</span>
-</div>
-            
-            <div class="input-group">
-                <input type="text" id="cardInput" placeholder="请输入测评卡号" maxlength="20">
+
+<div class="container">
+
+    <div id="homePage" class="card">
+        <div class="card-body">
+            <div class="header">
+                <h1>⭐ 社会化程度测试</h1>
+                <p>2025新版 · 0-100分制 · 精准评估</p>
+                <div class="tag-pill">基于100万字社交实战手册</div>
             </div>
-            
-            <button class="btn btn-primary" onclick="verifyCard()">🧭 开始测评</button>
-            
-            <div class="dimensions-grid" style="margin-top: 40px;">
-                <div class="dimension-card">
-                    <div class="dimension-icon">👁️</div>
-                    <div class="dimension-name">人情洞察力</div>
-                    <div class="dimension-desc">识别潜规则和隐藏信号</div>
-                </div>
-                <div class="dimension-card">
-                    <div class="dimension-icon">🎯</div>
-                    <div class="dimension-name">边界感掌控</div>
-                    <div class="dimension-desc">恰当的亲疏分寸</div>
-                </div>
-                <div class="dimension-card">
-                    <div class="dimension-icon">⚖️</div>
-                    <div class="dimension-name">利益平衡术</div>
-                    <div class="dimension-desc">人情往来的智慧</div>
-                </div>
-                <div class="dimension-card">
-                    <div class="dimension-icon">🎭</div>
-                    <div class="dimension-name">情绪管理力</div>
-                    <div class="dimension-desc">复杂场景的情绪控制</div>
-                </div>
+
+            <div class="dimensions-grid">
+                <div class="dim-card"><span class="dim-icon">👁️</span><span class="dim-name">人情洞察</span><span class="dim-desc">识别潜规则</span></div>
+                <div class="dim-card"><span class="dim-icon">🎯</span><span class="dim-name">边界掌控</span><span class="dim-desc">恰当分寸感</span></div>
+                <div class="dim-card"><span class="dim-icon">⚖️</span><span class="dim-name">利益平衡</span><span class="dim-desc">人情往来智慧</span></div>
+                <div class="dim-card"><span class="dim-icon">🎭</span><span class="dim-name">情绪管理</span><span class="dim-desc">复杂场景控制</span></div>
             </div>
-            
-            <div class="features-list">
-                <h3>📋 测评包含</h3>
-                <ul>
-                    <li>40题专业心理量表</li>
-                    <li>4大核心维度分析</li>
+
+            <div class="feature-box">
+                <div class="feature-title">📋 测评包含专业服务</div>
+                <ul class="feature-list">
+                    <li>40题专业心理学量表评估</li>
+                    <li>4大核心维度精准雷达图</li>
                     <li>社会化程度等级评定</li>
-                    <li><strong style="color:#D55D30;">完整《社会化手册》100万字+6大部分67课 (¥19.9解锁)</strong></li>
+                    <li><span class="highlight-text">解锁完整《社会化手册》100万字+6大板块 (限时¥19.9)</span></li>
                 </ul>
             </div>
+
+            <div class="input-group">
+                <input type="text" id="cardInput" placeholder="请输入测评卡号 (不区分大小写)">
+            </div>
+            <button class="btn-primary" onclick="startTest()">开始测评</button>
+            <div id="homeError" style="color:red; font-size:0.9em; text-align:center; margin-top:10px; display:none;"></div>
             
-            <div class="error-message" id="errorMessage"></div>
-            
-            <div class="admin-link" onclick="showAdminPanel()">管理员入口 →</div>
+            <div style="text-align:center; margin-top:20px; font-size:0.8em; color:#ccc; cursor:pointer;" onclick="showAdmin()">管理员入口 -></div>
         </div>
-        
-        <div id="testPage" class="card hidden">
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <div id="testPage" class="card hidden">
+        <div class="card-body">
+            <div style="display:flex; justify-content:space-between; color:#999; font-size:0.9em; margin-bottom:5px;">
+                <span id="progressText">进度 1/40</span>
+                <span>单选</span>
             </div>
-            <div class="progress-text" id="progressText">第1题 / 共40题</div>
-            
-            <div class="question-card">
-                <div class="question-text" id="questionText"></div>
-                <div class="options" id="optionsContainer"></div>
-            </div>
-            
-            <div class="navigation-buttons">
-                <button class="btn btn-secondary" id="prevBtn" onclick="prevQuestion()" style="display: none;">← 上一题</button>
-                <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()">下一题 →</button>
+            <div class="progress-bar"><div class="progress-fill" id="progressBar"></div></div>
+            <div class="question-text" id="qText">题目加载中...</div>
+            <div id="optionsBox"></div>
+            <div class="nav-buttons">
+                <button class="nav-btn btn-prev" onclick="prevQ()" id="prevBtn" style="visibility:hidden">上一题</button>
+                <button class="nav-btn btn-next" onclick="nextQ()">下一题</button>
             </div>
         </div>
-        
-        <div id="freeResultPage" class="card hidden">
-            <div class="result-banner">
-                <h2>📊 社会化程度报告</h2>
-                <p style="font-size: 1.2em; margin-top: 15px;">你的社会化等级（基础版）</p>
-                <div class="rpi-score" id="archetypeIcon">👔</div>
-                <div class="rpi-level" id="archetypeName">中级社交者</div>
-            </div>
-            
-            <div class="chart-container">
+    </div>
+
+    <div id="resultPage" class="card hidden" style="padding:0;">
+        <div class="result-header">
+            <div style="opacity:0.9; font-size:0.9em;">你的基础评估结果</div>
+            <div class="score-big" id="simpleScore">--</div>
+            <div class="level-badge" id="simpleLevel">评估中</div>
+        </div>
+
+        <div class="card-body">
+            <div style="height:260px; position:relative; width:100%;">
                 <canvas id="radarChart"></canvas>
             </div>
-            
-            <div class="scores-list" id="scoresList"></div>
-            
-            <div class="type-card">
-                <h3 id="typeName">中级社交者</h3>
-                <p id="typeDesc">你已经掌握了基本的社交规则，但在人情世故、边界感把握等方面还有明显的提升空间。通过系统学习，你可以快速进阶到高级社交者。</p>
+
+            <div class="persona-card">
+                <div class="persona-title">🏷️ 您的社交画像</div>
+                <div id="personaText" class="persona-text">分析中...</div>
             </div>
-            
-            <div class="characteristics">
-                <div class="characteristic-item">
-                    <div class="characteristic-title">✅ 你的优势</div>
-                    <div class="characteristic-list">
-                        • 基本礼仪<br>
-                        • 日常交往<br>
-                        • 简单应对
-                    </div>
+
+            <div class="advice-section">
+                <div class="section-title">💡 深度评估摘要</div>
+                <div id="detailAdviceContent" class="advice-content"></div>
+            </div>
+
+            <div class="catalog-container">
+                <div class="catalog-tag">📖 解锁后获取：100万字实战手册</div>
+                <img src="catalog.jpg" alt="手册目录预览" class="catalog-img">
+            </div>
+
+            <div class="locked-area">
+                <div class="locked-header">
+                    <span>🛡️ [深度] 核心社交弱点复盘</span>
+                    <span>🔒</span>
                 </div>
-                <div class="characteristic-item">
-                    <div class="characteristic-title">⚠️ 需要提升</div>
-                    <div class="characteristic-list">
-                        • 深度人脉<br>
-                        • 复杂博弈<br>
-                        • 高级话术
-                    </div>
+                <div class="blur-text">
+                    <p>【高危预警】根据测评数据，您在关键维度存在显著的认知偏差...</p>
+                    <p>这通常表现为：无法准确捕捉他人的潜台词，在复杂的利益博弈中容易成为牺牲品。</p>
+                    <p>核心原因分析：您的社交雷达在接收“情绪信号”时存在屏蔽效应，导致误判...</p>
+                    <p>改进方案：建议立即学习手册第3章的“三维倾听法”进行针对性训练...</p>
                 </div>
-                <div class="characteristic-item">
-                    <div class="characteristic-title">🎯 学习方向</div>
-                    <div class="characteristic-list">
-                        • 人情洞察<br>
-                        • 边界建立<br>
-                        • 利益平衡
-                    </div>
+                <div class="unlock-overlay">
+                    <button class="unlock-btn" onclick="scrollToPay()">解锁完整报告 + 手册</button>
                 </div>
             </div>
-            
-            <div class="basic-advice">
-                <h4>💡 基础建议（免费版）</h4>
-                <ul>
-                    <li>学会观察：多留意别人的言外之意和肢体语言。</li>
-                    <li>建立边界：明确什么能说、什么不能说的分寸感。</li>
-                    <li>系统学习：免费版只能看到基本倾向，完整版有6大部分67课系统内容。</li>
-                </ul>
-            </div>
-            
-            <div class="unlock-section">
-                <h3 style="font-size: 1.8em; line-height: 1.6; text-align: center; margin-bottom: 25px;">
-                    您的<strong style="color: #D55D30;">基础版</strong>报告已出 👇<br>
-                    如需 <strong style="color: #D55D30;">《社会化完全手册》</strong> + <strong style="color: #D55D30;">定制化改进方案</strong>，可付费解锁：
-                </h3>
-                <!-- 目录展示区域 - 开始 -->
-                <div style="background: linear-gradient(135deg, #FFF9F0 0%, #FFE082 100%); padding: 35px; border-radius: 20px; margin: 30px 0; border: 3px solid #FFA726;">
-                    <h3 style="color: #E65100; font-size: 1.6em; text-align: center; margin-bottom: 20px;">
-                        🎓 解锁后你将获得什么？
-                    </h3>
-                    
-                    <div style="background: white; padding: 25px; border-radius: 15px; margin-bottom: 20px;">
-                        <p style="color: #333; font-size: 16px; line-height: 2; text-align: center; margin-bottom: 20px;">
-                            <strong style="color: #D55D30; font-size: 18px;">《普通人社会化指南》完整版手册</strong><br>
-                            涵盖社交能力培养的方方面面
-                        </p>
-                        
-                        <div style="background: #F5F5F5; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
-                            <h4 style="color: #D55D30; text-align: center; margin-bottom: 15px; font-size: 1.2em;">
-                                📚 6大核心板块 + 400+页实战内容
-                            </h4>
-                            <ul style="list-style: none; padding: 0; margin: 0; color: #666; line-height: 2.2;">
-                                <li style="padding: 8px 0; border-bottom: 1px solid #E0E0E0;">
-                                    <strong style="color: #2E7D32;">✅ 开篇寄语：</strong>揭秘社会化成长的底层逻辑
-                                </li>
-                                <li style="padding: 8px 0; border-bottom: 1px solid #E0E0E0;">
-                                    <strong style="color: #2E7D32;">✅ 第二部分：</strong>23课实战技巧 - 从社交到职场的全方位攻略
-                                </li>
-                                <li style="padding: 8px 0; border-bottom: 1px solid #E0E0E0;">
-                                    <strong style="color: #2E7D32;">✅ 第三部分：</strong>67课职场篇 - 教你成为真正的"会来事"的人
-                                </li>
-                                <li style="padding: 8px 0; border-bottom: 1px solid #E0E0E0;">
-                                    <strong style="color: #2E7D32;">✅ 第四部分：</strong>67课人情篇 - 人情往来的智慧与边界感
-                                </li>
-                                <li style="padding: 8px 0; border-bottom: 1px solid #E0E0E0;">
-                                    <strong style="color: #2E7D32;">✅ 第五部分：</strong>自我成长 - 从内到外的全面提升
-                                </li>
-                                <li style="padding: 8px 0;">
-                                    <strong style="color: #2E7D32;">✅ 第六部分：</strong>实用工具 - 各种场景的应对话术模板
-                                </li>
-                            </ul>
-                        </div>
 
-                        <div style="text-align: center; margin: 25px 0;">
-                            <h4 style="color: #D55D30; margin-bottom: 15px; font-size: 1.2em;">
-                                📖 完整目录预览 👇
-                            </h4>
-                            <img src="catalog.jpg" alt="完整目录" style="width: 100%; max-width: 600px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); cursor: pointer;" onclick="showCatalogFullscreen(this)">
-                            <p style="color: #999; font-size: 13px; margin-top: 10px;">
-                                💡 点击图片可放大查看
-                            </p>
-                        </div>
-
-                        <div style="background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%); padding: 20px; border-radius: 12px; margin-top: 20px; border-left: 4px solid #4CAF50;">
-                            <div style="display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap;">
-                                <div style="text-align: center;">
-                                    <div style="font-size: 2em; color: #2E7D32; font-weight: bold;">100万字</div>
-                                    <div style="color: #666; font-size: 14px;">干货内容</div>
-                                </div>
-                                <div style="text-align: center;">
-                                    <div style="font-size: 2em; color: #2E7D32; font-weight: bold;">400+页</div>
-                                    <div style="color: #666; font-size: 14px;">专业指南</div>
-                                </div>
-                                <div style="text-align: center;">
-                                    <div style="font-size: 1.6em; color: #2E7D32; font-weight: bold;">累计超157课</div>
-                                    <div style="color: #D55D30; font-size: 13px; font-weight: bold;">（持续增加中）</div>
-                                </div>
-                            </div>
-                            <p style="text-align: center; color: #2E7D32; margin-top: 15px; font-size: 15px; font-weight: bold;">
-                                📱 百度网盘在线阅读 · 支持手机/电脑 · 随时随地学习
-                            </p>
-                        </div>
-                    </div>
+            <div id="paySection" class="pay-card-new">
+                <div class="pay-price-box">
+                    <div class="price-val">¥19.9</div>
+                    <div class="price-sub">限时特惠 · 100万字干货 · 一杯奶茶价格换终身受用社交能力</div>
                 </div>
-                <!-- 目录展示区域 - 结束 -->
-                <div class="comparison-table">
-                    <div class="comparison-row">
-                        <span class="comparison-free">基础诊断（4维度分数）</span>
-                        <span>→</span>
-                        <span class="comparison-paid">100万字完整手册 + 67课系统内容</span>
+
+                <div class="pay-method-title">💳 选择支付方式</div>
+                
+                <button class="quick-pay-btn btn-ali" onclick="aliPay()">⚡ 支付宝跳转支付</button>
+                <button class="quick-pay-btn btn-wx" onclick="scrollToQR()">⚡ 微信快捷支付</button>
+
+                <div class="pay-divider"><span>或</span></div>
+
+                <div class="qr-section">
+                    <div class="pay-method-title" style="color:#333; font-size:1em;">📱 扫码支付</div>
+                    <div class="qr-flex">
+                        <div class="qr-item-new">
+                            <div class="qr-head head-wx">推荐使用微信支付</div>
+                            <img src="wechat_qrcode.jpg" class="qr-img-new" alt="微信支付">
+                        </div>
+                        <div class="qr-item-new">
+                            <div class="qr-head head-ali">支付宝支付</div>
+                            <img src="alipay_qrcode.png" class="qr-img-new" alt="支付宝">
+                        </div>
                     </div>
-                    <div class="comparison-row">
-                        <span class="comparison-free">简单建议（3条）</span>
-                        <span>→</span>
-                        <span class="comparison-paid">针对你短板的定制改进方案</span>
-                    </div>
-                    <div class="comparison-row">
-                        <span class="comparison-free">无实战案例</span>
-                        <span>→</span>
-                        <span class="comparison-paid">6大部分：开篇寄语+实战技巧+自我成长等</span>
-                    </div>
-                    <div class="comparison-row">
-                        <span class="comparison-free">无工具包</span>
-                        <span>→</span>
-                        <span class="comparison-paid">人情往来指南+职场社交全攻略</span>
-                    </div>
+                    <div class="scan-tip">💡 保存后打开APP -> 扫一扫 -> 相册选择</div>
                 </div>
+
+                <div class="pay-divider"><span>或</span></div>
+
+                <div class="pay-method-title" style="color:#333; font-size:1em;">💳 复制账号转账</div>
                 
-                <div class="price-tag">
-                    <div class="original-price">原价 ¥99</div>
-                    <div class="current-price">¥19.9</div>
-                    <div class="price-note">限时特惠 · 100万字干货，一杯奶茶的价格换来终身受用的社交能力</div>
+                <div class="copy-row">
+                    <span class="copy-txt">hch91178</span>
+                    <button class="btn-copy-brown" onclick="copyTxt('hch91178')">复制微信</button>
                 </div>
-                
-                <h4 style="text-align: center; color: #D55D30; margin: 30px 0 20px 0; font-size: 1.3em;">
-                    💳 选择支付方式
-                </h4>
-                
-                <div class="payment-section">
-                    <div class="quick-pay-buttons">
-                        <a href="https://qr.alipay.com/tsx15981nt9c4aydmvo2h3d" class="payment-btn alipay" target="_blank">
-                            <span class="icon">⚡</span> 支付宝快捷支付
-                        </a>
-                        <a href="javascript:void(0);" onclick="showWechatScan()" class="payment-btn wechat">
-                            <span class="icon">⚡</span> 微信快捷支付
-                        </a>
-                    </div>
-
-                    <div class="divider-or"><span>或</span></div>
-
-                    <div class="scan-payment">
-                        <div class="scan-title">📱 扫码支付</div>
-                        <div class="qr-code-grid">
-                            <div class="qr-code-item">
-                                <img src="wechat_qrcode.jpg" alt="微信收款码" id="wechatQR">
-                            </div>
-                            <div class="qr-code-item">
-                                <img src="alipay_qrcode.png" alt="支付宝收款码" id="alipayQR">
-                            </div>
-                        </div>
-                        <div class="scan-tip">
-                            💡 保存后打开APP → 扫一扫 → 相册选择
-                        </div>
-                    </div>
-
-                    <div class="divider-or"><span>或</span></div>
-
-                    <div class="transfer-payment">
-                        <div class="transfer-title">💳 复制账号转账</div>
-                        <div class="copy-item">
-                            <span id="wechatID">jsh9109</span>
-                            <button onclick="copyToClipboard('jsh9109', this)">复制微信</button>
-                        </div>
-                        <div class="copy-item">
-                            <span id="alipayID">313360631@qq.com</span>
-                            <button onclick="copyToClipboard('313360631@qq.com', this)">复制支付宝</button>
-                        </div>
-                    </div>
+                <div class="copy-row">
+                    <span class="copy-txt">313360631@qq.com</span>
+                    <button class="btn-copy-brown" onclick="copyTxt('313360631@qq.com')">复制支付宝</button>
                 </div>
-                
-                <h4 style="text-align: center; color: #D55D30; margin: 30px 0 20px 0; font-size: 1.2em;">
+
+                <label for="fileInput" class="upload-btn-lg">
                     📸 上传付款截图，立即获取手册
-                </h4>
-                
-                <label for="paymentProofInput" class="btn btn-primary" style="margin-top: 15px; display: flex; align-items: center; justify-content: center; cursor: pointer; background: #D55D30;">
-                    📸 点击上传付款截图
                 </label>
-                <input type="file" id="paymentProofInput" accept="image/*" onchange="handlePaymentProof(event)" style="display: none;">
+                <input type="file" id="fileInput" accept="image/*" style="display:none;" onchange="handleUpload(event)">
                 
-                <div style="text-align: center; margin-top: 20px; padding: 15px; background: #E3F2FD; border-radius: 10px;">
-                    <p style="color: #1976D2; font-size: 14px; margin: 0;">
-                        🔒 信息安全保证：付款后立即显示网盘链接，无需等待
-                    </p>
+                <div class="after-pay-guide">
+                    <div class="guide-step-title">❓ 付款后如何获取资料？</div>
+                    <div class="guide-step-text">
+                        1. 截图保存您的支付凭证<br>
+                        2. 点击上方<strong>“上传付款截图”</strong>按钮<br>
+                        3. 系统核验后<strong>自动跳转</strong>显示网盘链接
+                    </div>
+                </div>
+            </div>
+
+            <div class="recruit-card">
+                <div style="font-weight:bold; color:#8B6E4E; margin-bottom:5px; font-size:1.05em;">📢 招心理测试项目学徒</div>
+                <div style="color:#666; font-size:0.9em;">项目实操 · 流量变现 · 长期带教</div>
+                <div class="recruit-copy-box">
+                    <span style="font-weight:bold; color:#333;">HCH91178</span>
+                    <span style="color:#999; font-size:0.85em;">(备注:学习测试)</span>
+                    <button class="btn-copy-orange" onclick="copyWx()">复制</button>
                 </div>
             </div>
         </div>
-        
-        <div id="fullReportPage" class="card hidden">
-            <div class="thank-banner">
-                <h3>🎓 感谢你的支持！</h3>
-                <p>付款成功，下方是您的专属资料</p>
+    </div>
+
+    <div id="successPage" class="card hidden">
+        <div class="card-body">
+            <div class="success-header">
+                <div style="font-size:60px; line-height:1;">✅</div>
+                <h2 style="color:var(--green-success); margin-top:10px;">支付成功</h2>
+                <p style="color:#666; font-size:0.9em;">感谢支持，您的专属资料已准备就绪</p>
             </div>
 
-            <!-- 新增：百度网盘链接显示区域 -->
-            <div class="pan-link-section">
-                <h3>📦 您的《社会化完全手册》</h3>
-                <div class="pan-link-box">
-                    <div class="pan-link-item">
-                        <span class="pan-link-label">🔗 网盘链接</span>
-                        <span class="pan-link-value" id="panLinkText">https://pan.baidu.com/s/1TPexZexAwxC-is2dfD_LeA</span>
-                        <button class="copy-pan-btn" onclick="copyPanLink()">一键复制</button>
+            <div class="delivery-card">
+                <div class="delivery-title">🚀 您的资料领取指南</div>
+                
+                <div class="steps-row">
+                    <div class="step-item">
+                        <div class="step-num">1</div><div>点击复制</div><div class="step-arrow">→</div>
                     </div>
-                    <div class="pan-link-item">
-                        <span class="pan-link-label">🔑 提取码</span>
-                        <span class="pan-link-value" id="panCodeText">8888</span>
-                        <button class="copy-pan-btn" onclick="copyPanCode()">一键复制</button>
+                    <div class="step-item">
+                        <div class="step-num">2</div><div>打开网盘App</div><div class="step-arrow">→</div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-num">3</div><div>自动识别</div>
                     </div>
                 </div>
 
-                <div class="save-tip">
-                    <h4>💾 重要提示：请务必保存资料！</h4>
-                    <p>✅ 方法1：将链接和提取码发送到<strong>微信文件传输助手</strong>或<strong>任意微信好友</strong></p>
-                    <p>✅ 方法2：保存到手机<strong>备忘录</strong>或<strong>笔记应用</strong></p>
-                    <p>✅ 方法3：截图保存此页面</p>
-                    <p style="color: #D55D30; margin-top: 10px;"><strong>⚠️ 网页关闭后将无法找回，请立即保存！</strong></p>
+                <div class="link-info-box">
+                    <div class="link-row"><span class="link-label">网盘链接：</span><span class="link-val" id="panLinkTxt">https://pan.baidu.com/s/1TPexZexAwxC-is2dfD_LeA</span></div>
+                    <div class="link-row"><span class="link-label">提取码：</span><span class="link-val code-val" id="panCodeTxt">8888</span></div>
                 </div>
 
-                <div style="text-align: center; margin-top: 25px;">
-                    <a href="https://pan.baidu.com/s/1TPexZexAwxC-is2dfD_LeA" target="_blank" style="display: inline-block; padding: 15px 40px; background: #2196F3; color: white; text-decoration: none; border-radius: 10px; font-size: 18px; font-weight: bold;">
-                        🚀 立即打开百度网盘
-                    </a>
+                <button class="btn-copy-big" id="mainCopyBtn" onclick="copyAllInfo()">📋 一键复制链接与提取码</button>
+                <div style="text-align:center; color:#888; font-size:0.85em; margin-top:15px;">提示：复制后请打开「百度网盘App」即可自动识别</div>
+
+                <div class="no-app-tip">
+                    <div class="tip-title">💡 没有百度网盘APP怎么办？</div>
+                    <div class="tip-steps">
+                        <span>1. 复制链接发送到微信文件助手</span>
+                        <span>2. 在微信内点击链接注册</span>
+                        <span>3. 即可直接转存观看</span>
+                    </div>
                 </div>
             </div>
-            
-            <div class="result-banner">
-                <h2>📊 你的社会化程度完整报告</h2>
-                <div class="rpi-score" id="fullSocialScore">72分</div>
-                <div class="rpi-level" id="fullSocialLevel">中级社交者 - 还有提升空间</div>
+
+            <div style="text-align:center; margin-bottom:30px;">
+                <h2 style="color:#333; font-size:1.4em;">📊 完整社会化深度分析报告</h2>
+                <div style="font-size:3.5em; color:var(--primary); font-weight:800;" id="finalScore">--</div>
+                <div style="color:#666;" id="finalLevel">--</div>
             </div>
-            
-            <div class="chart-container">
-                <canvas id="fullRadarChart"></canvas>
+
+            <div style="height:250px; position:relative; width:100%; margin-bottom:30px;">
+                <canvas id="finalRadarChart"></canvas>
             </div>
-            
-            <div class="report-section">
-                <h3>📋 第一部分：你的社会化短板诊断</h3>
-                <div id="weaknessAnalysis">
-                    <p>根据你的测试结果，系统已为你生成详细的社会化能力分析报告。</p>
+
+            <div class="report-module">
+                <div class="module-title">🔍 全维度深度拆解</div>
+                <div id="fullDimensionAnalysis"></div>
+            </div>
+
+            <div class="report-module" style="border-top-color:#2E7D32;">
+                <div class="module-title" style="color:#2E7D32;">📖 手册重点阅读指引</div>
+                <div id="guideContent"></div>
+            </div>
+
+            <div class="report-module" style="border-top-color:#D35400;">
+                <div class="module-title" style="color:#D35400;">⚠️ 您的专属避坑指南</div>
+                <div id="pitfallGuide"></div>
+            </div>
+
+            <div class="recruit-card">
+                <div style="font-weight:bold; color:#8B6E4E; margin-bottom:5px; font-size:1.05em;">📢 招心理测试项目学徒</div>
+                <div style="color:#666; font-size:0.9em;">项目实操 · 流量变现 · 长期带教</div>
+                <div class="recruit-copy-box">
+                    <span style="font-weight:bold; color:#333;">HCH91178</span>
+                    <span style="color:#999; font-size:0.85em;">(备注:学习测试)</span>
+                    <button class="btn-copy-orange" onclick="copyWx()">复制</button>
                 </div>
             </div>
-            
-            <div class="report-section">
-                <h3>📚 第二部分：手册核心内容</h3>
-                <div style="background: #FFF9F0; padding: 25px; border-radius: 12px; border-left: 4px solid #D55D30;">
-                    <h4 style="color: #D55D30; margin-bottom: 15px;">📖 100万字完整手册包含：</h4>
-                    <ul style="line-height: 2; color: #666;">
-                        <li><strong>开篇寄语</strong> - 社会化成长的底层逻辑</li>
-                        <li><strong>第二部分（67课）</strong> - 职场那些事儿：从新人到高手的完整攻略</li>
-                        <li><strong>第三部分（67课）</strong> - 人情往来指南：如何做个"会来事"的聪明人</li>
-                        <li><strong>第四部分</strong> - 提升你的情商：处理冲突、边界感、应对技巧</li>
-                        <li><strong>第五部分</strong> - 自我成长进阶：沟通能力、情绪管理、人际关系</li>
-                        <li><strong>第六部分</strong> - 实用工具包：各种场合应对话术模板</li>
-                    </ul>
-                </div>
+
+            <div class="cs-footer">
+                <p>如资料领取有问题，请添加客服微信：<span class="wx-id">HCH91178</span></p>
+                <p style="margin-top:5px;">备注：社会化资料</p>
             </div>
-            
-            <div class="report-section">
-                <h3>💡 第三部分：针对你的改进建议</h3>
-                <p>根据你的短板，建议重点学习手册中的以下章节：</p>
-                <div style="background: #E8F5E9; padding: 20px; border-radius: 12px; margin-top: 15px;">
-                    <h4 style="color: #2E7D32;">📌 30天能力提升计划</h4>
-                    <ul style="line-height: 2; color: #666; margin-top: 10px;">
-                        <li><strong>第1-10天：</strong>学习《人情洞察力》相关章节，提升察言观色能力</li>
-                        <li><strong>第11-20天：</strong>学习《边界感掌控》，掌握进退分寸</li>
-                        <li><strong>第21-30天：</strong>学习《利益平衡术》，理解人情往来的智慧</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div style="background: linear-gradient(135deg, #FF6B6B 0%, #FF5252 100%); color: white; padding: 25px; border-radius: 15px; text-align: center; margin: 30px 0;">
-                <h3 style="margin-bottom: 15px; font-size: 1.5em;">⚠️ 最后提醒</h3>
-                <p style="font-size: 16px; line-height: 1.8;">
-                    网盘链接已在上方显示，请<strong>立即保存</strong>！<br>
-                    页面关闭后将<strong>无法找回</strong>链接<br>
-                    如有问题，请联系客服微信：<strong>HCH91178</strong>
-                </p>
-            </div>
-            
-            <button class="btn btn-secondary" onclick="location.reload()">重新测评</button>
-        </div>
-        
-        <div id="adminPanel" class="card hidden">
-            <h2>🔐 管理员后台</h2>
-            <div class="input-group">
-                <input type="password" id="adminPassword" placeholder="请输入管理员密码">
-            </div>
-            <button class="btn btn-primary" onclick="verifyAdmin()">登录</button>
-            
-            <div id="adminContent" class="hidden"></div>
         </div>
     </div>
     
-    <script>
-        // ==================== [配置区 - 请替换这些值] ====================
-        const SERVER_JIANG_KEY = 'SCT303445TGU9j8Q5VLg6rT7eryLe8L41v'; // ✅ 你的Server酱Key
-        const BAIDU_PAN_LINK = 'https://pan.baidu.com/s/1TPexZexAwxC-is2dfD_LeA'; // ⚠️ 替换成你的网盘链接
-        const BAIDU_PAN_CODE = '8888'; // ⚠️ 替换成你的提取码
-        const CUSTOMER_SERVICE_WECHAT = 'HCH91178'; // 客服微信
-        const ADMIN_PASSWORD = 'lss900201'; // 管理员密码
-        const MASTER_CODE = "GEMINI-MASTER"; // 万能卡密
-        const PRODUCT_PRICE = 19.9; // 产品价格
-        // ============================================================
-        
-        /* 40道社会化测试题目 */
-        const questions = [
-            /* 维度A: 人情洞察力 (10题) */
-            {text: '领导说"这件事你看着办"，我能理解他真正的意思。', dimension: 0},
-            {text: '朋友说"随便"，我知道他其实有偏好。', dimension: 0},
-            {text: '我能从别人的语气判断他是真高兴还是假客套。', dimension: 0},
-            {text: '同事突然对我冷淡，我能分析出可能的原因。', dimension: 0},
-            {text: '我经常听不懂别人话里的潜台词。', dimension: 0, reverse: true},
-            {text: '聚会时，我能感觉到谁和谁关系好、谁和谁有矛盾。', dimension: 0},
-            {text: '别人委婉拒绝我时，我往往意识不到。', dimension: 0, reverse: true},
-            {text: '我能从细节判断一个人是真心还是应付。', dimension: 0},
-            {text: '我经常不明白为什么突然被孤立或排挤。', dimension: 0, reverse: true},
-            {text: '我能准确判断什么场合该说什么话。', dimension: 0},
-            
-            /* 维度B: 边界感掌控 (10题) */
-            {text: '我知道什么时候该主动，什么时候该等待。', dimension: 1},
-            {text: '我经常因为"太热情"让别人感到压力。', dimension: 1, reverse: true},
-            {text: '我能根据关系亲疏调整帮忙的程度。', dimension: 1},
-            {text: '我很难拒绝别人的请求，即使我不想做。', dimension: 1, reverse: true},
-            {text: '我知道哪些话题不该在公开场合讨论。', dimension: 1},
-            {text: '我经常在不合适的时机提要求。', dimension: 1, reverse: true},
-            {text: '我能把握好与领导/客户的距离感。', dimension: 1},
-            {text: '我经常说错话得罪人，但不知道错在哪。', dimension: 1, reverse: true},
-            {text: '我能分清哪些忙该帮、哪些忙不该帮。', dimension: 1},
-            {text: '我不知道怎么优雅地拒绝别人。', dimension: 1, reverse: true},
-            
-            /* 维度C: 利益平衡术 (10题) */
-            {text: '我懂得"吃亏是福"的真正含义。', dimension: 2},
-            {text: '我总是被人占便宜，但不知道怎么办。', dimension: 2, reverse: true},
-            {text: '我知道什么时候该"算清楚"，什么时候该"糊涂"。', dimension: 2},
-            {text: '我经常因为太计较被人疏远。', dimension: 2, reverse: true},
-            {text: '我明白人情债比金钱债更难还。', dimension: 2},
-            {text: '别人请我帮忙，我不知道该不该要回报。', dimension: 2, reverse: true},
-            {text: '我能平衡"给予"和"索取"的关系。', dimension: 2},
-            {text: '我经常帮了别人，反而被人怨恨。', dimension: 2, reverse: true},
-            {text: '我知道怎么让别人"欠我人情"。', dimension: 2},
-            {text: '我不懂为什么有些人总能"四两拨千斤"。', dimension: 2, reverse: true},
-            
-            /* 维度D: 情绪管理力 (10题) */
-            {text: '被误解时，我能控制情绪先不解释。', dimension: 3},
-            {text: '我经常因为情绪失控说出后悔的话。', dimension: 3, reverse: true},
-            {text: '我能在愤怒时仍然保持理智。', dimension: 3},
-            {text: '受委屈时我很难忍住不当场发作。', dimension: 3, reverse: true},
-            {text: '我知道什么情绪该表达，什么情绪该隐藏。', dimension: 3},
-            {text: '别人批评我时，我很容易炸毛。', dimension: 3, reverse: true},
-            {text: '我能用冷静的方式处理冲突。', dimension: 3},
-            {text: '我经常被情绪牵着走，做出冲动的决定。', dimension: 3, reverse: true},
-            {text: '我能在压力下保持微笑和礼貌。', dimension: 3},
-            {text: '我不知道怎么控制自己的脸色和语气。', dimension: 3, reverse: true}
-        ];
-        
-        const options = ['完全不像我', '不太像我', '不确定', '有点像我', '非常像我'];
-        
-        let currentPage = 'verify';
-        let currentQuestion = 0;
-        let answers = new Array(40).fill(0);
-        let currentCard = null;
-        
-        function getDeviceFingerprint() {
-            try {
-                let canvasFingerprint = '';
-                try {
-                    const canvas = document.createElement('canvas');
-                    const ctx = canvas.getContext('2d');
-                    if (ctx) {
-                        ctx.textBaseline = 'top';
-                        ctx.font = '14px Arial';
-                        ctx.fillText('fingerprint', 2, 2);
-                        canvasFingerprint = canvas.toDataURL().slice(-50);
-                    }
-                } catch (e) {
-                    canvasFingerprint = Date.now().toString();
-                }
-                
-                const fingerprint = [
-                    navigator.userAgent || 'unknown',
-                    navigator.language || 'unknown',
-                    (screen.width || 0) + 'x' + (screen.height || 0),
-                    screen.colorDepth || 0,
-                    new Date().getTimezoneOffset(),
-                    canvasFingerprint
-                ].join('|');
-                
-                let hash = 0;
-                for (let i = 0; i < fingerprint.length; i++) {
-                    const char = fingerprint.charCodeAt(i);
-                    hash = ((hash << 5) - hash) + char;
-                    hash = hash & hash;
-                }
-                
-                return 'device_' + Math.abs(hash).toString(36);
-            } catch (error) {
-                return 'device_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-            }
-        }
-        
-        function verifyCard() {
-            const cardInput = document.getElementById('cardInput');
-            const errorDiv = document.getElementById('errorMessage');
-            const cardCode = cardInput.value.trim().toUpperCase();
-            
-            if (cardCode === MASTER_CODE) {
-                currentCard = MASTER_CODE;
-                showTestPage(); 
-                return;
-            }
-            
-            if (!cardCode) {
-                errorDiv.textContent = '请输入测评卡号';
-                errorDiv.style.display = 'block';
-                return;
-            }
-            
-            if (!/^SH-[A-Z0-9]{4}-[A-Z0-9]{4}$/.test(cardCode)) {
-                if (!/^[A-Z0-9]{8,20}$/.test(cardCode)) {
-                    errorDiv.textContent = '卡号格式不正确';
-                    errorDiv.style.display = 'block';
-                    return;
-                }
-            }
-            
-            const deviceId = getDeviceFingerprint();
-            let cards = JSON.parse(localStorage.getItem('socialCards') || '[]');
-            let card = cards.find(c => c.code === cardCode);
-            
-            if (!card) {
-                card = { 
-                    code: cardCode, 
-                    deviceId: deviceId,
-                    createdAt: new Date().toISOString(),
-                    firstUsedAt: new Date().toISOString(),
-                    testCount: 0
-                };
-                cards.push(card);
-            } else {
-                if (card.deviceId && card.deviceId !== deviceId) {
-                    errorDiv.textContent = '该卡号已在其他设备使用，无法在本设备使用';
-                    errorDiv.style.display = 'block';
-                    return;
-                }
-                
-                if (!card.deviceId) {
-                    card.deviceId = deviceId;
-                    card.firstUsedAt = new Date().toISOString();
-                }
-            }
-            
-            card.testCount = (card.testCount || 0) + 1;
-            card.lastUsedAt = new Date().toISOString();
-            
-            localStorage.setItem('socialCards', JSON.stringify(cards));
-            
-            currentCard = card;
-            showTestPage();
-        }
-        
-        function showTestPage() {
-            document.getElementById('cardVerifyPage').classList.add('hidden');
-            document.getElementById('testPage').classList.remove('hidden');
-            document.getElementById('fullReportPage').classList.add('hidden');
-            document.getElementById('freeResultPage').classList.add('hidden');
-            document.getElementById('adminPanel').classList.add('hidden');
+    <div id="adminPage" class="card hidden">
+        <div class="card-body">
+            <h3>后台管理</h3>
+            <input type="password" id="adminPwd" placeholder="密码" style="width:100%; padding:10px; margin:10px 0; border:1px solid #ddd; border-radius:8px;">
+            <button onclick="checkAdmin()" class="btn-primary" style="font-size:0.9em; padding:10px;">登录</button>
+            <div id="adminContent" style="margin-top:20px;"></div>
+            <button onclick="location.reload()" style="margin-top:20px; border:none; background:none; color:#999; cursor:pointer;">返回</button>
+        </div>
+    </div>
 
-            currentPage = 'test';
-            currentQuestion = 0;
-            answers = new Array(40).fill(0);
-            renderQuestion();
-        }
-        
-        function renderQuestion() {
-            const question = questions[currentQuestion];
-            document.getElementById('questionText').textContent = `Q${currentQuestion + 1}: ${question.text}`;
-            
-            const optionsContainer = document.getElementById('optionsContainer');
-            optionsContainer.innerHTML = '';
-            
-            options.forEach((option, index) => {
-                const optionDiv = document.createElement('div');
-                optionDiv.className = 'option';
-                if (answers[currentQuestion] === index + 1) {
-                    optionDiv.classList.add('selected');
-                }
-                optionDiv.textContent = option;
-                optionDiv.onclick = () => selectOption(index + 1);
-                optionsContainer.appendChild(optionDiv);
-            });
-            
-            const progress = ((currentQuestion + 1) / 40) * 100;
-            document.getElementById('progressFill').style.width = progress + '%';
-            document.getElementById('progressText').textContent = `第${currentQuestion + 1}题 / 共40题`;
-            
-            document.getElementById('prevBtn').style.display = currentQuestion > 0 ? 'block' : 'none';
-            document.getElementById('nextBtn').textContent = currentQuestion === 39 ? '完成测评 ✓' : '下一题 →';
-        }
-        
-        function selectOption(value) {
-            answers[currentQuestion] = value;
-            setTimeout(() => {
-                if (currentQuestion < 39) {
-                    nextQuestion();
-                } else {
-                    renderQuestion();
-                }
-            }, 200);
-        }
-        
-        function prevQuestion() {
-            if (currentQuestion > 0) {
-                currentQuestion--;
-                renderQuestion();
-            }
-        }
-        
-        function nextQuestion() {
-            if (answers[currentQuestion] === 0) {
-                alert('请选择一个选项');
-                return;
-            }
-            
-            if (currentQuestion < 39) {
-                currentQuestion++;
-                renderQuestion();
-            } else {
-                calculateResult();
-            }
-        }
-        
-        function calculateResult() {
-            const dimensionScores = [0, 0, 0, 0];
-            const dimensionCounts = [10, 10, 10, 10];
-            
-            questions.forEach((q, i) => {
-                let score = answers[i];
-                if (q.reverse) {
-                    score = 6 - score;
-                }
-                dimensionScores[q.dimension] += score;
-            });
-            
-            const finalScores = dimensionScores.map((score, i) => 
-                Math.round((score / (dimensionCounts[i] * 5)) * 25)
-            );
-            
-            const totalScore = Math.round(finalScores.reduce((a, b) => a + b, 0) / 4);
-            
-            let level, icon, desc;
-            if (totalScore >= 20) {
-                level = '高级社交者';
-                icon = '👔';
-                desc = '你已经掌握了高超的社交技巧，能够在复杂的人际关系中游刃有余，是别人眼中的"高情商"代表。';
-            } else if (totalScore >= 15) {
-                level = '中高级社交者';
-                icon = '🎯';
-                desc = '你的社交能力已经超过大多数人，但在某些维度还有明显的提升空间，通过系统学习可以快速进阶。';
-            } else if (totalScore >= 10) {
-                level = '中级社交者';
-                icon = '📊';
-                desc = '你已经掌握了基本的社交规则，但在人情世故、边界感把握等方面还有明显的提升空间。';
-            } else {
-                level = '初级社交者';
-                icon = '🌱';
-                desc = '你在社交方面还处于起步阶段，很多人情世故和潜规则还不太了解，需要系统性学习提升。';
-            }
+</div>
 
-            sessionStorage.setItem('testResult', JSON.stringify({
-                scores: finalScores,
-                totalScore: totalScore,
-                level: level,
-                icon: icon,
-                desc: desc
-            }));
-            
-            showFreeResult();
-        }
-        
-        function showFreeResult() {
-            const result = JSON.parse(sessionStorage.getItem('testResult'));
-            
-            document.getElementById('cardVerifyPage').classList.add('hidden');
-            document.getElementById('testPage').classList.add('hidden');
-            document.getElementById('fullReportPage').classList.add('hidden');
-            document.getElementById('freeResultPage').classList.remove('hidden');
-            document.getElementById('adminPanel').classList.add('hidden');
-            currentPage = 'freeResult';
+<script>
+    const CONFIG = {
+        MASTER_CODE: "GEMINI-MASTER",
+        ADMIN_PWD: "lss900201", 
+        SERVER_KEY: "SCT303445TGU9j8Q5VLg6rT7eryLe8L41v",
+        PAN_LINK: "https://pan.baidu.com/s/1TPexZexAwxC-is2dfD_LeA",
+        PAN_CODE: "8888",
+        ALIPAY_URL: "https://qr.alipay.com/tsx15981nt9c4aydmvo2h3d"
+    };
 
-            document.getElementById('archetypeIcon').textContent = result.icon;
-            document.getElementById('archetypeName').textContent = result.level;
-            document.getElementById('typeName').textContent = result.level;
-            document.getElementById('typeDesc').textContent = result.desc;
-            
-            drawRadarChart('radarChart', result.scores);
-            
-            const scoresList = document.getElementById('scoresList');
-            const dimensionNames = ['人情洞察力', '边界感掌控', '利益平衡术', '情绪管理力'];
-            const dimensionIcons = ['👁️', '🎯', '⚖️', '🎭'];
-            
-            scoresList.innerHTML = '';
-            result.scores.forEach((score, i) => {
-                const scoreItem = document.createElement('div');
-                scoreItem.className = 'score-item';
-                scoreItem.innerHTML = `
-                    <div class="score-item-name">${dimensionIcons[i]} ${dimensionNames[i]}</div>
-                    <div class="score-item-value">${score} / 25</div>
-                    <div class="score-item-desc">${score > 15 ? '优势维度' : '需要提升'}</div>
-                `;
-                scoresList.appendChild(scoreItem);
-            });
-            
-            window.scrollTo(0, 0);
-        }
-        
-        function drawRadarChart(canvasId, scores) {
-            const ctx = document.getElementById(canvasId).getContext('2d');
-            const isMobile = window.innerWidth <= 768;
-            
-            const existingChart = Chart.getChart(canvasId);
-            if (existingChart) {
-                existingChart.destroy();
-            }
-            
-            new Chart(ctx, {
-                type: 'radar',
-                data: {
-                    labels: ['人情洞察力', '边界感掌控', '利益平衡术', '情绪管理力'],
-                    datasets: [{
-                        label: '你的得分',
-                        data: scores,
-                        backgroundColor: 'rgba(160, 127, 86, 0.2)',
-                        borderColor: '#A07F56',
-                        borderWidth: 3,
-                        pointBackgroundColor: '#A07F56',
-                        pointBorderColor: '#fff',
-                        pointBorderWidth: 2,
-                        pointRadius: 5
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: true,
-                    aspectRatio: isMobile ? 1 : 1.1,
-                    layout: {
-                        padding: isMobile ? {top: 15, bottom: 15, left: 5, right: 5} : {top: 30, bottom: 30, left: 30, right: 30}
-                    },
-                    scales: {
-                        r: {
-                            min: 0,
-                            max: 25,
-                            ticks: {
-                                stepSize: 5,
-                                font: {size: isMobile ? 9 : 11}
-                            },
-                            pointLabels: {
-                                font: {size: isMobile ? 11 : 13, weight: 'bold'},
-                                color: '#856847',
-                                padding: isMobile ? 8 : 15
-                            },
-                            grid: {color: '#F5E8D6'},
-                            angleLines: {color: '#F5E8D6'}
-                        }
-                    },
-                    plugins: {
-                        legend: {display: false}
-                    }
-                }
-            });
-        }
-        
-        /* ==================== [核心功能] 处理付款截图上传 - 改为直接显示网盘链接 ==================== */
-        function handlePaymentProof(event) {
-            const file = event.target.files[0];
-            
-            if (file) {
-                showLoadingAnimation();
-                sendWechatNotification(file.name);
-                saveOrderRecord();
-                
-                setTimeout(() => {
-                    closeLoadingAnimation();
-                    showSuccessMessage();
-                    setTimeout(() => {
-                        showFullReport();
-                    }, 1500);
-                }, 1500);
-            }
-        }
-        
-        /* ==================== [微信通知] 通过Server酱发送 ==================== */
-        function sendWechatNotification(fileName) {
-            const title = `💰 新订单：社会化手册（¥${PRODUCT_PRICE}）`;
-            
-            const orderTime = new Date().toLocaleString('zh-CN', {
-                year: 'numeric',
-                month: '2-digit',
-                day: '2-digit',
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit',
-                hour12: false
-            });
-            
-            const content = `
-## 📮 订单信息
-- **截图文件：** ${fileName}
-- **支付金额：** ¥${PRODUCT_PRICE}
+    const questions = [
+        {t:"领导说'看着办'时，我能听出是在放权还是试探", d:0},
+        {t:"饭局上能迅速判断谁是核心人物", d:0},
+        {t:"能听懂朋友'随便'背后的真实需求", d:0},
+        {t:"经常把别人的客套话当真", d:0, r:true},
+        {t:"能通过穿着大致判断对方性格", d:0},
+        {t:"气氛尴尬时我是最后一个发现的", d:0, r:true},
+        {t:"能分清'改天吃饭'是客套还是真邀", d:0},
+        {t:"能看清职场中谁和谁是一伙的", d:0},
+        {t:"别人欲言又止时知道该追问还是闭嘴", d:0},
+        {t:"不懂为什么有些人明明讨厌对方还能谈笑风生", d:0, r:true},
+        {t:"知道异性间什么玩笑不能开", d:1},
+        {t:"热心帮忙常被嫌多管闲事", d:1, r:true},
+        {t:"懂得体面拒绝无理要求", d:1},
+        {t:"深夜给不熟同事发消息觉得没问题", d:1, r:true},
+        {t:"做客知道什么时候该告辞", d:1},
+        {t:"不随意打听朋友隐私", d:1},
+        {t:"公共场合大声打电话事后才觉不妥", d:1, r:true},
+        {t:"知道哪些话题是职场禁忌", d:1},
+        {t:"能把握与领导相处的尊卑分寸", d:1},
+        {t:"借朋友小钱经常忘记还", d:1, r:true},
+        {t:"怕得罪人常在利益上吃哑巴亏", d:2, r:true},
+        {t:"不爱占小便宜，懂免费的最贵", d:2},
+        {t:"求人办事先想好能给对方什么价值", d:2},
+        {t:"觉得谈钱伤感情尽量回避", d:2, r:true},
+        {t:"冲突时能找到双赢方案", d:2},
+        {t:"懂送礼的艺术", d:2},
+        {t:"愿为长期关系牺牲短期利益", d:2},
+        {t:"受人恩惠无法回报会焦虑", d:2},
+        {t:"知道何时该装傻保护利益", d:2},
+        {t:"能在复杂局势找到有利位置", d:2},
+        {t:"被当众批评能压住火先解决问题", d:3},
+        {t:"心情不好常迁怒亲近的人", d:3, r:true},
+        {t:"愤怒时能控制不说狠话", d:3},
+        {t:"很容易被别人情绪感染带跑", d:3, r:true},
+        {t:"面对挑衅能保持冷静", d:3},
+        {t:"冲动决定后经常后悔", d:3, r:true},
+        {t:"能敏锐察觉并排解负面情绪", d:3},
+        {t:"高压下经常崩溃无法思考", d:3, r:true},
+        {t:"为顾全大局能忍受委屈", d:3},
+        {t:"擅长用幽默化解尴尬", d:3}
+    ];
 
----
+    let state = { qIdx: 0, ans: [], code: '' };
+    let logHistory = [];
 
-## 💰 订单详情
-- **产品：** 社会化完全手册（100万字）
-- **时间：** ${orderTime}
-- **状态：** 用户已自动获取网盘链接
+    function startTest() {
+        const val = document.getElementById('cardInput').value.trim();
+        if(!val) return alert('请输入卡号');
+        if(val.length < 4) return alert('卡号格式不正确');
+        state.code = val;
+        document.getElementById('homePage').classList.add('hidden');
+        document.getElementById('testPage').classList.remove('hidden');
+        renderQ();
+    }
 
----
+    function renderQ() {
+        const q = questions[state.qIdx];
+        document.getElementById('qText').innerText = `${state.qIdx+1}. ${q.t}`;
+        document.getElementById('progressText').innerText = `进度 ${state.qIdx+1}/40`;
+        document.getElementById('progressBar').style.width = ((state.qIdx+1)/40*100) + '%';
+        document.getElementById('prevBtn').style.visibility = state.qIdx === 0 ? 'hidden' : 'visible';
+        let html = '';
+        ['非常不符','比较不符','不确定','比较符合','非常符合'].forEach((txt, i) => {
+            const isSel = state.ans[state.qIdx] === (i+1) ? 'selected' : '';
+            html += `<div class="option ${isSel}" onclick="selectOpt(${i+1})">${txt}</div>`;
+        });
+        document.getElementById('optionsBox').innerHTML = html;
+    }
 
-## 📋 网盘信息
-- **链接：** ${BAIDU_PAN_LINK}
-- **提取码：** ${BAIDU_PAN_CODE}
+    function selectOpt(val) {
+        state.ans[state.qIdx] = val;
+        renderQ();
+        setTimeout(() => { nextQ(true); }, 300);
+    }
 
----
+    function nextQ(isAuto = false) {
+        if(!isAuto && !state.ans[state.qIdx]) return alert('请先选择一个选项');
+        if(isAuto && !state.ans[state.qIdx]) return;
+        if(state.qIdx < 39) {
+            state.qIdx++; renderQ();
+        } else {
+            calcResult();
+        }
+    }
 
-💡 **说明：** 用户上传付款截图后，系统已自动显示网盘链接，无需手动发货。此通知仅用于订单统计。
+    function prevQ() {
+        if(state.qIdx > 0) { state.qIdx--; renderQ(); }
+    }
 
-如需查看更多订单数据，请访问管理员后台（密码：${ADMIN_PASSWORD}）
-            `.trim();
-            
-            fetch(`https://sctapi.ftqq.com/${SERVER_JIANG_KEY}.send`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    title: title,
-                    desp: content
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.code === 0) {
-                    console.log('✅ 微信通知发送成功', data);
-                } else {
-                    console.error('❌ 通知发送失败', data);
-                }
-            })
-            .catch(error => {
-                console.error('❌ 网络请求失败', error);
-            });
-        }
-        
-        function saveOrderRecord() {
-            const orders = JSON.parse(localStorage.getItem('orderHistory') || '[]');
-            
-            const newOrder = {
-                id: Date.now(),
-                amount: PRODUCT_PRICE,
-                product: '社会化完全手册',
-                time: new Date().toISOString(),
-                status: '已完成',
-                panLink: BAIDU_PAN_LINK,
-                panCode: BAIDU_PAN_CODE
-            };
-            
-            orders.unshift(newOrder);
-            localStorage.setItem('orderHistory', JSON.stringify(orders));
-            
-            console.log('✅ 订单已保存到本地', newOrder);
-        }
-        
-        function showLoadingAnimation() {
-            const loadingDiv = document.createElement('div');
-            loadingDiv.id = 'loadingAnimation';
-            loadingDiv.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.7);
-                z-index: 10000;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            `;
-            
-            loadingDiv.innerHTML = `
-                <div style="background: white; padding: 50px 40px; border-radius: 20px; text-align: center; max-width: 400px;">
-                    <div style="font-size: 60px; margin-bottom: 20px; animation: pulse 1.5s infinite;">📦</div>
-                    <h3 style="color: #A07F56; margin-bottom: 15px; font-size: 1.5em;">正在处理订单...</h3>
-                    <p style="color: #666; line-height: 1.6; font-size: 1.1em;">
-                        正在为您准备资料<br>
-                        请稍候...
-                    </p>
-                    <div style="margin-top: 25px;">
-                        <div style="width: 200px; height: 4px; background: #f0f0f0; border-radius: 2px; overflow: hidden; margin: 0 auto;">
-                            <div style="width: 100%; height: 100%; background: linear-gradient(90deg, #A07F56 0%, #D55D30 100%); animation: loading 1.5s infinite;"></div>
-                        </div>
-                    </div>
-                </div>
-            `;
-            
-            document.body.appendChild(loadingDiv);
-        }
-        
-        function closeLoadingAnimation() {
-            const loading = document.getElementById('loadingAnimation');
-            if (loading) {
-                loading.remove();
-            }
-        }
-        
-        function showSuccessMessage() {
-            const messageDiv = document.createElement('div');
-            messageDiv.id = 'successMessage';
-            messageDiv.style.cssText = `
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background: white;
-                padding: 50px 40px;
-                border-radius: 20px;
-                box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-                z-index: 10001;
-                text-align: center;
-                max-width: 450px;
-                animation: scaleIn 0.3s ease;
-            `;
-            
-            messageDiv.innerHTML = `
-                <div style="font-size: 80px; margin-bottom: 20px;">✅</div>
-                <h3 style="color: #07C160; margin-bottom: 20px; font-size: 1.8em;">付款成功！</h3>
-                <div style="background: #F0F9FF; padding: 20px; border-radius: 12px; margin-bottom: 20px; border-left: 4px solid #2196F3;">
-                    <p style="color: #666; line-height: 1.8; font-size: 1.05em;">
-                        正在为您显示<strong style="color: #D55D30;">网盘链接</strong><br>
-                        请注意保存，页面关闭后无法找回
-                    </p>
-                </div>
-            `;
-            
-            document.body.appendChild(messageDiv);
-            
-            setTimeout(() => {
-                messageDiv.style.animation = 'scaleOut 0.3s ease';
-                setTimeout(() => {
-                    messageDiv.remove();
-                }, 300);
-            }, 1500);
-        }
-        
-        /* ==================== [新增] 复制网盘链接和提取码的功能 ==================== */
-        function copyPanLink() {
-            const link = BAIDU_PAN_LINK;
-            navigator.clipboard.writeText(link).then(() => {
-                showCopySuccess('网盘链接已复制！');
-            }).catch(err => {
-                alert('复制失败，请手动复制：' + link);
-            });
-        }
-        
-        function copyPanCode() {
-            const code = BAIDU_PAN_CODE;
-            navigator.clipboard.writeText(code).then(() => {
-                showCopySuccess('提取码已复制！');
-            }).catch(err => {
-                alert('复制失败，请手动复制：' + code);
-            });
-        }
-        
-        function showCopySuccess(message) {
-            const toast = document.createElement('div');
-            toast.style.cssText = `
-                position: fixed;
-                top: 20px;
-                left: 50%;
-                transform: translateX(-50%);
-                background: #4CAF50;
-                color: white;
-                padding: 15px 30px;
-                border-radius: 8px;
-                font-size: 16px;
-                z-index: 10000;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-                animation: slideDown 0.3s ease;
-            `;
-            toast.textContent = message;
-            document.body.appendChild(toast);
-            
-            setTimeout(() => {
-                toast.style.animation = 'fadeOut 0.3s ease';
-                setTimeout(() => toast.remove(), 300);
-            }, 2000);
-        }
-        
-        function showFullReport() {
-            const result = JSON.parse(sessionStorage.getItem('testResult'));
-            
-            document.getElementById('cardVerifyPage').classList.add('hidden');
-            document.getElementById('testPage').classList.add('hidden');
-            document.getElementById('freeResultPage').classList.add('hidden');
-            document.getElementById('fullReportPage').classList.remove('hidden');
-            document.getElementById('adminPanel').classList.add('hidden');
-            
-            // 显示网盘链接
-            document.getElementById('panLinkText').textContent = BAIDU_PAN_LINK;
-            document.getElementById('panCodeText').textContent = BAIDU_PAN_CODE;
-            
-            document.getElementById('fullSocialScore').textContent = result.totalScore + '分';
-            document.getElementById('fullSocialLevel').textContent = result.level;
-            
-            drawRadarChart('fullRadarChart', result.scores);
-            
-            const dimensionNames = ['人情洞察力', '边界感掌控', '利益平衡术', '情绪管理力'];
-            const weakest = result.scores.indexOf(Math.min(...result.scores));
-            
-            document.getElementById('weaknessAnalysis').innerHTML = `
-                <p>根据你的测试结果，你在<strong style="color: #D55D30;">「${dimensionNames[weakest]}」</strong>维度得分较低（${result.scores[weakest]}/25分）。这意味着：</p>
-                <ul style="line-height: 2; color: #666; margin-top: 15px;">
-                    <li>❌ 这是你目前最需要提升的能力维度</li>
-                    <li>❌ 在实际社交中可能经常遇到相关困扰</li>
-                    <li>✅ 好消息是：通过手册的系统学习可以快速改善</li>
-                </ul>
-            `;
-            
-            window.scrollTo(0, 0);
-        }
-        
-        function showWechatScan() {
-            const qrElement = document.getElementById('wechatQR');
-            if (qrElement) {
-                qrElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                alert('微信支付请保存二维码，\n然后打开微信扫一扫 → 相册选择');
-            }
-        }
-        
-        function copyToClipboard(text, buttonElement) {
-            navigator.clipboard.writeText(text).then(function() {
-                const originalText = buttonElement.textContent;
-                buttonElement.textContent = '已复制!';
-                buttonElement.style.background = '#07C160';
-                setTimeout(() => {
-                    buttonElement.textContent = originalText;
-                    buttonElement.style.background = '#A07F56';
-                }, 2000);
-            }, function(err) {
-                alert('复制失败，请手动复制');
-            });
-        }
-        
-        function showAdminPanel() {
-            document.getElementById('cardVerifyPage').classList.add('hidden');
-            document.getElementById('adminPanel').classList.remove('hidden');
-            document.getElementById('fullReportPage').classList.add('hidden');
-            document.getElementById('freeResultPage').classList.add('hidden');
-            document.getElementById('testPage').classList.add('hidden');
-        }
-        
-        function verifyAdmin() {
-            const password = document.getElementById('adminPassword').value;
-            
-            if (password === ADMIN_PASSWORD) {
-                document.getElementById('adminContent').classList.remove('hidden');
-                loadAdminStats();
-            } else {
-                alert('密码错误');
-            }
-        }
-        
-        function loadAdminStats() {
-            const cards = JSON.parse(localStorage.getItem('socialCards') || '[]');
-            
-            const total = cards.length;
-            const used = cards.filter(c => c.deviceId).length;
-            const devices = new Set(cards.filter(c => c.deviceId).map(c => c.deviceId)).size;
-            
-            const orders = JSON.parse(localStorage.getItem('orderHistory') || '[]');
-            const totalRevenue = orders.reduce((sum, order) => sum + (order.amount || 0), 0);
-            
-            const adminContent = document.getElementById('adminContent');
-            adminContent.innerHTML = `
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-number">${total}</div>
-                        <div class="stat-label">卡密总数</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">${used}</div>
-                        <div class="stat-label">已使用</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">${orders.length}</div>
-                        <div class="stat-label">订单总数</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">¥${totalRevenue.toFixed(1)}</div>
-                        <div class="stat-label">总收入</div>
-                    </div>
-                </div>
-                
-                <h3 style="margin: 30px 0 15px 0;">生成卡密</h3>
-                <div class="input-group">
-                    <input type="number" id="cardCount" placeholder="输入生成数量（1-1000）" min="1" max="1000" value="10">
-                </div>
-                <button class="btn btn-primary" onclick="generateCards()">生成卡密</button>
-                
-                <h3 style="margin: 30px 0 15px 0;">最近订单记录</h3>
-                <div class="recent-records">
-                    ${orders.length === 0 ? 
-                        '<div class="record-item">暂无订单</div>' :
-                        orders.slice(0, 10).map(order => {
-                            const date = new Date(order.time);
-                            const dateStr = `${date.getFullYear()}-${(date.getMonth()+1).toString().padStart(2,'0')}-${date.getDate().toString().padStart(2,'0')} ${date.getHours().toString().padStart(2,'0')}:${date.getMinutes().toString().padStart(2,'0')}`;
-                            return `<div class="record-item">¥${order.amount} - ${dateStr} - ${order.status}</div>`;
-                        }).join('')
-                    }
-                </div>
-                
-                <h3 style="margin: 30px 0 15px 0;">最近使用记录</h3>
-                <div class="recent-records">
-                    ${cards.filter(c => c.lastUsedAt).length === 0 ? 
-                        '<div class="record-item">暂无记录</div>' :
-                        cards.filter(c => c.lastUsedAt)
-                            .sort((a, b) => new Date(b.lastUsedAt) - new Date(a.lastUsedAt))
-                            .slice(0, 5)
-                            .map(card => {
-                                const date = new Date(card.lastUsedAt);
-                                const dateStr = `${date.getFullYear()}-${(date.getMonth()+1).toString().padStart(2,'0')}-${date.getDate().toString().padStart(2,'0')} ${date.getHours().toString().padStart(2,'0')}:${date.getMinutes().toString().padStart(2,'0')}`;
-                                return `<div class="record-item">${card.code} - 使用${card.testCount || 1}次 - ${dateStr}</div>`;
-                            }).join('')
-                    }
-                </div>
-                
-                <button class="btn btn-secondary" onclick="backToMain()" style="margin-top: 30px;">返回主页</button>
-            `;
-        }
-        
-        function generateCards() {
-            const count = parseInt(document.getElementById('cardCount').value);
-            
-            if (!count || count < 1 || count > 1000) {
-                alert('请输入1-1000之间的数字');
-                return;
-            }
-            
-            const cards = JSON.parse(localStorage.getItem('socialCards') || '[]');
-            const newCards = [];
-            
-            for (let i = 0; i < count; i++) {
-                newCards.push({
-                    code: generateCardCode(),
-                    createdAt: new Date().toISOString()
-                });
-            }
-            
-            cards.push(...newCards);
-            localStorage.setItem('socialCards', JSON.stringify(cards));
-            
-            const text = newCards.map(c => c.code).join('\n');
-            const blob = new Blob([text], {type: 'text/plain'});
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `社会化测试卡密_${new Date().getTime()}.txt`;
-            a.click();
-            URL.revokeObjectURL(url);
-            
-            alert(`成功生成${count}个卡密！`);
-            document.getElementById('adminContent').innerHTML = '';
-            loadAdminStats();
-        }
-        
-        function generateCardCode() {
-            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-            let code = 'SH-';
-            
-            for (let i = 0; i < 4; i++) {
-                code += chars.charAt(Math.floor(Math.random() * chars.length));
-            }
-            
-            code += '-';
-            
-            for (let i = 0; i < 4; i++) {
-                code += chars.charAt(Math.floor(Math.random() * chars.length));
-            }
-            
-            return code;
-        }
-        
-        function backToMain() {
-            document.getElementById('adminPanel').classList.add('hidden');
-            document.getElementById('cardVerifyPage').classList.remove('hidden');
-            document.getElementById('testPage').classList.add('hidden');
-            document.getElementById('freeResultPage').classList.add('hidden');
-            document.getElementById('fullReportPage').classList.add('hidden');
-        }
-        // 目录图片点击放大功能
-        function showCatalogFullscreen(img) {
-            const overlay = document.createElement('div');
-            overlay.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.9);
-                z-index: 10000;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                cursor: zoom-out;
-                animation: fadeIn 0.3s ease;
-            `;
-            
-            const fullImg = document.createElement('img');
-            fullImg.src = img.src;
-            fullImg.style.cssText = `
-                max-width: 95%;
-                max-height: 95%;
-                border-radius: 8px;
-                box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-            `;
-            
-            overlay.appendChild(fullImg);
-            document.body.appendChild(overlay);
-            
-            overlay.onclick = function() {
-                overlay.style.animation = 'fadeOut 0.3s ease';
-                setTimeout(() => overlay.remove(), 300);
-            };
-        }
-        window.onload = function() {
-            const cards = JSON.parse(localStorage.getItem('socialCards') || '[]');
-            if (cards.length === 0) {
-                const testCards = [];
-                for (let i = 0; i < 10; i++) {
-                    testCards.push({
-                        code: generateCardCode(),
-                        createdAt: new Date().toISOString()
-                    });
-                }
-                localStorage.setItem('socialCards', JSON.stringify(testCards));
-                console.log('已生成10个测试卡密，请在管理员后台查看（密码：lss900201）');
-            }
+    function generateDetailedAdvice(scores, names, minIdx, maxIdx) {
+        const weakName = names[minIdx];
+        const weakScore = scores[minIdx];
+        const strongName = names[maxIdx];
+        const strongScore = scores[maxIdx];
+        const weakText = {
+            '人情洞察': '难以捕捉他人话语背后的真实意图，在复杂局势中容易滞后反应，常有“后知后觉”的无力感。',
+            '边界掌控': '常因不善拒绝而背负不属于自己的责任，容易陷入“好人陷阱”，导致个人精力被过度消耗。',
+            '利益平衡': '回避冲突和博弈，导致在资源分配中处于劣势，个人价值被低估，辛辛苦苦却为他人做嫁衣。',
+            '情绪管理': '易受环境影响，关键时刻情绪波动可能影响决策判断，给他人留下不够稳重的印象。'
         };
-
-        // 添加fadeOut动画
-        const fadeOutStyle = document.createElement('style');
-        fadeOutStyle.textContent = `
-            @keyframes fadeOut {
-                from { opacity: 1; }
-                to { opacity: 0; }
-            }
+        return `
+            <div class="advice-card strength">
+                <div class="advice-tag tag-green">您的核心优势</div>
+                <div class="advice-text">
+                    在 <span class="advice-highlight">【${strongName}】</span> 维度表现优异（${strongScore}分）。这意味着在您熟悉的社交领域，您具备极强的直觉和掌控力，这是您的核心竞争力。
+                </div>
+            </div>
+            <div class="advice-card weakness">
+                <div class="advice-tag tag-red">关键瓶颈</div>
+                <div class="advice-text">
+                    数据无情地指出，制约您社交层级跃迁的短板在于 <span class="advice-highlight">【${weakName}】</span>（仅${weakScore}分）。具体表现为：${weakText[weakName]}
+                </div>
+            </div>
+            <div class="conclusion-box">
+                💡 <strong>评估结论：</strong><br>
+                这种“长板很长、短板很短”的不平衡状态，往往会导致您在社交中付出巨大努力，却难以获得对等的回报。如果不从潜意识层面修复短板，类似的社交困境可能会反复出现。
+            </div>
         `;
-        document.head.appendChild(fadeOutStyle);
-    </script>
+    }
+
+    function calcResult() {
+        let scores = [0,0,0,0];
+        questions.forEach((q,i) => { let v = state.ans[i]; if(q.r) v = 6 - v; scores[q.d] += v; });
+        scores = scores.map(s => s * 2);
+        const total = Math.round(scores.reduce((a,b)=>a+b,0)/4);
+        let level = total>80?'高级社交者':(total>60?'中级社交者':'社交初学者');
+
+        document.getElementById('testPage').classList.add('hidden');
+        document.getElementById('resultPage').classList.remove('hidden');
+        document.getElementById('simpleScore').innerText = total;
+        document.getElementById('simpleLevel').innerText = level;
+
+        const names = ['人情洞察','边界掌控','利益平衡','情绪管理'];
+        const minVal = Math.min(...scores); const minIdx = scores.indexOf(minVal);
+        const maxVal = Math.max(...scores); const maxIdx = scores.indexOf(maxVal);
+
+        document.getElementById('detailAdviceContent').innerHTML = generateDetailedAdvice(scores, names, minIdx, maxIdx);
+
+        const personas = ["【洞察者】天生的军师，能看透人心。","【分寸大师】高情商代表，相处舒适。","【破局者】深谙博弈，善于整合资源。","【掌控者】领袖气质，泰山崩于前不变色。"];
+        document.getElementById('personaText').innerText = personas[maxIdx];
+
+        drawChart('radarChart', scores);
+        window.fullReportData = { scores, total, level, minIdx, names };
+        window.scrollTo(0,0);
+    }
+
+    function drawChart(id, data) {
+        const ctx = document.getElementById(id).getContext('2d');
+        if(window[id] instanceof Chart) { window[id].destroy(); }
+        window[id] = new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: ['人情洞察','边界掌控','利益平衡','情绪管理'],
+                datasets: [{
+                    label: '得分', data: data, backgroundColor: 'rgba(139, 110, 78, 0.2)',
+                    borderColor: '#8B6E4E', borderWidth: 2, pointBackgroundColor: '#8B6E4E', pointRadius: 3
+                }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                scales: { r: { min: 0, max: 100, ticks: {display:false}, pointLabels: {font: {size: 12}} } },
+                plugins: { legend: {display:false} }
+            }
+        });
+    }
+
+    function scrollToQR() {
+        document.querySelector('.qr-section').scrollIntoView({behavior:'smooth'});
+    }
+
+    function scrollToPay() { document.getElementById('paySection').scrollIntoView({behavior:'smooth'}); }
+
+    function aliPay() {
+        window.location.href = CONFIG.ALIPAY_URL;
+    }
+
+    function handleUpload(e) {
+        if(e.target.files.length === 0) return;
+        document.querySelector('label[for="fileInput"]').innerText = '⏳ 正在验证并生成深度报告...';
+        fetch(`https://sctapi.ftqq.com/${CONFIG.SERVER_KEY}.send`, {
+            method: 'POST', headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ title: '💰新订单-社会化手册-19.9', desp: `卡号:${state.code}\n文件:${e.target.files[0].name}` })
+        }).catch(()=>{});
+        setTimeout(() => { showFullReport(); }, 1500);
+    }
+
+    function showFullReport() {
+        document.getElementById('resultPage').classList.add('hidden');
+        document.getElementById('successPage').classList.remove('hidden');
+        
+        const d = window.fullReportData;
+        document.getElementById('finalScore').innerText = d.total;
+        document.getElementById('finalLevel').innerText = d.level;
+        drawChart('finalRadarChart', d.scores);
+
+        document.getElementById('panLinkTxt').innerText = CONFIG.PAN_LINK;
+        document.getElementById('panCodeTxt').innerText = CONFIG.PAN_CODE;
+
+        const analysisTexts = {
+            '人情洞察': ['您在察言观色方面略显迟钝，容易忽略非言语信息。', '您具备基础的观察力，但在高压环境下可能失效。', '您拥有鹰一般的敏锐度，能瞬间捕捉空气中的微妙变化。'],
+            '边界掌控': ['您界限模糊，常因过度热心或回避而陷入被动。', '您大体得体，但在面对强势对象时容易退让。', '您深谙进退之道，能让每个人都感到舒服且尊重。'],
+            '利益平衡': ['您视金钱/利益为畏途，常做零和博弈的牺牲品。', '您懂得交换，但缺乏长期布局的战略眼光。', '您是天生的操盘手，总能找到多方共赢的最优解。'],
+            '情绪管理': ['您是情绪的奴隶，喜怒形于色，容易被对手利用。', '您能控制表面情绪，但内心消耗巨大。', '您拥有极强的钝感力和定力，情绪是您的武器而非软肋。']
+        };
+        let fullHtml = '';
+        d.names.forEach((n, i) => {
+            const score = d.scores[i];
+            let levelIdx = 0; if(score >= 80) levelIdx = 2; else if(score >= 60) levelIdx = 1;
+            fullHtml += `
+                <div style="margin-bottom:15px;">
+                    <div class="dim-row"><span style="font-weight:bold;">${n}</span><span style="color:#8B6E4E;font-weight:bold;">${score}分</span></div>
+                    <div class="dim-bar"><div class="dim-fill" style="width:${score}%"></div></div>
+                    <div class="dim-text">${score>80 ? '🌟 表现优异：您在该领域具备极强的直觉。' : (score>60?'✨ 表现良好：能应付日常，但高压下易出错。': '⚠️ 急需提升：这是您的核心短板，'+analysisTexts[n][levelIdx])}</div>
+                </div>`;
+        });
+        document.getElementById('fullDimensionAnalysis').innerHTML = fullHtml;
+
+        const weakName = d.names[d.minIdx];
+        const guides = {
+            '人情洞察': '<li><span class="guide-book">第二部分</span> 第七讲：5W1H聊天法，跟谁都能聊得来</li><li><span class="guide-book">第四部分</span> 第三十八课：普通人怎么积累人脉</li>',
+            '边界掌控': '<li><span class="guide-book">第六部分</span> 第六十四课：检查自己有没有建立好边界感的清单</li><li><span class="guide-book">第六部分</span> 第六十五课：高情商说“不”的技巧</li>',
+            '利益平衡': '<li><span class="guide-book">第四部分</span> 第四十四课：聊聊怎么看清一个人，避免吃亏</li><li><span class="guide-book">第三部分</span> 第二十八课：同事推卸责任给你怎么办</li>',
+            '情绪管理': '<li><span class="guide-book">第五部分</span> 第五十一课：讲别太在意别人怎么看你</li><li><span class="guide-book">第五部分</span> 第五十七课：怎么快速找回自信、停止自我消耗</li>'
+        };
+        document.getElementById('guideContent').innerHTML = `<p style="margin-bottom:10px;">针对您【${weakName}】薄弱项，建议优先阅读手册以下章节：</p><ul class="guide-list">${guides[weakName]}</ul>`;
+
+        const pitfalls = {
+            '人情洞察': '切忌在未摸清局势前轻易表态，特别是涉及站队问题时。多听少说，先观察别人的反应。',
+            '边界掌控': '警惕那些初次见面就对您过度热情或提出越界要求的人。学会温柔而坚定地拒绝。',
+            '利益平衡': '不要因为“面子”而拒绝谈钱，所有不谈利益的合作都是耍流氓。先小人后君子。',
+            '情绪管理': '不要在深夜或情绪激动时做任何决定，大概率会后悔。给自己设置一个冷静期。'
+        };
+        document.getElementById('pitfallGuide').innerHTML = `<div class="pitfall-card"><div class="pitfall-head">🚫 您的专属避雷针</div><div class="pitfall-body">${pitfalls[weakName]}</div></div>`;
+
+        window.scrollTo(0,0);
+    }
+
+    function copyAllInfo() {
+        const textToCopy = `链接: ${CONFIG.PAN_LINK} 提取码: ${CONFIG.PAN_CODE}`;
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            const btn = document.getElementById('mainCopyBtn');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '✅ 已复制！请打开网盘App';
+            btn.style.background = '#2E7D32';
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.style.background = '#2E7D32';
+            }, 3000);
+        }).catch(() => alert('复制失败，请手动复制'));
+    }
+
+    function copyTxt(t) { navigator.clipboard.writeText(t).then(()=>alert('复制成功')).catch(()=>alert('复制失败')); }
+    
+    function copyWx() {
+        navigator.clipboard.writeText("HCH91178").then(()=>{
+            alert('微信号已复制！\n即将跳转微信...');
+            setTimeout(()=>{ window.location.href="weixin://"; }, 500);
+        }).catch(()=>alert('复制失败，请手动复制'));
+    }
+
+    function showAdmin() { document.getElementById('homePage').classList.add('hidden'); document.getElementById('adminPage').classList.remove('hidden'); }
+    
+    // === 核心修改部分：重写管理员逻辑，加入卡号生成 ===
+    function checkAdmin() {
+        if(document.getElementById('adminPwd').value === CONFIG.ADMIN_PWD) {
+            // 动态插入卡号生成器界面
+            document.getElementById('adminContent').innerHTML = `
+                <div style="background:#F9F9F9; padding:15px; border-radius:8px; border:1px solid #EEE;">
+                    <h4 style="margin-bottom:10px; color:#333;">🛠️ 卡号生成器</h4>
+                    <div style="display:flex; gap:10px; margin-bottom:10px;">
+                        <input type="number" id="genCount" placeholder="数量" style="flex:1; padding:8px; border:1px solid #ccc; border-radius:4px;">
+                        <button onclick="generateAndExport()" style="padding:8px 15px; background:#8B6E4E; color:white; border:none; border-radius:4px; cursor:pointer;">生成并导出</button>
+                    </div>
+                    <div id="logArea" style="font-size:12px; color:#999; margin-top:10px; max-height:100px; overflow-y:auto;"></div>
+                </div>
+            `;
+        } else {
+            alert('密码错误');
+        }
+    }
+
+    function generateAndExport() {
+        const countInput = document.getElementById('genCount');
+        let count = parseInt(countInput.value);
+        if(isNaN(count) || count < 1) count = 1;
+        if(count > 1000) { alert('一次最多1000个'); count = 1000; }
+
+        const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+        let newCodes = [];
+
+        for(let i=0; i<count; i++) {
+            // 简单随机生成，适配社会化测试的简单逻辑
+            let str = '';
+            for(let j=0; j<10; j++) str += chars.charAt(Math.floor(Math.random() * chars.length));
+            newCodes.push(`VIP-${str}`);
+        }
+
+        // 导出TXT
+        const blob = new Blob([newCodes.join('\n')], { type: "text/plain;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `社交测评卡号_${count}个.txt`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+
+        // 日志记录
+        const now = new Date();
+        const timeStr = `${now.getHours()}:${now.getMinutes()<10?'0'+now.getMinutes():now.getMinutes()}`;
+        logHistory.unshift(`[${timeStr}] 生成 ${count} 个 (已导出)`);
+        document.getElementById('logArea').innerHTML = logHistory.map(t=>`<div>${t}</div>`).join('');
+    }
+</script>
 </body>
 </html>
