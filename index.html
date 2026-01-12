@@ -10,7 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <style>
-        /* ================= 视觉系统：极速内核·全机型兼容 ================= */
+        /* ================= 视觉系统：极速内核 ================= */
         :root {
             --primary: #2C3E50;       /* 专业深蓝 */
             --gold: #D4AF37;          /* 高端金 */
@@ -20,18 +20,15 @@
             --radius: 12px;
         }
 
-        /* 基础重置 */
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
 
         body {
-            /* 使用系统原生字体栈，加载最快，老旧机型不卡顿 */
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background: var(--bg-body);
             color: #333;
             margin: 0; padding: 15px;
             line-height: 1.5;
             font-size: 15px;
-            /* 底部安全区适配 */
             padding-bottom: constant(safe-area-inset-bottom);
             padding-bottom: env(safe-area-inset-bottom);
         }
@@ -39,7 +36,7 @@
         .container { max-width: 600px; margin: 0 auto; padding-bottom: 60px; }
         .hidden { display: none !important; }
 
-        /* 卡片组件 */
+        /* 卡片 */
         .card {
             background: var(--card-bg);
             border-radius: var(--radius);
@@ -49,13 +46,13 @@
             position: relative;
         }
 
-        /* 按钮组件 (开启GPU加速) */
+        /* 按钮 */
         .btn {
             border: none; border-radius: 50px; padding: 14px;
             font-size: 16px; font-weight: bold; cursor: pointer;
             width: 100%; text-align: center; display: block;
             transition: opacity 0.2s;
-            transform: translateZ(0); /* 强制硬件加速，防卡顿 */
+            transform: translateZ(0);
         }
         .btn:active { opacity: 0.8; }
         .btn-main { background: var(--primary); color: white; }
@@ -67,7 +64,7 @@
         }
         .btn-outline { background: #FFF; border: 1px solid #CCC; color: #666; }
 
-        /* 首页元素 */
+        /* 首页 */
         .hero-header { text-align: center; margin-bottom: 20px; }
         .hero-badge { 
             display: inline-block; background: #E8F5E9; color: #2E7D32; 
@@ -88,10 +85,9 @@
         .f-icon { font-size: 22px; display: block; margin-bottom: 5px; }
         .f-text { font-size: 13px; font-weight: bold; color: #555; }
 
-        .input-wrapper { position: relative; margin-bottom: 15px; }
         .input-box {
             width: 100%; padding: 16px; border: 2px solid #EEE; border-radius: 10px;
-            font-size: 16px; text-align: center; outline: none; background: #FFF;
+            font-size: 16px; text-align: center; outline: none; background: #FFF; margin-bottom: 15px;
             -webkit-appearance: none; text-transform: uppercase;
         }
         .input-box:focus { border-color: var(--primary); }
@@ -124,8 +120,22 @@
         .ac-label { color: #795548; width: 70px; flex-shrink: 0; }
         .ac-val { color: #333; font-weight: 500; }
 
+        /* 免费区 */
         .free-report { margin-top: 20px; }
-        .report-title { font-weight: bold; border-left: 4px solid var(--primary); padding-left: 10px; margin-bottom: 15px; }
+        .report-title { font-weight: bold; border-left: 4px solid var(--primary); padding-left: 10px; margin-bottom: 15px; font-size: 15px; }
+        
+        .summary-text { 
+            background: #F8F9FA; padding: 12px; border-radius: 8px; font-size: 13px; color: #555; 
+            line-height: 1.6; margin-bottom: 15px; text-align: justify;
+        }
+        .detailed-text {
+            background: #FAFAFA; border: 1px solid #EEE; border-radius: 8px; 
+            padding: 15px; font-size: 14px; color: #444; line-height: 1.8; margin-bottom: 20px;
+            text-align: justify;
+        }
+        .dt-section { margin-bottom: 12px; }
+        .dt-label { font-weight: bold; color: #2C3E50; display: block; margin-bottom: 4px; }
+
         .dim-box { margin-bottom: 12px; }
         .dim-head { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 5px; }
         .dim-line-bg { height: 6px; background: #EEE; border-radius: 3px; }
@@ -135,7 +145,7 @@
         .free-bonus { margin-top: 15px; background: #F0F4F8; padding: 10px; border-radius: 6px; font-size: 12px; color: #555; border: 1px dashed #B0BEC5; }
         .hl-gold { color: #D4AF37; font-weight: bold; }
 
-        /* 脚本列表 (卡片分离) */
+        /* 脚本列表 */
         .script-container { border: 2px solid #D4AF37; border-radius: 12px; overflow: hidden; margin-top: 30px; box-shadow: 0 10px 30px rgba(212, 175, 55, 0.15); background: #FDFBF5; }
         .script-header { background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%); color: white; padding: 15px; text-align: center; font-weight: bold; font-size: 16px; }
         .script-list { padding: 15px; margin: 0; }
@@ -150,7 +160,6 @@
         .locked-mask { height: 320px; position: relative; overflow: hidden; }
         .blur-layer { 
             position: absolute; bottom: 0; left: 0; width: 100%; height: 100%; 
-            /* 使用简单渐变，兼容老手机 */
             background: linear-gradient(to bottom, rgba(253,251,245,0) 0%, rgba(253,251,245,1) 40%, rgba(253,251,245,1) 100%); 
             display: flex; flex-direction: column; align-items: center; justify-content: flex-end; 
             padding-bottom: 30px; z-index: 10; 
@@ -159,13 +168,13 @@
         .p-big { font-size: 32px; font-weight: 800; color: #E74C3C; }
         .p-old { text-decoration: line-through; color: #AAA; font-size: 14px; margin-left: 5px; }
 
-        /* 支付弹窗 (双通道直显版) */
+        /* 支付弹窗 - 极简无图标版 */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 999; display: flex; align-items: center; justify-content: center; }
         .modal-box { background: white; width: 90%; max-width: 380px; padding: 20px; border-radius: 12px; max-height: 90vh; overflow-y: auto; }
         
         .pay-row-item { display: flex; justify-content: space-between; align-items: center; background: #F9F9F9; padding: 12px; border-radius: 8px; margin-bottom: 10px; border: 1px solid #EEE; }
         .pay-info { display: flex; align-items: center; gap: 10px; }
-        .pay-icon { width: 28px; height: 28px; }
+        
         .pay-text div:first-child { font-weight: bold; font-size: 14px; }
         .pay-text div:last-child { font-size: 12px; color: #888; font-family: monospace; }
         .pay-actions { display: flex; gap: 5px; }
@@ -175,7 +184,7 @@
         .bg-wx { background: #07C160; }
         .bg-ali { background: #00A0E9; }
 
-        .qr-area { margin-top: 15px; border-top: 1px dashed #EEE; padding-top: 15px; text-align: center; }
+        .qr-area { text-align: center; margin-top: 15px; padding-top: 15px; border-top: 1px dashed #EEE; }
         .qr-container { display: flex; justify-content: center; gap: 10px; margin-top: 10px; }
         .qr-box { text-align: center; width: 48%; }
         .qr-img { width: 100%; border: 1px solid #EEE; border-radius: 8px; }
@@ -217,11 +226,7 @@
         </div>
         <button class="btn btn-main" onclick="startTest()">开始专业评估</button>
         
-        <div style="text-align:center; margin-top:20px; display:flex; justify-content:center; gap:15px; font-size:12px; color:#999;">
-            <span>🔒 隐私保护</span>
-            <span>📝 40道精选题</span>
-            <span onclick="showAdmin()" style="cursor:pointer">⚙️ 管理员</span>
-        </div>
+        <div style="text-align:center; margin-top:20px; font-size:12px; color:#CCC;" onclick="showAdmin()">管理员入口</div>
     </div>
 
     <div id="testPage" class="card hidden">
@@ -262,6 +267,9 @@
 
         <div class="free-report">
             <div class="report-title">📊 维度深度拆解 (免费)</div>
+            
+            <div id="summaryContent"></div> 
+            
             <div id="dimensionContent"></div>
             
             <div class="free-bonus">
@@ -304,9 +312,8 @@
 
             <div class="pay-row-item">
                 <div class="pay-info">
-                    <img src="https://img.icons8.com/color/48/weixing.png" class="pay-icon" alt="WX">
                     <div class="pay-text">
-                        <div>微信支付</div>
+                        <div style="color:#07C160;">微信支付</div>
                         <div>ID: HCH91178</div>
                     </div>
                 </div>
@@ -318,9 +325,8 @@
 
             <div class="pay-row-item">
                 <div class="pay-info">
-                    <img src="https://img.icons8.com/color/48/alipay.png" class="pay-icon" alt="Ali">
                     <div class="pay-text">
-                        <div>支付宝</div>
+                        <div style="color:#00A0E9;">支付宝</div>
                         <div>313360631@qq.com</div>
                     </div>
                 </div>
@@ -472,25 +478,17 @@
         document.getElementById('tickerText').innerText = `用户 尾号${num} 刚刚解锁了 ${t}...`;
     }, 3000);
 
-    // --- 核心验证逻辑：兼容旧卡号 ---
-    // 旧版逻辑是只要 > 3位就通过。这里我们保留这个宽松逻辑，
-    // 但加入 VIP- 前缀检查（如果你的旧卡号不带VIP-，请告诉我，我再改）
-    // 假设旧卡号是随机生成的，那么我们只要保证逻辑能跑通即可。
-    // 如果想要完全兼容"乱输都能过"的旧版本bug，直接检测长度即可。
-    // 但为了安全性，这里采用了 "VIP-开头且长度够" OR "万能码"。
+    // 核心兼容逻辑：VIP-格式 OR 万能码
     function startTest() {
         const val = document.getElementById('cardInput').value.trim().toUpperCase();
         if(!val) return alert('请输入测评卡号');
         
-        // 兼容逻辑：
-        // 1. 万能码
         if(val === CONFIG.MASTER_CODE) {
             state.code = val;
             enterTest();
             return;
         }
         
-        // 2. 正规格式检查 (VIP- 开头，后面至少6位)
         const regex = /^VIP-[A-Z0-9]{6,}$/;
         if(regex.test(val)) {
             state.code = val;
@@ -498,9 +496,6 @@
             return;
         }
         
-        // 3. (可选) 如果你的旧卡号完全没有规律，是纯随机字符串，取消下面注释：
-        // if(val.length > 5) { state.code = val; enterTest(); return; }
-
         alert('无效的测评卡号\n格式应为 VIP- 开头的序列号');
     }
 
@@ -545,22 +540,53 @@
         document.getElementById('resultScore').innerText = total;
         
         document.querySelectorAll('.level-item').forEach(el => el.classList.remove('active'));
-        let tag = '', sym = '', risk = '';
+        let tag = '', sym = '', risk = '', summary = '';
+        let detailText = '';
         
         if(total < 60) {
             document.getElementById('lvl-1').classList.add('active');
-            tag = "社交隐形人"; sym = "在人群中毫无存在感，利益常被忽视"; risk = "容易成为职场背锅侠";
+            tag = "社交隐形人"; 
+            sym = "在人群中毫无存在感，利益常被忽视"; 
+            risk = "容易成为职场背锅侠";
+            summary = "您的社交表现偏向被动，容易在复杂的人际博弈中处于下风。建议从提升‘拒绝力’开始，建立基本的心理边界。";
+            detailText = `
+                <div class="dt-section"><span class="dt-label">【深度解读】</span>您的社交雷达灵敏度较低，常因听不懂“潜台词”而错过关键信息。在多人社交中，您倾向于退缩，导致个人价值被严重低估。</div>
+                <div class="dt-section"><span class="dt-label">【行为模式】</span>遇到冲突首选回避；不敢拒绝不合理要求；在饭局或会议中经常感到手足无措。</div>
+                <div class="dt-section"><span class="dt-label">【改进方向】</span>不要试图讨好所有人。第一步是学会“冷脸”，建立起保护自己的社交护城河。</div>
+            `;
         } else if(total < 80) {
             document.getElementById('lvl-2').classList.add('active');
-            tag = "温和跟随者"; sym = "能融入群体，但缺乏主导权"; risk = "关键时刻容易妥协吃亏";
+            tag = "温和跟随者"; 
+            sym = "能融入群体，但缺乏主导权"; 
+            risk = "关键时刻容易妥协吃亏";
+            summary = "您具备基本的社交常识，也能维持表面和谐，但在面对利益冲突或高压场景时，往往因为顾虑太多而错失良机。";
+            detailText = `
+                <div class="dt-section"><span class="dt-label">【深度解读】</span>您是团队中的润滑剂，大家都觉得您“人不错”，但这恰恰是危险信号。因为“好人”往往意味着“好欺负”。</div>
+                <div class="dt-section"><span class="dt-label">【行为模式】</span>能听懂暗示但不敢拆穿；在意他人评价多于实际利益；习惯性妥协以维持关系。</div>
+                <div class="dt-section"><span class="dt-label">【改进方向】</span>练习“温和而坚定”的表达。在涉及核心利益时，必须展现出您的獠牙。</div>
+            `;
         } else {
             document.getElementById('lvl-3').classList.add('active');
-            tag = "局势掌控者"; sym = "游刃有余，能利用规则获利"; risk = "需警惕过度精明引反感";
+            tag = "局势掌控者"; 
+            sym = "游刃有余，能利用规则获利"; 
+            risk = "需警惕过度精明引反感";
+            summary = "您是天生的社交高手，深谙人性弱点和潜规则。现在的挑战是如何在‘赢’的同时，让周围人也感到舒服，实现更长远的共赢。";
+            detailText = `
+                <div class="dt-section"><span class="dt-label">【深度解读】</span>您对人性和局势的洞察力极强，能迅速识别谁是关键人物。社交对您来说不是负担，而是资源置换的工具。</div>
+                <div class="dt-section"><span class="dt-label">【行为模式】</span>情绪控制力极强；懂得利用规则漏洞；善于通过“画饼”或“推拉”达成目的。</div>
+                <div class="dt-section"><span class="dt-label">【改进方向】</span>大智若愚。偶尔暴露一点无伤大雅的小缺点，会让人觉得您更真实、更可信。</div>
+            `;
         }
         
         document.getElementById('personaTag').innerText = tag;
         document.getElementById('personaSym').innerText = sym;
         document.getElementById('personaRisk').innerText = risk;
+        
+        // 关键修复：插入详细的免费报告内容
+        document.getElementById('summaryContent').innerHTML = `
+            <div class="summary-text"><strong>💬 综合评价：</strong>${summary}</div>
+            <div class="detailed-text">${detailText}</div>
+        `;
 
         drawChart(scores);
     }
@@ -615,7 +641,6 @@
         document.getElementById('bonusArea').style.display = 'block';
         document.getElementById('panUrl').innerText = CONFIG.PAN_LINK;
         document.getElementById('panCode').innerText = CONFIG.PAN_CODE;
-        // 自动滚动到赠品区
         setTimeout(() => {
              document.getElementById('bonusArea').scrollIntoView({behavior:'smooth'});
         }, 300);
@@ -639,10 +664,10 @@
             `;
         } else alert('Error');
     }
-    // 升级版生成器：生成 VIP-XXXXXXXXXX (10位大写字母数字，无混淆字符)
+    // 升级版生成器
     function genCards() {
         const count = document.getElementById('genCount').value || 1;
-        const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; // 去掉 I,O,0,1
+        const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; 
         let txt = "";
         for(let i=0; i<count; i++) {
             let suffix = "";
