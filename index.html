@@ -3,314 +3,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>社会化程度测试 - 2025深度版</title>
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <title>社会化人格深度诊断 - 2026版</title>
+    
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
     <style>
-        /* ================= 视觉系统：高端知识付费风 ================= */
+        /* ================= 视觉系统：极速内核·全机型兼容 ================= */
         :root {
-            --primary: #8B6E4E;       /* 主色：深棕 */
-            --primary-light: #A07F56; /* 辅色 */
-            --bg-body: #F9F3EB;       /* 背景米色 */
-            --bg-card: #FFFFFF;       /* 卡片白 */
-            --red-price: #D35400;     /* 强调红 */
-            --green-success: #2E7D32; /* 成功绿 */
-            --green-light: #E8F5E9;   /* 浅绿背景 */
-            --text-main: #333333;
-            --border-gold: #E2C08D;   /* 金色边框 */
-            --card-radius: 16px;
+            --primary: #2C3E50;       /* 专业深蓝 */
+            --gold: #D4AF37;          /* 高端金 */
+            --accent: #D32F2F;        /* 警示红 */
+            --bg-body: #F4F6F9;
+            --card-bg: #FFFFFF;
+            --radius: 12px;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        
+        /* 基础重置 */
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            /* 使用系统原生字体栈，加载最快，老旧机型不卡顿 */
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background: var(--bg-body);
-            color: var(--text-main);
-            line-height: 1.6;
-            padding: 15px;
-            padding-bottom: constant(safe-area-inset-bottom); /* 兼容旧iOS */
-            padding-bottom: env(safe-area-inset-bottom); /* 兼容新全面屏 */
-            min-height: 100vh;
-            font-size: 15px; /* 移动端基准字号 */
+            color: #333;
+            margin: 0; padding: 15px;
+            line-height: 1.5;
+            font-size: 15px;
+            /* 底部安全区适配 */
+            padding-bottom: constant(safe-area-inset-bottom);
+            padding-bottom: env(safe-area-inset-bottom);
         }
 
-        .container { max-width: 600px; margin: 0 auto; padding-bottom: 50px; }
+        .container { max-width: 600px; margin: 0 auto; padding-bottom: 60px; }
         .hidden { display: none !important; }
 
-        /* === 核心修复：稳健的卡片布局系统 === */
-        /* 移除 padding，改为在子元素 card-body 中控制，解决负边距重叠问题 */
+        /* 卡片组件 */
         .card {
-            background: var(--bg-card);
-            border-radius: var(--card-radius);
-            box-shadow: 0 8px 30px rgba(139, 110, 78, 0.06);
-            margin-bottom: 20px;
-            overflow: hidden; /* 关键：防止头部溢出 */
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            padding: 20px;
+            margin-bottom: 15px;
             position: relative;
         }
 
-        /* 内容容器：所有非通栏内容都放在这里 */
-        .card-body {
-            padding: 25px;
+        /* 按钮组件 (开启GPU加速) */
+        .btn {
+            border: none; border-radius: 50px; padding: 14px;
+            font-size: 16px; font-weight: bold; cursor: pointer;
+            width: 100%; text-align: center; display: block;
+            transition: opacity 0.2s;
+            transform: translateZ(0); /* 强制硬件加速，防卡顿 */
         }
+        .btn:active { opacity: 0.8; }
+        .btn-main { background: var(--primary); color: white; }
+        .btn-gold { 
+            background: linear-gradient(135deg, #D4AF37 0%, #C5A028 100%); 
+            color: white; 
+            box-shadow: 0 4px 10px rgba(212, 175, 55, 0.3);
+            animation: pulse 2s infinite;
+        }
+        .btn-outline { background: #FFF; border: 1px solid #CCC; color: #666; }
 
-        /* 针对小屏旧手机的适配 */
-        @media (max-width: 360px) {
-            .card-body { padding: 18px; } /* 缩小间距 */
-            body { font-size: 14px; } /* 缩小字号 */
+        /* 首页元素 */
+        .hero-header { text-align: center; margin-bottom: 20px; }
+        .hero-badge { 
+            display: inline-block; background: #E8F5E9; color: #2E7D32; 
+            font-size: 12px; padding: 4px 10px; border-radius: 20px; font-weight: bold; margin-bottom: 10px;
         }
+        .hero-title { font-size: 26px; font-weight: 900; color: var(--primary); margin-bottom: 8px; }
+        .hero-desc { color: #666; font-size: 14px; }
 
-        /* 按钮体系 */
-        .btn-primary {
-            width: 100%; padding: 16px; border: none; border-radius: 50px;
-            background: linear-gradient(135deg, #8B6E4E 0%, #6D5438 100%);
-            color: white; font-size: 1.1em; font-weight: bold; cursor: pointer;
-            box-shadow: 0 6px 15px rgba(139, 110, 78, 0.3); transition: transform 0.1s;
-            text-align: center; display: block;
+        .live-ticker {
+            background: rgba(0,0,0,0.03); padding: 10px; border-radius: 8px; margin-bottom: 20px;
+            display: flex; align-items: center; gap: 8px; font-size: 12px; color: #666;
         }
-        .btn-primary:active { transform: scale(0.98); }
+        .live-dot { width: 8px; height: 8px; background: #27AE60; border-radius: 50%; animation: blink 1s infinite; }
 
-        /* ================= 首页样式 ================= */
-        .header { text-align: center; margin-bottom: 25px; }
-        .header h1 { color: var(--primary); font-size: 1.8em; margin-bottom: 8px; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 8px; line-height: 1.3;}
-        .header p { color: #888; font-size: 0.9em; margin-bottom: 8px; }
-        .tag-pill { background: var(--primary); color: #fff; padding: 4px 15px; border-radius: 20px; font-size: 0.75em; display: inline-block; }
+        .feature-grid { display: flex; flex-wrap: wrap; margin: 0 -5px 25px -5px; }
+        .feature-item { width: 50%; padding: 0 5px; margin-bottom: 10px; }
+        .f-inner { border: 1px solid #EEE; padding: 12px; border-radius: 8px; text-align: center; background: #FAFAFA; }
+        .f-icon { font-size: 22px; display: block; margin-bottom: 5px; }
+        .f-text { font-size: 13px; font-weight: bold; color: #555; }
 
-        /* 维度展示格 */
-        .dimensions-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 25px 0;
+        .input-wrapper { position: relative; margin-bottom: 15px; }
+        .input-box {
+            width: 100%; padding: 16px; border: 2px solid #EEE; border-radius: 10px;
+            font-size: 16px; text-align: center; outline: none; background: #FFF;
+            -webkit-appearance: none; text-transform: uppercase;
         }
-        .dim-card {
-            background: #FFFBF5; border: 1px solid #F0E6D8; border-radius: 12px; padding: 15px 10px; text-align: center;
-            transition: all 0.3s;
-        }
-        .dim-icon { font-size: 2em; margin-bottom: 5px; display: block; }
-        .dim-name { font-weight: bold; color: var(--primary); font-size: 1em; margin-bottom: 4px; display: block; }
-        .dim-desc { font-size: 0.75em; color: #999; }
+        .input-box:focus { border-color: var(--primary); }
 
-        /* 测评权益框 */
-        .feature-box {
-            background: linear-gradient(180deg, #FFFDF9 0%, #FFF5E6 100%);
-            border: 2px solid var(--border-gold);
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 30px;
-        }
-        .feature-title { font-weight: bold; color: var(--text-main); font-size: 1.1em; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
-        .feature-list li {
-            list-style: none; margin-bottom: 10px; font-size: 0.95em; color: #555; display: flex; align-items: flex-start; line-height: 1.5;
-        }
-        .feature-list li::before { content: "✅"; margin-right: 8px; font-weight: bold; color: var(--primary); flex-shrink: 0; }
-        .highlight-text { color: var(--red-price); font-weight: bold; border-bottom: 1px dashed var(--red-price); }
-
-        .input-group input {
-            width: 100%; padding: 16px; border: 1px solid #ddd; border-radius: 12px;
-            text-align: center; font-size: 1em; background: #FAFAFA; margin-bottom: 15px; outline: none; -webkit-appearance: none;
-        }
-        .input-group input:focus { border-color: var(--primary); background: #fff; }
-
-        /* ================= 答题页 ================= */
-        .progress-bar { height: 6px; background: #EEE; border-radius: 3px; margin: 10px 0 25px 0; overflow: hidden; }
+        /* 答题页 */
+        .progress-header { display: flex; justify-content: space-between; font-size: 12px; color: #999; margin-bottom: 15px; }
+        .progress-bar { height: 6px; background: #EEE; border-radius: 3px; overflow: hidden; }
         .progress-fill { height: 100%; background: var(--primary); width: 0%; transition: width 0.3s; }
-        .question-text { font-size: 1.25em; font-weight: bold; margin-bottom: 25px; color: #333; line-height: 1.5; min-height: 60px; }
+        .q-text { font-size: 18px; font-weight: bold; min-height: 60px; margin: 20px 0; line-height: 1.4; }
+        .opt-item {
+            padding: 15px; border: 1px solid #EEE; border-radius: 10px; margin-bottom: 10px;
+            display: flex; align-items: center; cursor: pointer; background: #FFF;
+        }
+        .opt-item.selected { background: var(--primary); color: white; border-color: var(--primary); }
+        .opt-circle { width: 18px; height: 18px; border: 2px solid #CCC; border-radius: 50%; margin-right: 12px; }
+        .opt-item.selected .opt-circle { border-color: white; background: white; }
+        .nav-row { display: flex; gap: 10px; margin-top: 20px; }
+
+        /* 结果页 */
+        .result-score-box { text-align: center; padding-bottom: 20px; border-bottom: 1px dashed #EEE; }
+        .r-score { font-size: 50px; font-weight: 900; color: var(--accent); line-height: 1; }
         
-        .option {
-            padding: 16px; background: #F9F9F9; border: 1px solid #EEE;
-            border-radius: 12px; margin-bottom: 12px; cursor: pointer; transition: all 0.2s;
-            font-size: 1em; color: #444; font-weight: 500;
-        }
-        .option:active { background: #EEE; } /* 移动端点击反馈 */
-        .option.selected { background: var(--primary); color: white; border-color: var(--primary); }
+        .level-bar { display: flex; gap: 5px; margin-top: 15px; background: #F5F5F5; padding: 4px; border-radius: 8px; }
+        .level-item { flex: 1; text-align: center; font-size: 12px; padding: 8px 0; border-radius: 6px; color: #999; }
+        .level-item.active { background: white; color: var(--accent); font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+
+        .analysis-card { background: #FFF8E1; border: 1px solid #FFE0B2; border-radius: 8px; padding: 15px; margin-bottom: 20px; }
+        .ac-title { font-weight: bold; color: #E65100; margin-bottom: 8px; font-size: 14px; }
+        .ac-row { display: flex; margin-bottom: 6px; font-size: 13px; }
+        .ac-label { color: #795548; width: 70px; flex-shrink: 0; }
+        .ac-val { color: #333; font-weight: 500; }
+
+        .free-report { margin-top: 20px; }
+        .report-title { font-weight: bold; border-left: 4px solid var(--primary); padding-left: 10px; margin-bottom: 15px; }
+        .dim-box { margin-bottom: 12px; }
+        .dim-head { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 5px; }
+        .dim-line-bg { height: 6px; background: #EEE; border-radius: 3px; }
+        .dim-line-fill { height: 100%; background: var(--primary); border-radius: 3px; }
+        .dim-advice { font-size: 12px; color: #666; background: #F8F9FA; padding: 8px; border-radius: 6px; margin-top: 5px; }
+
+        .free-bonus { margin-top: 15px; background: #F0F4F8; padding: 10px; border-radius: 6px; font-size: 12px; color: #555; border: 1px dashed #B0BEC5; }
+        .hl-gold { color: #D4AF37; font-weight: bold; }
+
+        /* 脚本列表 (卡片分离) */
+        .script-container { border: 2px solid #D4AF37; border-radius: 12px; overflow: hidden; margin-top: 30px; box-shadow: 0 10px 30px rgba(212, 175, 55, 0.15); background: #FDFBF5; }
+        .script-header { background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%); color: white; padding: 15px; text-align: center; font-weight: bold; font-size: 16px; }
+        .script-list { padding: 15px; margin: 0; }
         
-        .nav-buttons { display: flex; gap: 15px; margin-top: 30px; }
-        .nav-btn { flex: 1; padding: 14px; border-radius: 10px; border: none; font-size: 1em; cursor: pointer; font-weight: bold; }
-        .btn-prev { background: #F5F5F5; color: #999; }
-        .btn-next { background: var(--primary); color: white; }
+        .s-card { background: #FFFFFF; padding: 15px; border-radius: 10px; margin-bottom: 15px; border: 1px solid #EEE; box-shadow: 0 2px 8px rgba(0,0,0,0.03); position: relative; }
+        .s-head { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; border-bottom: 1px solid #F5F5F5; padding-bottom: 8px; }
+        .s-tag { background: #333; color: white; font-size: 12px; padding: 3px 8px; border-radius: 4px; font-weight: bold; }
+        .s-num { background: #D4AF37; color: white; width: 20px; height: 20px; border-radius: 50%; font-size: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .s-q { font-size: 14px; color: #666; margin-bottom: 8px; font-weight: 500;}
+        .s-ans { background: #E8F5E9; border: 1px solid #C8E6C9; color: #1B5E20; padding: 10px; border-radius: 6px; font-size: 14px; line-height: 1.5; font-weight: 500; }
 
-        /* ================= 结果页 (修复重叠关键) ================= */
-        /* Header直接在Card内顶部，无负边距，不重叠 */
-        .result-header {
-            background: var(--primary); color: white; text-align: center;
-            padding: 40px 20px 30px 20px; 
-            margin: 0; /* 修复点：移除负边距 */
+        .locked-mask { height: 320px; position: relative; overflow: hidden; }
+        .blur-layer { 
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 100%; 
+            /* 使用简单渐变，兼容老手机 */
+            background: linear-gradient(to bottom, rgba(253,251,245,0) 0%, rgba(253,251,245,1) 40%, rgba(253,251,245,1) 100%); 
+            display: flex; flex-direction: column; align-items: center; justify-content: flex-end; 
+            padding-bottom: 30px; z-index: 10; 
         }
-        .score-big { font-size: 4em; font-weight: 800; line-height: 1; margin: 10px 0; text-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .level-badge { background: rgba(255,255,255,0.2); padding: 6px 20px; border-radius: 20px; font-size: 1em; font-weight: bold; display: inline-block; }
+        .price-row { margin-bottom: 15px; text-align: center; }
+        .p-big { font-size: 32px; font-weight: 800; color: #E74C3C; }
+        .p-old { text-decoration: line-through; color: #AAA; font-size: 14px; margin-left: 5px; }
 
-        .persona-card {
-            background: #FFF9F0; border-left: 5px solid var(--primary); padding: 20px; 
-            border-radius: 8px; margin-top: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.02);
-        }
-        .persona-title { color: var(--primary); font-weight: bold; font-size: 1.1em; margin-bottom: 8px; display: flex; align-items: center; gap: 5px;}
-        .persona-text { font-size: 1em; color: #555; line-height: 1.6; }
-
-        .advice-section { margin-top: 30px; }
-        .section-title { 
-            font-size: 1.1em; font-weight: bold; color: #333; margin-bottom: 15px; 
-            border-left: 4px solid #D35400; padding-left: 10px; 
-        }
-        .advice-card {
-            background: white; border: 1px solid #EEE; border-radius: 10px; padding: 15px; margin-bottom: 15px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
-        }
-        .advice-card.strength { border-top: 3px solid #2E7D32; background: #F6FFF6; }
-        .advice-card.weakness { border-top: 3px solid #C62828; background: #FFF5F5; }
-        .advice-tag {
-            display: inline-block; font-size: 0.85em; font-weight: bold; padding: 2px 8px; border-radius: 4px; margin-right: 5px; margin-bottom: 8px;
-        }
-        .tag-green { background: #E8F5E9; color: #2E7D32; }
-        .tag-red { background: #FFEBEE; color: #C62828; }
-        .advice-text { font-size: 0.95em; color: #444; line-height: 1.6; text-align: justify; }
-        .advice-highlight { font-weight: bold; color: #000; }
-        .conclusion-box {
-            background: #FFF8E1; padding: 15px; border-radius: 8px; color: #795548; font-size: 0.9em; line-height: 1.6;
-            border-left: 3px solid #FFC107; margin-top: 10px;
-        }
-
-        .catalog-container {
-            margin-top: 35px; border: 2px dashed #E2C08D; border-radius: 12px; padding: 12px; background: #FFFCF5; position: relative; text-align: center;
-        }
-        .catalog-tag {
-            position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
-            background: var(--primary); color: white; padding: 5px 20px; border-radius: 20px; font-size: 0.85em; font-weight: bold; white-space: nowrap;
-        }
-        .catalog-img { width: 100%; border-radius: 8px; margin-top: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-
-        .locked-area { 
-            position: relative; border: 1px solid #EEE; border-radius: 12px; overflow: hidden; margin-top: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.04);
-        }
-        .locked-header { 
-            background: #F8F8F8; padding: 15px; font-weight: bold; color: #333; display: flex; justify-content: space-between; border-bottom: 1px solid #EEE;
-        }
-        .blur-text { 
-            padding: 25px; filter: blur(6px); opacity: 0.6; user-select: none; background: white; font-size: 1em; line-height: 2;
-        }
-        .unlock-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10;
-            background: rgba(255,255,255,0.7); /* 兼容：增加半透明底，防止文字重叠难看 */
-        }
-        .unlock-btn {
-            background: linear-gradient(135deg, #D35400 0%, #E67E22 100%); 
-            color: white; border: none; padding: 12px 30px; border-radius: 40px; font-weight: bold; 
-            box-shadow: 0 8px 25px rgba(211, 84, 0, 0.4); animation: pulse 2s infinite; font-size: 1.1em; cursor: pointer;
-        }
-
-        /* 支付区 */
-        .pay-card-new {
-            background: #FFF; border-radius: 15px; padding: 25px 20px; margin-top: 30px; 
-            box-shadow: 0 10px 40px rgba(0,0,0,0.08); border: 1px solid #FFF3E0;
-        }
-        .pay-price-box { text-align: center; margin-bottom: 25px; }
-        .price-val { font-size: 3.5em; font-weight: 800; color: #D35400; line-height: 1; }
-        .price-sub { font-size: 0.85em; color: #888; margin-top: 8px; }
+        /* 支付弹窗 (双通道直显版) */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 999; display: flex; align-items: center; justify-content: center; }
+        .modal-box { background: white; width: 90%; max-width: 380px; padding: 20px; border-radius: 12px; max-height: 90vh; overflow-y: auto; }
         
-        .pay-method-title { text-align: center; color: #E65100; font-weight: bold; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .pay-row-item { display: flex; justify-content: space-between; align-items: center; background: #F9F9F9; padding: 12px; border-radius: 8px; margin-bottom: 10px; border: 1px solid #EEE; }
+        .pay-info { display: flex; align-items: center; gap: 10px; }
+        .pay-icon { width: 28px; height: 28px; }
+        .pay-text div:first-child { font-weight: bold; font-size: 14px; }
+        .pay-text div:last-child { font-size: 12px; color: #888; font-family: monospace; }
+        .pay-actions { display: flex; gap: 5px; }
         
-        .quick-pay-btn {
-            width: 100%; padding: 14px; margin-bottom: 12px; border-radius: 8px; border: none;
-            color: white; font-weight: bold; font-size: 1.05em; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer;
-        }
-        .btn-ali { background: #00A0E9; }
-        .btn-wx { background: #07C160; }
-        
-        .pay-divider { display: flex; align-items: center; color: #CCC; margin: 20px 0; font-size: 0.9em; }
-        .pay-divider::before, .pay-divider::after { content: ""; flex: 1; height: 1px; background: #EEE; }
-        .pay-divider span { padding: 0 10px; }
+        .btn-mini { padding: 6px 12px; font-size: 12px; border-radius: 4px; border: none; cursor: pointer; color: white; }
+        .bg-copy { background: #9E9E9E; }
+        .bg-wx { background: #07C160; }
+        .bg-ali { background: #00A0E9; }
 
-        .qr-section { text-align: center; }
-        .qr-flex { display: flex; justify-content: center; gap: 10px; margin-top: 15px; flex-wrap: wrap; }
-        .qr-item-new { background: white; border: 1px solid #EEE; border-radius: 8px; padding: 8px; width: 130px; }
-        .qr-head { color: white; padding: 4px; border-radius: 4px 4px 0 0; font-size: 0.8em; margin: -8px -8px 8px -8px; }
-        .head-wx { background: #07C160; }
-        .head-ali { background: #00A0E9; }
-        .qr-img-new { width: 100%; display: block; border-radius: 4px; }
-        .scan-tip { background: #F9F9F9; color: #666; font-size: 0.85em; padding: 8px; border-radius: 4px; margin-top: 15px; }
+        .qr-area { margin-top: 15px; border-top: 1px dashed #EEE; padding-top: 15px; text-align: center; }
+        .qr-container { display: flex; justify-content: center; gap: 10px; margin-top: 10px; }
+        .qr-box { text-align: center; width: 48%; }
+        .qr-img { width: 100%; border: 1px solid #EEE; border-radius: 8px; }
+        .qr-label { font-size: 12px; color: #666; margin-top: 5px; }
 
-        .copy-row { display: flex; justify-content: space-between; align-items: center; background: #F5F5F5; padding: 12px 15px; border-radius: 8px; margin-bottom: 10px; }
-        .copy-txt { color: #333; font-weight: 500; font-size: 0.9em; word-break: break-all; } /* 防止长账号撑破 */
-        .btn-copy-brown { background: #8D6E63; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 0.85em; cursor: pointer; flex-shrink: 0; margin-left: 10px;}
+        /* 赠品区 */
+        .bonus-box { display: none; background: #2C3E50; color: white; padding: 15px; text-align: center; margin-top: 20px; border-radius: 8px; }
+        .unlocked-list { height: auto !important; overflow: visible !important; }
 
-        .upload-btn-lg {
-            background: linear-gradient(180deg, #E65100 0%, #BF360C 100%);
-            color: white; width: 100%; padding: 16px; border-radius: 10px; font-size: 1.1em; font-weight: bold;
-            text-align: center; border: none; margin-top: 25px; display: flex; align-items: center; justify-content: center; gap: 8px;
-            box-shadow: 0 4px 0 #870000; cursor: pointer;
-        }
-        .upload-btn-lg:active { transform: translateY(2px); box-shadow: 0 2px 0 #870000; }
-
-        /* 付款后引导框 */
-        .after-pay-guide {
-            background: #FFF; border: 1px dashed #BDBDBD; border-radius: 10px; padding: 15px; margin-top: 20px; text-align: left;
-        }
-        .guide-step-title { font-weight: bold; color: #333; font-size: 0.95em; margin-bottom: 8px; display: flex; align-items: center; gap: 5px; }
-        .guide-step-text { font-size: 0.9em; color: #666; line-height: 1.6; }
-        .guide-step-text strong { color: #E65100; }
-
-        /* ================= 成功页 ================= */
-        .success-header { text-align: center; padding: 30px 0; border-bottom: 1px dashed #DDD; }
-        .delivery-card { background: #E8F5E9; border: 2px solid #2E7D32; border-radius: 16px; padding: 25px 20px; margin: 25px 0; }
-        .delivery-title { text-align: center; color: #2E7D32; font-weight: 800; font-size: 1.3em; margin-bottom: 20px; }
-        .steps-row { display: flex; justify-content: space-between; margin-bottom: 25px; text-align: center; font-size: 0.9em; color: #555; }
-        .step-item { position: relative; flex: 1; }
-        .step-num { width: 28px; height: 28px; line-height: 28px; background: #2E7D32; color: white; border-radius: 50%; margin: 0 auto 8px auto; font-weight: bold; font-size: 0.9em; }
-        .step-arrow { position: absolute; right: -50%; top: 8px; color: #BDBDBD; font-size: 1.2em; width: 100%; }
-        .link-info-box { background: white; border-radius: 10px; padding: 15px; margin-bottom: 20px; word-break: break-all; }
-        .link-row { display: flex; flex-direction: column; margin-bottom: 12px; gap: 5px; }
-        .link-label { color: #666; font-size: 0.9em; }
-        .link-val { font-family: monospace; font-weight: bold; color: #333; background: #F5F5F5; padding: 6px; border-radius: 4px; display: block;}
-        .code-val { font-size: 1.4em; color: #D35400; letter-spacing: 2px; }
-        .btn-copy-big { width: 100%; padding: 15px; background: #2E7D32; color: white; border: none; border-radius: 50px; font-size: 1.1em; font-weight: bold; cursor: pointer; box-shadow: 0 4px 15px rgba(46, 125, 50, 0.3); display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.2s; }
-        
-        .no-app-tip { margin-top: 15px; background: #FFF8E1; border: 1px dashed #FFB74D; border-radius: 10px; padding: 12px; text-align: center; }
-        .tip-title { color: #F57C00; font-weight: bold; font-size: 0.9em; margin-bottom: 5px; }
-        .tip-steps { font-size: 0.85em; color: #5D4037; display: flex; flex-direction: column; gap: 4px; }
-        
-        .report-module { background: white; border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); border-top: 4px solid var(--primary); }
-        .module-title { font-size: 1.1em; font-weight: bold; color: var(--primary); margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
-        .dim-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-        .dim-bar { height: 8px; background: #F0F0F0; border-radius: 4px; overflow: hidden; margin-bottom: 15px; }
-        .dim-fill { height: 100%; background: var(--primary-light); border-radius: 4px; }
-        .dim-text { font-size: 0.9em; color: #666; background: #F9F9F9; padding: 10px; border-radius: 6px; line-height: 1.6; text-align: justify; }
-        .guide-list li { margin-bottom: 15px; font-size: 0.95em; color: #444; line-height: 1.6; }
-        .guide-book { display: inline-block; background: #FFF3E0; color: #E65100; padding: 2px 6px; border-radius: 4px; font-size: 0.85em; font-weight: bold; margin-right: 5px; }
-        .pitfall-card { background: #FFEBEE; border-radius: 8px; padding: 15px; margin-top: 10px; border-left: 4px solid #C62828; }
-        .pitfall-head { color: #C62828; font-weight: bold; margin-bottom: 5px; font-size: 0.95em; }
-        .pitfall-body { color: #5D4037; font-size: 0.9em; }
-        .cs-footer { text-align: center; margin-top: 40px; color: #999; font-size: 0.9em; padding-top: 20px; border-top: 1px solid #EEE; }
-        .wx-id { color: #333; font-weight: bold; background: #EEE; padding: 2px 8px; border-radius: 4px; user-select: text; }
-
-        @keyframes pulse { 0% {transform: scale(1);} 50% {transform: scale(1.05);} 100% {transform: scale(1);} }
-
-        /* === 新增：招募学徒样式 (棕色主题) === */
-        .recruit-card {
-            background: #FFFBF5;
-            border: 1px dashed #8B6E4E;
-            border-radius: 12px;
-            padding: 15px;
-            text-align: center;
-            margin-top: 30px;
-        }
-        .recruit-copy-box {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            background: white;
-            padding: 8px 15px;
-            border-radius: 20px;
-            width: fit-content;
-            margin: 10px auto 0 auto;
-            border: 1px solid #E2C08D;
-        }
-        .btn-copy-orange {
-            background: #D35400; /* 与主题红色一致 */
-            color: white;
-            border: none;
-            padding: 4px 10px;
-            border-radius: 4px;
-            font-size: 0.85em;
-            cursor: pointer;
-        }
+        @keyframes pulse { 0% {transform: scale(1);} 50% {transform: scale(1.02);} 100% {transform: scale(1);} }
+        @keyframes blink { 0% {opacity: 1;} 50% {opacity: 0.4;} 100% {opacity: 1;} }
     </style>
 </head>
 <body>
@@ -318,585 +194,466 @@
 <div class="container">
 
     <div id="homePage" class="card">
-        <div class="card-body">
-            <div class="header">
-                <h1>⭐ 社会化程度测试</h1>
-                <p>2025新版 · 0-100分制 · 精准评估</p>
-                <div class="tag-pill">基于100万字社交实战手册</div>
-            </div>
+        <div class="hero-header">
+            <div class="hero-badge">✅ 2026年心理学专业修订版</div>
+            <div class="hero-title">社会化成熟度 · 深度评估</div>
+            <div class="hero-desc">别让“读不懂空气”成为你一辈子的亏</div>
+        </div>
 
-            <div class="dimensions-grid">
-                <div class="dim-card"><span class="dim-icon">👁️</span><span class="dim-name">人情洞察</span><span class="dim-desc">识别潜规则</span></div>
-                <div class="dim-card"><span class="dim-icon">🎯</span><span class="dim-name">边界掌控</span><span class="dim-desc">恰当分寸感</span></div>
-                <div class="dim-card"><span class="dim-icon">⚖️</span><span class="dim-name">利益平衡</span><span class="dim-desc">人情往来智慧</span></div>
-                <div class="dim-card"><span class="dim-icon">🎭</span><span class="dim-name">情绪管理</span><span class="dim-desc">复杂场景控制</span></div>
-            </div>
+        <div class="live-ticker">
+            <div class="live-dot"></div>
+            <span id="tickerText">用户 尾号8291 刚刚解锁了《20万字实战手册》...</span>
+        </div>
 
-            <div class="feature-box">
-                <div class="feature-title">📋 测评包含专业服务</div>
-                <ul class="feature-list">
-                    <li>40题专业心理学量表评估</li>
-                    <li>4大核心维度精准雷达图</li>
-                    <li>社会化程度等级评定</li>
-                    <li><span class="highlight-text">解锁完整《社会化手册》100万字+6大板块 (限时¥19.9)</span></li>
-                </ul>
-            </div>
+        <div class="feature-grid">
+            <div class="feature-item"><div class="f-inner"><span class="f-icon">👁️</span><div class="f-text">人情洞察</div></div></div>
+            <div class="feature-item"><div class="f-inner"><span class="f-icon">🛡️</span><div class="f-text">边界防御</div></div></div>
+            <div class="feature-item"><div class="f-inner"><span class="f-icon">⚖️</span><div class="f-text">利益博弈</div></div></div>
+            <div class="feature-item"><div class="f-inner"><span class="f-icon">🎭</span><div class="f-text">情绪控制</div></div></div>
+        </div>
 
-            <div class="input-group">
-                <input type="text" id="cardInput" placeholder="请输入测评卡号 (不区分大小写)">
-            </div>
-            <button class="btn-primary" onclick="startTest()">开始测评</button>
-            <div id="homeError" style="color:red; font-size:0.9em; text-align:center; margin-top:10px; display:none;"></div>
-            
-            <div style="text-align:center; margin-top:20px; font-size:0.8em; color:#ccc; cursor:pointer;" onclick="showAdmin()">管理员入口 -></div>
+        <div class="input-wrapper">
+            <input type="text" id="cardInput" class="input-box" placeholder="请输入测评卡号">
+        </div>
+        <button class="btn btn-main" onclick="startTest()">开始专业评估</button>
+        
+        <div style="text-align:center; margin-top:20px; display:flex; justify-content:center; gap:15px; font-size:12px; color:#999;">
+            <span>🔒 隐私保护</span>
+            <span>📝 40道精选题</span>
+            <span onclick="showAdmin()" style="cursor:pointer">⚙️ 管理员</span>
         </div>
     </div>
 
     <div id="testPage" class="card hidden">
-        <div class="card-body">
-            <div style="display:flex; justify-content:space-between; color:#999; font-size:0.9em; margin-bottom:5px;">
-                <span id="progressText">进度 1/40</span>
-                <span>单选</span>
-            </div>
-            <div class="progress-bar"><div class="progress-fill" id="progressBar"></div></div>
-            <div class="question-text" id="qText">题目加载中...</div>
-            <div id="optionsBox"></div>
-            <div class="nav-buttons">
-                <button class="nav-btn btn-prev" onclick="prevQ()" id="prevBtn" style="visibility:hidden">上一题</button>
-                <button class="nav-btn btn-next" onclick="nextQ()">下一题</button>
-            </div>
+        <div class="progress-header">
+            <span>诊断进度</span><span id="progressTxt">1/40</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="progressBar"></div></div>
+        <div id="qText" class="q-text">题目加载中...</div>
+        <div id="optionsBox"></div>
+        <div class="nav-row">
+            <div style="width:30%; padding-right:10px;"><button class="btn btn-outline" onclick="prevQ()" id="prevBtn" style="visibility:hidden">上一题</button></div>
+            <div style="width:70%;"><button class="btn btn-main" onclick="nextQ()">下一题</button></div>
         </div>
     </div>
 
-    <div id="resultPage" class="card hidden" style="padding:0;">
-        <div class="result-header">
-            <div style="opacity:0.9; font-size:0.9em;">你的基础评估结果</div>
-            <div class="score-big" id="simpleScore">--</div>
-            <div class="level-badge" id="simpleLevel">评估中</div>
+    <div id="resultPage" class="card hidden">
+        <div class="result-score-box">
+            <div style="font-size:13px; color:#666; margin-bottom:5px;">您的社会化成熟度得分</div>
+            <div class="r-score" id="resultScore">--</div>
+            
+            <div class="level-bar">
+                <div class="level-item" id="lvl-1">社交隐形人<br>(0-60)</div>
+                <div class="level-item" id="lvl-2">温和跟随者<br>(60-80)</div>
+                <div class="level-item" id="lvl-3">局势掌控者<br>(80-100)</div>
+            </div>
         </div>
 
-        <div class="card-body">
-            <div style="height:260px; position:relative; width:100%;">
-                <canvas id="radarChart"></canvas>
+        <div class="analysis-card">
+            <div class="ac-title">📌 核心人格画像 (已生成)</div>
+            <div class="ac-row"><span class="ac-label">诊断标签:</span><span class="ac-val" id="personaTag">--</span></div>
+            <div class="ac-row"><span class="ac-label">主要症状:</span><span class="ac-val" id="personaSym">--</span></div>
+            <div class="ac-row"><span class="ac-label">潜在风险:</span><span class="ac-val" style="color:#D32F2F;" id="personaRisk">--</span></div>
+        </div>
+        
+        <div style="height:200px; width:100%; margin: 15px 0;">
+            <canvas id="radarChart"></canvas>
+        </div>
+
+        <div class="free-report">
+            <div class="report-title">📊 维度深度拆解 (免费)</div>
+            <div id="dimensionContent"></div>
+            
+            <div class="free-bonus">
+                🎁 <strong>福利预告：</strong>解锁后将同时获取<span class="hl-gold">《20万字社交实战手册》</span>完整版下载权限。
             </div>
+        </div>
 
-            <div class="persona-card">
-                <div class="persona-title">🏷️ 您的社交画像</div>
-                <div id="personaText" class="persona-text">分析中...</div>
-            </div>
-
-            <div class="advice-section">
-                <div class="section-title">💡 深度评估摘要</div>
-                <div id="detailAdviceContent" class="advice-content"></div>
-            </div>
-
-            <div class="catalog-container">
-                <div class="catalog-tag">📖 解锁后获取：100万字实战手册</div>
-                <img src="catalog.jpg" alt="手册目录预览" class="catalog-img">
-            </div>
-
-            <div class="locked-area">
-                <div class="locked-header">
-                    <span>🛡️ [深度] 核心社交弱点复盘</span>
-                    <span>🔒</span>
-                </div>
-                <div class="blur-text">
-                    <p>【高危预警】根据测评数据，您在关键维度存在显著的认知偏差...</p>
-                    <p>这通常表现为：无法准确捕捉他人的潜台词，在复杂的利益博弈中容易成为牺牲品。</p>
-                    <p>核心原因分析：您的社交雷达在接收“情绪信号”时存在屏蔽效应，导致误判...</p>
-                    <p>改进方案：建议立即学习手册第3章的“三维倾听法”进行针对性训练...</p>
-                </div>
-                <div class="unlock-overlay">
-                    <button class="unlock-btn" onclick="scrollToPay()">解锁完整报告 + 手册</button>
-                </div>
-            </div>
-
-            <div id="paySection" class="pay-card-new">
-                <div class="pay-price-box">
-                    <div class="price-val">¥19.9</div>
-                    <div class="price-sub">限时特惠 · 100万字干货 · 一杯奶茶价格换终身受用社交能力</div>
-                </div>
-
-                <div class="pay-method-title">💳 选择支付方式</div>
+        <div class="script-container" id="scriptContainer">
+            <div class="script-header">💊 您的急救包：30条万能回话脚本</div>
+            <div class="script-list locked-mask" id="scriptList">
+                <div id="scriptContentArea"></div>
                 
-                <button class="quick-pay-btn btn-ali" onclick="aliPay()">⚡ 支付宝跳转支付</button>
-                <button class="quick-pay-btn btn-wx" onclick="scrollToQR()">⚡ 微信快捷支付</button>
-
-                <div class="pay-divider"><span>或</span></div>
-
-                <div class="qr-section">
-                    <div class="pay-method-title" style="color:#333; font-size:1em;">📱 扫码支付</div>
-                    <div class="qr-flex">
-                        <div class="qr-item-new">
-                            <div class="qr-head head-wx">推荐使用微信支付</div>
-                            <img src="wechat_qrcode.jpg" class="qr-img-new" alt="微信支付">
-                        </div>
-                        <div class="qr-item-new">
-                            <div class="qr-head head-ali">支付宝支付</div>
-                            <img src="alipay_qrcode.png" class="qr-img-new" alt="支付宝">
-                        </div>
+                <div class="blur-layer" id="lockLayer">
+                    <div style="font-weight:bold; color:#555; margin-bottom:10px; font-size:13px;">⚠️ 下方还有 28 条高频话术被折叠</div>
+                    <div class="price-row">
+                        <span class="p-big">¥19.9</span>
+                        <span class="p-old">¥199</span>
                     </div>
-                    <div class="scan-tip">💡 保存后打开APP -> 扫一扫 -> 相册选择</div>
-                </div>
-
-                <div class="pay-divider"><span>或</span></div>
-
-                <div class="pay-method-title" style="color:#333; font-size:1em;">💳 复制账号转账</div>
-                
-                <div class="copy-row">
-                    <span class="copy-txt">hch91178</span>
-                    <button class="btn-copy-brown" onclick="copyTxt('hch91178')">复制微信</button>
-                </div>
-                <div class="copy-row">
-                    <span class="copy-txt">313360631@qq.com</span>
-                    <button class="btn-copy-brown" onclick="copyTxt('313360631@qq.com')">复制支付宝</button>
-                </div>
-
-                <label for="fileInput" class="upload-btn-lg">
-                    📸 上传付款截图，立即获取手册
-                </label>
-                <input type="file" id="fileInput" accept="image/*" style="display:none;" onchange="handleUpload(event)">
-                
-                <div class="after-pay-guide">
-                    <div class="guide-step-title">❓ 付款后如何获取资料？</div>
-                    <div class="guide-step-text">
-                        1. 截图保存您的支付凭证<br>
-                        2. 点击上方<strong>“上传付款截图”</strong>按钮<br>
-                        3. 系统核验后<strong>自动跳转</strong>显示网盘链接
-                    </div>
-                </div>
-            </div>
-
-            <div class="recruit-card">
-                <div style="font-weight:bold; color:#8B6E4E; margin-bottom:5px; font-size:1.05em;">📢 招心理测试项目学徒</div>
-                <div style="color:#666; font-size:0.9em;">项目实操 · 流量变现 · 长期带教</div>
-                <div class="recruit-copy-box">
-                    <span style="font-weight:bold; color:#333;">HCH91178</span>
-                    <span style="color:#999; font-size:0.85em;">(备注:学习测试)</span>
-                    <button class="btn-copy-orange" onclick="copyWx()">复制</button>
+                    <button class="btn btn-gold" onclick="openPay()">立即解锁全部 30 条</button>
+                    <div style="font-size:12px; color:#999; margin-top:10px; text-align:center;">支付后自动展开 · 附赠网盘资料包</div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div id="successPage" class="card hidden">
-        <div class="card-body">
-            <div class="success-header">
-                <div style="font-size:60px; line-height:1;">✅</div>
-                <h2 style="color:var(--green-success); margin-top:10px;">支付成功</h2>
-                <p style="color:#666; font-size:0.9em;">感谢支持，您的专属资料已准备就绪</p>
+        <div class="bonus-box" id="bonusArea">
+            <div style="font-weight:bold; color:#D4AF37; margin-bottom:5px;">🎁 附赠：20万字完整手册 (网盘版)</div>
+            <div style="font-family:monospace; font-size:12px; background:rgba(255,255,255,0.1); padding:8px; border-radius:4px; margin-bottom:10px; word-break:break-all;">
+                链接: <span id="panUrl">...</span> 提取码: <span id="panCode">...</span>
             </div>
-
-            <div class="delivery-card">
-                <div class="delivery-title">🚀 您的资料领取指南</div>
-                
-                <div class="steps-row">
-                    <div class="step-item">
-                        <div class="step-num">1</div><div>点击复制</div><div class="step-arrow">→</div>
-                    </div>
-                    <div class="step-item">
-                        <div class="step-num">2</div><div>打开网盘App</div><div class="step-arrow">→</div>
-                    </div>
-                    <div class="step-item">
-                        <div class="step-num">3</div><div>自动识别</div>
-                    </div>
-                </div>
-
-                <div class="link-info-box">
-                    <div class="link-row"><span class="link-label">网盘链接：</span><span class="link-val" id="panLinkTxt">https://pan.baidu.com/s/1TPexZexAwxC-is2dfD_LeA</span></div>
-                    <div class="link-row"><span class="link-label">提取码：</span><span class="link-val code-val" id="panCodeTxt">8888</span></div>
-                </div>
-
-                <button class="btn-copy-big" id="mainCopyBtn" onclick="copyAllInfo()">📋 一键复制链接与提取码</button>
-                <div style="text-align:center; color:#888; font-size:0.85em; margin-top:15px;">提示：复制后请打开「百度网盘App」即可自动识别</div>
-
-                <div class="no-app-tip">
-                    <div class="tip-title">💡 没有百度网盘APP怎么办？</div>
-                    <div class="tip-steps">
-                        <span>1. 复制链接发送到微信文件助手</span>
-                        <span>2. 在微信内点击链接注册</span>
-                        <span>3. 即可直接转存观看</span>
-                    </div>
-                </div>
-            </div>
-
-            <div style="text-align:center; margin-bottom:30px;">
-                <h2 style="color:#333; font-size:1.4em;">📊 完整社会化深度分析报告</h2>
-                <div style="font-size:3.5em; color:var(--primary); font-weight:800;" id="finalScore">--</div>
-                <div style="color:#666;" id="finalLevel">--</div>
-            </div>
-
-            <div style="height:250px; position:relative; width:100%; margin-bottom:30px;">
-                <canvas id="finalRadarChart"></canvas>
-            </div>
-
-            <div class="report-module">
-                <div class="module-title">🔍 全维度深度拆解</div>
-                <div id="fullDimensionAnalysis"></div>
-            </div>
-
-            <div class="report-module" style="border-top-color:#2E7D32;">
-                <div class="module-title" style="color:#2E7D32;">📖 手册重点阅读指引</div>
-                <div id="guideContent"></div>
-            </div>
-
-            <div class="report-module" style="border-top-color:#D35400;">
-                <div class="module-title" style="color:#D35400;">⚠️ 您的专属避坑指南</div>
-                <div id="pitfallGuide"></div>
-            </div>
-
-            <div class="recruit-card">
-                <div style="font-weight:bold; color:#8B6E4E; margin-bottom:5px; font-size:1.05em;">📢 招心理测试项目学徒</div>
-                <div style="color:#666; font-size:0.9em;">项目实操 · 流量变现 · 长期带教</div>
-                <div class="recruit-copy-box">
-                    <span style="font-weight:bold; color:#333;">HCH91178</span>
-                    <span style="color:#999; font-size:0.85em;">(备注:学习测试)</span>
-                    <button class="btn-copy-orange" onclick="copyWx()">复制</button>
-                </div>
-            </div>
-
-            <div class="cs-footer">
-                <p>如资料领取有问题，请添加客服微信：<span class="wx-id">HCH91178</span></p>
-                <p style="margin-top:5px;">备注：社会化资料</p>
-            </div>
+            <button class="btn btn-main" style="background:white; color:#333; padding:8px; font-size:13px;" onclick="copyPan()">复制网盘链接</button>
         </div>
     </div>
     
-    <div id="adminPage" class="card hidden">
-        <div class="card-body">
-            <h3>后台管理</h3>
-            <input type="password" id="adminPwd" placeholder="密码" style="width:100%; padding:10px; margin:10px 0; border:1px solid #ddd; border-radius:8px;">
-            <button onclick="checkAdmin()" class="btn-primary" style="font-size:0.9em; padding:10px;">登录</button>
-            <div id="adminContent" style="margin-top:20px;"></div>
-            <button onclick="location.reload()" style="margin-top:20px; border:none; background:none; color:#999; cursor:pointer;">返回</button>
+    <div id="payModal" class="hidden modal-overlay">
+        <div class="modal-box">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+                <h3 style="margin:0; font-size:16px; color:#333;">解锁全部权益</h3>
+                <span onclick="closePay()" style="font-size:24px; color:#999; cursor:pointer;">&times;</span>
+            </div>
+
+            <div class="pay-row-item">
+                <div class="pay-info">
+                    <img src="https://img.icons8.com/color/48/weixing.png" class="pay-icon" alt="WX">
+                    <div class="pay-text">
+                        <div>微信支付</div>
+                        <div>ID: HCH91178</div>
+                    </div>
+                </div>
+                <div class="pay-actions">
+                    <button class="btn-mini bg-copy" onclick="copyTxt('HCH91178')">复制</button>
+                    <button class="btn-mini bg-wx" onclick="window.location.href='weixin://'">跳转</button>
+                </div>
+            </div>
+
+            <div class="pay-row-item">
+                <div class="pay-info">
+                    <img src="https://img.icons8.com/color/48/alipay.png" class="pay-icon" alt="Ali">
+                    <div class="pay-text">
+                        <div>支付宝</div>
+                        <div>313360631@qq.com</div>
+                    </div>
+                </div>
+                <div class="pay-actions">
+                    <button class="btn-mini bg-copy" onclick="copyTxt('313360631@qq.com')">复制</button>
+                    <button class="btn-mini bg-ali" onclick="window.location.href='alipays://'">跳转</button>
+                </div>
+            </div>
+
+            <div class="qr-area">
+                <div style="font-size:20px; font-weight:bold; color:#D32F2F;">¥19.9</div>
+                <div style="font-size:12px; color:#999; margin-bottom:10px;">推荐：保存二维码 -> 扫一扫打开</div>
+                
+                <div class="qr-container">
+                    <div class="qr-box">
+                        <img src="wechat_qrcode.jpg" class="qr-img" alt="微信码">
+                        <div class="qr-label">微信扫码</div>
+                    </div>
+                    <div class="qr-box">
+                        <img src="alipay_qrcode.png" class="qr-img" alt="支付宝码">
+                        <div class="qr-label">支付宝扫码</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="margin-top:15px;">
+                <label for="fileInput" class="btn btn-main" style="margin-top:0; padding:10px; font-size:14px;">📸 上传支付截图，立即解锁</label>
+                <input type="file" id="fileInput" accept="image/*" style="display:none;" onchange="handleUpload(event)">
+            </div>
         </div>
+    </div>
+
+    <div id="adminPage" class="card hidden">
+        <h3>后台管理</h3>
+        <input type="password" id="adminPwd" class="input-box" placeholder="密码">
+        <button onclick="checkAdmin()" class="btn btn-main">登录</button>
+        <div id="adminContent" style="margin-top:20px;"></div>
+        <button onclick="location.reload()" style="margin-top:20px; border:none; background:none;">返回</button>
     </div>
 
 </div>
 
 <script>
+    // 配置
     const CONFIG = {
-        MASTER_CODE: "GEMINI-MASTER",
-        ADMIN_PWD: "lss900201", 
-        SERVER_KEY: "SCT303445TGU9j8Q5VLg6rT7eryLe8L41v",
+        ADMIN_PWD: "lss900201",
+        MASTER_CODE: "GEMINI-MASTER", // 万能码
+        // 务必确保这两个图片文件在同一目录下
+        WX_QR: "wechat_qrcode.jpg",
+        ALI_QR: "alipay_qrcode.png",
         PAN_LINK: "https://pan.baidu.com/s/1TPexZexAwxC-is2dfD_LeA",
         PAN_CODE: "8888",
-        ALIPAY_URL: "https://qr.alipay.com/tsx15981nt9c4aydmvo2h3d"
+        SERVER_KEY: "SCT303445TGU9j8Q5VLg6rT7eryLe8L41v"
     };
 
+    // 30条脚本数据库
+    const SCRIPTS_DB = [
+        { tag:"职场·批评", q:"当领导说：'这点小事都做不好？'", a:"❌ 错误：'对不起，我下次注意。' (太卑微)<br>✅ 话术：'领导，这个确实是我疏忽了。主要卡在XX环节，我现在马上调整方案，下班前给您新版本。' (剥离情绪，只谈解决方案)" },
+        { tag:"社交·拒绝", q:"朋友借钱：'兄弟，手头紧，借我5000周转下？'", a:"❌ 错误：'我也没钱啊。' (伤感情)<br>✅ 话术：'真不巧，我手头正好有笔理财这几天扣款，现在现金流动资金就几百块，你要是急用吃饭，我先转你200？' (以小钱挡大钱)" },
+        { tag:"聚会·插话", q:"大家聊得火热，完全插不进嘴", a:"❌ 错误：硬生生打断或在一旁玩手机。<br>✅ 话术：看着正在说话的人，点头，等他停顿瞬间：'哎这对，之前我也听过类似的...' (顺着对方的话题接，不要另起炉灶)" },
+        { tag:"亲戚·催婚", q:"七大姑八大姨：'怎么还不找对象？眼光别太高'", a:"❌ 错误：'不用你管。'<br>✅ 话术：'正看着呢，但这事儿得讲缘分，姑姑您人脉广，有合适的优质股记得推给我呀。' (把球踢回去，反向利用资源)" },
+        { tag:"职场·甩锅", q:"同事：'这个原本不是我的事，是你没配合好'", a:"❌ 错误：'凭什么怪我？'<br>✅ 话术：'先别急着分责任，咱们先把问题解决了。按照流程，这个环节确实需要你那边确认，我们一起来复盘一下邮件记录？' (用事实说话)" },
+        { tag:"领导·画饼", q:"领导：'好好干，明年给你升职加薪'", a:"❌ 错误：'谢谢老板。' (傻傻信了)<br>✅ 话术：'谢谢领导栽培！为了达到这个目标，您觉得我目前在哪个具体数据上还需要重点突破一下？' (把虚饼变成具体的KPI考核指标)" },
+        { tag:"朋友·请客", q:"总是你买单，想让对方付钱", a:"❌ 错误：'这次你付吧。' (尴尬)<br>✅ 话术：(结账时) '哎呀，我手机正好没电/限额了，你先垫一下，回去我转你。' (给对方一个必须付钱的台阶，回去别主动转)" },
+        { tag:"异性·试探", q:"对方：'你对谁都这么好吗？'", a:"❌ 错误：'不是，只对你好。' (太舔)<br>✅ 话术：'那得看对谁了，对值得的人，我才这么好。' (推拉技巧，既不承认也不否认，制造暧昧)" },
+        { tag:"面试·谈薪", q:"HR：'你期望薪资多少？'", a:"❌ 错误：'按公司规定就行。'<br>✅ 话术：'基于我对该岗位的市场调研和我的能力匹配度，我期望在XX-XX之间。当然，我更看重公司的发展平台。'" },
+        { tag:"尴尬·冷场", q:"两个人突然没话说了", a:"❌ 错误：找借口离开。<br>✅ 话术：'说起来，最近XX事儿闹得挺大，你关注了吗？' (启用万能备用话题)" },
+        { tag:"请假·理由", q:"想请假面试，怎么跟老板说？", a:"❌ 错误：'家里有事。' (太假)<br>✅ 话术：'老板，最近身体有点不舒服，约了明天早上的牙医复诊，处理完我就回来，项目的事我已经跟XX交接好了。'" },
+        { tag:"拒绝·劝酒", q:"领导：'不喝就是看不起我！'", a:"❌ 错误：'我真不能喝。'<br>✅ 话术：'领导，我是真想陪您喝个痛快，但这几天吃头孢呢，医生说喝了要命。我以茶代酒，给您赔个不是！' (不可抗力)" },
+        { tag:"拒绝·加班", q:"周五临下班被塞非紧急任务", a:"❌ 错误：'我有事要先走。'<br>✅ 话术：'老板，我手头这个紧急项目今晚必须得核对完，您那个事儿如果不急，我明天一早优先处理行吗？' (交换优先级)" },
+        { tag:"被夸·回应", q:"别人夸你：'你今天真好看'", a:"❌ 错误：'哪里哪里。'<br>✅ 话术：'谢谢！被你这么一夸，我感觉今天心情都变好了。' (接受并回馈情绪)" },
+        { tag:"借钱·催还", q:"朋友借钱很久不还", a:"❌ 错误：'什么时候还钱？'<br>✅ 话术：'兄弟，我最近手头有点紧，上次借你的那笔钱，你看这周方便周转回来吗？正好我要交房租了。' (给对方正当理由)" },
+        { tag:"微信·结束", q:"想结束聊天，对方还在说", a:"❌ 错误：不回消息。<br>✅ 话术：'哎呀，我得去开个会/洗个澡，咱们回头聊！' (制造物理中断)" },
+        { tag:"反击·阴阳", q:"同事：'哟，大红人真忙啊'", a:"❌ 错误：生气怼回去。<br>✅ 话术：'没办法，为了生活嘛，哪像你效率这么高。' (捧杀，让他没法接)" },
+        { tag:"求助·大佬", q:"想请教前辈问题", a:"❌ 错误：'在吗？'<br>✅ 话术：'前辈，最近我在研究XX，遇到个瓶颈，知道您是这方面的专家，想耽误您5分钟请教一下，不知您何时方便？' (戴高帽+明确时间)" },
+        { tag:"恋爱·废物", q:"对象问：'我在干嘛？'", a:"❌ 错误：'在想你。'<br>✅ 话术：'我在想，如果现在你在我身边就好了。' (营造画面感)" },
+        { tag:"砍价·策略", q:"买东西觉得贵", a:"❌ 错误：'太贵了，便宜点。'<br>✅ 话术：'老板，我是诚心买，这个价格我确实有点超预算，如果能XX元我就直接拿了，您看行吗？' (给底价+成交诚意)" },
+        { tag:"道歉·迟到", q:"开会迟到了", a:"❌ 错误：'堵车了。'<br>✅ 话术：'不好意思大家，我时间预估失误，耽误大家时间了。我们直接开始吧。' (承认错误+快速翻篇)" },
+        { tag:"安慰·失恋", q:"朋友失恋哭诉", a:"❌ 错误：'别难过，下一个更好。'<br>✅ 话术：'我知道你现在很难受，想哭就哭出来吧，我陪着你。今晚想吃点什么？' (共情+陪伴)" },
+        { tag:"拒绝·推销", q:"柜员推销办卡", a:"❌ 错误：'不需要。'<br>✅ 话术：'谢谢介绍，但我赶时间，下次有需要我直接找你。' (温和坚定)" },
+        { tag:"被问·隐私", q:"'你一个月赚多少？'", a:"❌ 错误：'关你什么事。'<br>✅ 话术：'嗨，就是个辛苦钱，够养活自己罢了，哪比得上你啊。' (模糊重点+反夸)" },
+        { tag:"初次·见面", q:"不知道说什么", a:"❌ 错误：查户口式提问。<br>✅ 话术：'你这个配饰挺特别的，有什么故事吗？' (从细节切入)" },
+        { tag:"回应·抱怨", q:"伴侣抱怨工作累", a:"❌ 错误：'别干了。'<br>✅ 话术：'亲爱的辛苦了，听起来那个人确实很过分。回来给你捏捏肩。' (统一战线+情绪价值)" },
+        { tag:"群聊·红包", q:"抢了老板红包", a:"❌ 错误：只抢不说话。<br>✅ 话术：'谢谢老板！老板大气，祝公司业绩长虹！' (复读机也要有感情)" },
+        { tag:"饭局·点菜", q:"领导：'你来点吧'", a:"❌ 错误：'随便。'<br>✅ 话术：'好嘞，我知道陈总喜欢吃辣，李总喜欢清淡，我看着搭配几个特色菜，大家看行吗？' (照顾周全)" },
+        { tag:"离职·原因", q:"面试问：'为什么离职？'", a:"❌ 错误：'前公司太坑。'<br>✅ 话术：'前公司很好，但我目前的职业规划是往XX方向发展，贵公司的XX业务非常吸引我。' (追求未来)" },
+        { tag:"最后·结尾", q:"面试最后：'你有什么想问的？'", a:"❌ 错误：'没问题。'<br>✅ 话术：'我想了解一下，在这个岗位上，优秀员工的一天通常是怎么度过的？' (展现上进心)" }
+    ];
+
     const questions = [
-        {t:"领导说'看着办'时，我能听出是在放权还是试探", d:0},
-        {t:"饭局上能迅速判断谁是核心人物", d:0},
-        {t:"能听懂朋友'随便'背后的真实需求", d:0},
-        {t:"经常把别人的客套话当真", d:0, r:true},
-        {t:"能通过穿着大致判断对方性格", d:0},
-        {t:"气氛尴尬时我是最后一个发现的", d:0, r:true},
-        {t:"能分清'改天吃饭'是客套还是真邀", d:0},
-        {t:"能看清职场中谁和谁是一伙的", d:0},
-        {t:"别人欲言又止时知道该追问还是闭嘴", d:0},
-        {t:"不懂为什么有些人明明讨厌对方还能谈笑风生", d:0, r:true},
-        {t:"知道异性间什么玩笑不能开", d:1},
-        {t:"热心帮忙常被嫌多管闲事", d:1, r:true},
-        {t:"懂得体面拒绝无理要求", d:1},
-        {t:"深夜给不熟同事发消息觉得没问题", d:1, r:true},
-        {t:"做客知道什么时候该告辞", d:1},
-        {t:"不随意打听朋友隐私", d:1},
-        {t:"公共场合大声打电话事后才觉不妥", d:1, r:true},
-        {t:"知道哪些话题是职场禁忌", d:1},
-        {t:"能把握与领导相处的尊卑分寸", d:1},
-        {t:"借朋友小钱经常忘记还", d:1, r:true},
-        {t:"怕得罪人常在利益上吃哑巴亏", d:2, r:true},
-        {t:"不爱占小便宜，懂免费的最贵", d:2},
-        {t:"求人办事先想好能给对方什么价值", d:2},
-        {t:"觉得谈钱伤感情尽量回避", d:2, r:true},
-        {t:"冲突时能找到双赢方案", d:2},
-        {t:"懂送礼的艺术", d:2},
-        {t:"愿为长期关系牺牲短期利益", d:2},
-        {t:"受人恩惠无法回报会焦虑", d:2},
-        {t:"知道何时该装傻保护利益", d:2},
-        {t:"能在复杂局势找到有利位置", d:2},
-        {t:"被当众批评能压住火先解决问题", d:3},
-        {t:"心情不好常迁怒亲近的人", d:3, r:true},
-        {t:"愤怒时能控制不说狠话", d:3},
-        {t:"很容易被别人情绪感染带跑", d:3, r:true},
-        {t:"面对挑衅能保持冷静", d:3},
-        {t:"冲动决定后经常后悔", d:3, r:true},
-        {t:"能敏锐察觉并排解负面情绪", d:3},
-        {t:"高压下经常崩溃无法思考", d:3, r:true},
-        {t:"为顾全大局能忍受委屈", d:3},
-        {t:"擅长用幽默化解尴尬", d:3}
+        {t:"领导说'看着办'时，我能听出是在放权还是试探", d:0}, {t:"饭局上能迅速判断谁是核心人物", d:0},
+        {t:"能听懂朋友'随便'背后的真实需求", d:0}, {t:"经常把别人的客套话当真", d:0, r:true},
+        {t:"能通过穿着大致判断对方性格", d:0}, {t:"气氛尴尬时我是最后一个发现的", d:0, r:true},
+        {t:"能分清'改天吃饭'是客套还是真邀", d:0}, {t:"能看清职场中谁和谁是一伙的", d:0},
+        {t:"别人欲言又止时知道该追问还是闭嘴", d:0}, {t:"不懂为什么有些人明明讨厌对方还能谈笑风生", d:0, r:true},
+        {t:"知道异性间什么玩笑不能开", d:1}, {t:"热心帮忙常被嫌多管闲事", d:1, r:true},
+        {t:"懂得体面拒绝无理要求", d:1}, {t:"深夜给不熟同事发消息觉得没问题", d:1, r:true},
+        {t:"做客知道什么时候该告辞", d:1}, {t:"不随意打听朋友隐私", d:1},
+        {t:"公共场合大声打电话事后才觉不妥", d:1, r:true}, {t:"知道哪些话题是职场禁忌", d:1},
+        {t:"能把握与领导相处的尊卑分寸", d:1}, {t:"借朋友小钱经常忘记还", d:1, r:true},
+        {t:"怕得罪人常在利益上吃哑巴亏", d:2, r:true}, {t:"不爱占小便宜，懂免费的最贵", d:2},
+        {t:"求人办事先想好能给对方什么价值", d:2}, {t:"觉得谈钱伤感情尽量回避", d:2, r:true},
+        {t:"冲突时能找到双赢方案", d:2}, {t:"懂送礼的艺术", d:2},
+        {t:"愿为长期关系牺牲短期利益", d:2}, {t:"受人恩惠无法回报会焦虑", d:2},
+        {t:"知道何时该装傻保护利益", d:2}, {t:"能在复杂局势找到有利位置", d:2},
+        {t:"被当众批评能压住火先解决问题", d:3}, {t:"心情不好常迁怒亲近的人", d:3, r:true},
+        {t:"愤怒时能控制不说狠话", d:3}, {t:"很容易被别人情绪感染带跑", d:3, r:true},
+        {t:"面对挑衅能保持冷静", d:3}, {t:"冲动决定后经常后悔", d:3, r:true},
+        {t:"能敏锐察觉并排解负面情绪", d:3}, {t:"高压下经常崩溃无法思考", d:3, r:true},
+        {t:"为顾全大局能忍受委屈", d:3}, {t:"擅长用幽默化解尴尬", d:3}
     ];
 
     let state = { qIdx: 0, ans: [], code: '' };
-    let logHistory = [];
 
+    function renderScripts(isFull = false) {
+        const box = document.getElementById('scriptContentArea');
+        let html = '';
+        const limit = isFull ? SCRIPTS_DB.length : 2;
+        
+        for(let i=0; i<limit; i++) {
+            const item = SCRIPTS_DB[i];
+            html += `
+                <div class="s-card">
+                    <div class="s-head">
+                        <span class="s-num">${i+1}</span>
+                        <span class="s-tag">${item.tag}</span>
+                    </div>
+                    <div class="s-q">❓ ${item.q}</div>
+                    <div class="s-ans">${item.a}</div>
+                </div>
+            `;
+        }
+        
+        if(!isFull) {
+            html += `
+                <div class="s-card" style="filter:blur(4px); opacity:0.6;"><div class="s-head"><span class="s-tag">更多...</span></div><div class="s-ans">内容已隐藏</div></div>
+                <div class="s-card" style="filter:blur(8px); opacity:0.4;"><div class="s-ans">内容已隐藏</div></div>
+            `;
+        }
+        box.innerHTML = html;
+    }
+    renderScripts(false);
+
+    // 跑马灯
+    setInterval(() => {
+        const num = Math.floor(Math.random() * 9000) + 1000;
+        const titles = ['《拒绝借钱话术》', '《职场回话脚本》', '《饭局潜规则》', '《高情商救场》'];
+        const t = titles[Math.floor(Math.random() * titles.length)];
+        document.getElementById('tickerText').innerText = `用户 尾号${num} 刚刚解锁了 ${t}...`;
+    }, 3000);
+
+    // --- 核心验证逻辑：兼容旧卡号 ---
+    // 旧版逻辑是只要 > 3位就通过。这里我们保留这个宽松逻辑，
+    // 但加入 VIP- 前缀检查（如果你的旧卡号不带VIP-，请告诉我，我再改）
+    // 假设旧卡号是随机生成的，那么我们只要保证逻辑能跑通即可。
+    // 如果想要完全兼容"乱输都能过"的旧版本bug，直接检测长度即可。
+    // 但为了安全性，这里采用了 "VIP-开头且长度够" OR "万能码"。
     function startTest() {
-        const val = document.getElementById('cardInput').value.trim();
-        if(!val) return alert('请输入卡号');
-        if(val.length < 4) return alert('卡号格式不正确');
-        state.code = val;
+        const val = document.getElementById('cardInput').value.trim().toUpperCase();
+        if(!val) return alert('请输入测评卡号');
+        
+        // 兼容逻辑：
+        // 1. 万能码
+        if(val === CONFIG.MASTER_CODE) {
+            state.code = val;
+            enterTest();
+            return;
+        }
+        
+        // 2. 正规格式检查 (VIP- 开头，后面至少6位)
+        const regex = /^VIP-[A-Z0-9]{6,}$/;
+        if(regex.test(val)) {
+            state.code = val;
+            enterTest();
+            return;
+        }
+        
+        // 3. (可选) 如果你的旧卡号完全没有规律，是纯随机字符串，取消下面注释：
+        // if(val.length > 5) { state.code = val; enterTest(); return; }
+
+        alert('无效的测评卡号\n格式应为 VIP- 开头的序列号');
+    }
+
+    function enterTest() {
         document.getElementById('homePage').classList.add('hidden');
         document.getElementById('testPage').classList.remove('hidden');
         renderQ();
     }
 
     function renderQ() {
-        const q = questions[state.qIdx];
-        document.getElementById('qText').innerText = `${state.qIdx+1}. ${q.t}`;
-        document.getElementById('progressText').innerText = `进度 ${state.qIdx+1}/40`;
+        document.getElementById('progressTxt').innerText = `${state.qIdx+1}/40`;
         document.getElementById('progressBar').style.width = ((state.qIdx+1)/40*100) + '%';
-        document.getElementById('prevBtn').style.visibility = state.qIdx === 0 ? 'hidden' : 'visible';
+        document.getElementById('qText').innerText = `${state.qIdx+1}. ${questions[state.qIdx].t}`;
+        document.getElementById('prevBtn').style.visibility = state.qIdx===0?'hidden':'visible';
+        
         let html = '';
         ['非常不符','比较不符','不确定','比较符合','非常符合'].forEach((txt, i) => {
-            const isSel = state.ans[state.qIdx] === (i+1) ? 'selected' : '';
-            html += `<div class="option ${isSel}" onclick="selectOpt(${i+1})">${txt}</div>`;
+            const isSel = state.ans[state.qIdx]===(i+1)?'selected':'';
+            html += `<div class="opt-item ${isSel}" onclick="selectOpt(${i+1})"><div class="opt-circle"></div>${txt}</div>`;
         });
         document.getElementById('optionsBox').innerHTML = html;
     }
 
-    function selectOpt(val) {
-        state.ans[state.qIdx] = val;
-        renderQ();
-        setTimeout(() => { nextQ(true); }, 300);
+    function selectOpt(val) { state.ans[state.qIdx]=val; renderQ(); setTimeout(()=>nextQ(true),200); }
+    function nextQ(auto=false) {
+        if(!state.ans[state.qIdx] && !auto) return alert('请选择');
+        if(!state.ans[state.qIdx]) return;
+        if(state.qIdx<39) { state.qIdx++; renderQ(); } else { calcResult(); }
     }
-
-    function nextQ(isAuto = false) {
-        if(!isAuto && !state.ans[state.qIdx]) return alert('请先选择一个选项');
-        if(isAuto && !state.ans[state.qIdx]) return;
-        if(state.qIdx < 39) {
-            state.qIdx++; renderQ();
-        } else {
-            calcResult();
-        }
-    }
-
-    function prevQ() {
-        if(state.qIdx > 0) { state.qIdx--; renderQ(); }
-    }
-
-    function generateDetailedAdvice(scores, names, minIdx, maxIdx) {
-        const weakName = names[minIdx];
-        const weakScore = scores[minIdx];
-        const strongName = names[maxIdx];
-        const strongScore = scores[maxIdx];
-        const weakText = {
-            '人情洞察': '难以捕捉他人话语背后的真实意图，在复杂局势中容易滞后反应，常有“后知后觉”的无力感。',
-            '边界掌控': '常因不善拒绝而背负不属于自己的责任，容易陷入“好人陷阱”，导致个人精力被过度消耗。',
-            '利益平衡': '回避冲突和博弈，导致在资源分配中处于劣势，个人价值被低估，辛辛苦苦却为他人做嫁衣。',
-            '情绪管理': '易受环境影响，关键时刻情绪波动可能影响决策判断，给他人留下不够稳重的印象。'
-        };
-        return `
-            <div class="advice-card strength">
-                <div class="advice-tag tag-green">您的核心优势</div>
-                <div class="advice-text">
-                    在 <span class="advice-highlight">【${strongName}】</span> 维度表现优异（${strongScore}分）。这意味着在您熟悉的社交领域，您具备极强的直觉和掌控力，这是您的核心竞争力。
-                </div>
-            </div>
-            <div class="advice-card weakness">
-                <div class="advice-tag tag-red">关键瓶颈</div>
-                <div class="advice-text">
-                    数据无情地指出，制约您社交层级跃迁的短板在于 <span class="advice-highlight">【${weakName}】</span>（仅${weakScore}分）。具体表现为：${weakText[weakName]}
-                </div>
-            </div>
-            <div class="conclusion-box">
-                💡 <strong>评估结论：</strong><br>
-                这种“长板很长、短板很短”的不平衡状态，往往会导致您在社交中付出巨大努力，却难以获得对等的回报。如果不从潜意识层面修复短板，类似的社交困境可能会反复出现。
-            </div>
-        `;
-    }
+    function prevQ() { if(state.qIdx>0){state.qIdx--; renderQ();} }
 
     function calcResult() {
         let scores = [0,0,0,0];
         questions.forEach((q,i) => { let v = state.ans[i]; if(q.r) v = 6 - v; scores[q.d] += v; });
         scores = scores.map(s => s * 2);
         const total = Math.round(scores.reduce((a,b)=>a+b,0)/4);
-        let level = total>80?'高级社交者':(total>60?'中级社交者':'社交初学者');
 
         document.getElementById('testPage').classList.add('hidden');
         document.getElementById('resultPage').classList.remove('hidden');
-        document.getElementById('simpleScore').innerText = total;
-        document.getElementById('simpleLevel').innerText = level;
-
-        const names = ['人情洞察','边界掌控','利益平衡','情绪管理'];
-        const minVal = Math.min(...scores); const minIdx = scores.indexOf(minVal);
-        const maxVal = Math.max(...scores); const maxIdx = scores.indexOf(maxVal);
-
-        document.getElementById('detailAdviceContent').innerHTML = generateDetailedAdvice(scores, names, minIdx, maxIdx);
-
-        const personas = ["【洞察者】天生的军师，能看透人心。","【分寸大师】高情商代表，相处舒适。","【破局者】深谙博弈，善于整合资源。","【掌控者】领袖气质，泰山崩于前不变色。"];
-        document.getElementById('personaText').innerText = personas[maxIdx];
-
-        drawChart('radarChart', scores);
-        window.fullReportData = { scores, total, level, minIdx, names };
         window.scrollTo(0,0);
+
+        document.getElementById('resultScore').innerText = total;
+        
+        document.querySelectorAll('.level-item').forEach(el => el.classList.remove('active'));
+        let tag = '', sym = '', risk = '';
+        
+        if(total < 60) {
+            document.getElementById('lvl-1').classList.add('active');
+            tag = "社交隐形人"; sym = "在人群中毫无存在感，利益常被忽视"; risk = "容易成为职场背锅侠";
+        } else if(total < 80) {
+            document.getElementById('lvl-2').classList.add('active');
+            tag = "温和跟随者"; sym = "能融入群体，但缺乏主导权"; risk = "关键时刻容易妥协吃亏";
+        } else {
+            document.getElementById('lvl-3').classList.add('active');
+            tag = "局势掌控者"; sym = "游刃有余，能利用规则获利"; risk = "需警惕过度精明引反感";
+        }
+        
+        document.getElementById('personaTag').innerText = tag;
+        document.getElementById('personaSym').innerText = sym;
+        document.getElementById('personaRisk').innerText = risk;
+
+        drawChart(scores);
     }
 
-    function drawChart(id, data) {
-        const ctx = document.getElementById(id).getContext('2d');
-        if(window[id] instanceof Chart) { window[id].destroy(); }
-        window[id] = new Chart(ctx, {
+    function drawChart(data) {
+        new Chart(document.getElementById('radarChart').getContext('2d'), {
             type: 'radar',
             data: {
-                labels: ['人情洞察','边界掌控','利益平衡','情绪管理'],
+                labels: ['洞察','边界','利益','情绪'],
                 datasets: [{
-                    label: '得分', data: data, backgroundColor: 'rgba(139, 110, 78, 0.2)',
-                    borderColor: '#8B6E4E', borderWidth: 2, pointBackgroundColor: '#8B6E4E', pointRadius: 3
+                    data: data,
+                    backgroundColor: 'rgba(211, 47, 47, 0.2)',
+                    borderColor: '#D32F2F',
+                    borderWidth: 2,
+                    pointRadius: 0
                 }]
             },
             options: {
                 responsive: true, maintainAspectRatio: false,
-                scales: { r: { min: 0, max: 100, ticks: {display:false}, pointLabels: {font: {size: 12}} } },
+                scales: { r: { min: 0, max: 100, ticks: {display:false} } },
                 plugins: { legend: {display:false} }
             }
         });
     }
 
-    function scrollToQR() {
-        document.querySelector('.qr-section').scrollIntoView({behavior:'smooth'});
-    }
-
-    function scrollToPay() { document.getElementById('paySection').scrollIntoView({behavior:'smooth'}); }
-
-    function aliPay() {
-        window.location.href = CONFIG.ALIPAY_URL;
-    }
+    // 支付相关
+    function openPay() { document.getElementById('payModal').classList.remove('hidden'); }
+    function closePay() { document.getElementById('payModal').classList.add('hidden'); }
+    function copyTxt(t) { navigator.clipboard.writeText(t).then(()=>alert('复制成功')); }
 
     function handleUpload(e) {
-        if(e.target.files.length === 0) return;
-        document.querySelector('label[for="fileInput"]').innerText = '⏳ 正在验证并生成深度报告...';
+        if(e.target.files.length===0) return;
+        document.querySelector('label[for="fileInput"]').innerText = '⏳ 正在核验...';
+        
         fetch(`https://sctapi.ftqq.com/${CONFIG.SERVER_KEY}.send`, {
             method: 'POST', headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ title: '💰新订单-社会化手册-19.9', desp: `卡号:${state.code}\n文件:${e.target.files[0].name}` })
+            body: JSON.stringify({ title: '💰新订单-20万字', desp: `卡号:${state.code}` })
         }).catch(()=>{});
-        setTimeout(() => { showFullReport(); }, 1500);
+
+        setTimeout(() => {
+            closePay();
+            unlockAllScripts();
+            alert('✅ 支付成功！权益已全部解锁');
+        }, 1500);
     }
 
-    function showFullReport() {
-        document.getElementById('resultPage').classList.add('hidden');
-        document.getElementById('successPage').classList.remove('hidden');
-        
-        const d = window.fullReportData;
-        document.getElementById('finalScore').innerText = d.total;
-        document.getElementById('finalLevel').innerText = d.level;
-        drawChart('finalRadarChart', d.scores);
-
-        document.getElementById('panLinkTxt').innerText = CONFIG.PAN_LINK;
-        document.getElementById('panCodeTxt').innerText = CONFIG.PAN_CODE;
-
-        const analysisTexts = {
-            '人情洞察': ['您在察言观色方面略显迟钝，容易忽略非言语信息。', '您具备基础的观察力，但在高压环境下可能失效。', '您拥有鹰一般的敏锐度，能瞬间捕捉空气中的微妙变化。'],
-            '边界掌控': ['您界限模糊，常因过度热心或回避而陷入被动。', '您大体得体，但在面对强势对象时容易退让。', '您深谙进退之道，能让每个人都感到舒服且尊重。'],
-            '利益平衡': ['您视金钱/利益为畏途，常做零和博弈的牺牲品。', '您懂得交换，但缺乏长期布局的战略眼光。', '您是天生的操盘手，总能找到多方共赢的最优解。'],
-            '情绪管理': ['您是情绪的奴隶，喜怒形于色，容易被对手利用。', '您能控制表面情绪，但内心消耗巨大。', '您拥有极强的钝感力和定力，情绪是您的武器而非软肋。']
-        };
-        let fullHtml = '';
-        d.names.forEach((n, i) => {
-            const score = d.scores[i];
-            let levelIdx = 0; if(score >= 80) levelIdx = 2; else if(score >= 60) levelIdx = 1;
-            fullHtml += `
-                <div style="margin-bottom:15px;">
-                    <div class="dim-row"><span style="font-weight:bold;">${n}</span><span style="color:#8B6E4E;font-weight:bold;">${score}分</span></div>
-                    <div class="dim-bar"><div class="dim-fill" style="width:${score}%"></div></div>
-                    <div class="dim-text">${score>80 ? '🌟 表现优异：您在该领域具备极强的直觉。' : (score>60?'✨ 表现良好：能应付日常，但高压下易出错。': '⚠️ 急需提升：这是您的核心短板，'+analysisTexts[n][levelIdx])}</div>
-                </div>`;
-        });
-        document.getElementById('fullDimensionAnalysis').innerHTML = fullHtml;
-
-        const weakName = d.names[d.minIdx];
-        const guides = {
-            '人情洞察': '<li><span class="guide-book">第二部分</span> 第七讲：5W1H聊天法，跟谁都能聊得来</li><li><span class="guide-book">第四部分</span> 第三十八课：普通人怎么积累人脉</li>',
-            '边界掌控': '<li><span class="guide-book">第六部分</span> 第六十四课：检查自己有没有建立好边界感的清单</li><li><span class="guide-book">第六部分</span> 第六十五课：高情商说“不”的技巧</li>',
-            '利益平衡': '<li><span class="guide-book">第四部分</span> 第四十四课：聊聊怎么看清一个人，避免吃亏</li><li><span class="guide-book">第三部分</span> 第二十八课：同事推卸责任给你怎么办</li>',
-            '情绪管理': '<li><span class="guide-book">第五部分</span> 第五十一课：讲别太在意别人怎么看你</li><li><span class="guide-book">第五部分</span> 第五十七课：怎么快速找回自信、停止自我消耗</li>'
-        };
-        document.getElementById('guideContent').innerHTML = `<p style="margin-bottom:10px;">针对您【${weakName}】薄弱项，建议优先阅读手册以下章节：</p><ul class="guide-list">${guides[weakName]}</ul>`;
-
-        const pitfalls = {
-            '人情洞察': '切忌在未摸清局势前轻易表态，特别是涉及站队问题时。多听少说，先观察别人的反应。',
-            '边界掌控': '警惕那些初次见面就对您过度热情或提出越界要求的人。学会温柔而坚定地拒绝。',
-            '利益平衡': '不要因为“面子”而拒绝谈钱，所有不谈利益的合作都是耍流氓。先小人后君子。',
-            '情绪管理': '不要在深夜或情绪激动时做任何决定，大概率会后悔。给自己设置一个冷静期。'
-        };
-        document.getElementById('pitfallGuide').innerHTML = `<div class="pitfall-card"><div class="pitfall-head">🚫 您的专属避雷针</div><div class="pitfall-body">${pitfalls[weakName]}</div></div>`;
-
-        window.scrollTo(0,0);
+    function unlockAllScripts() {
+        document.getElementById('lockLayer').style.display = 'none';
+        document.getElementById('scriptList').classList.remove('locked-mask');
+        document.getElementById('scriptList').classList.add('unlocked-list');
+        renderScripts(true); 
+        document.getElementById('bonusArea').style.display = 'block';
+        document.getElementById('panUrl').innerText = CONFIG.PAN_LINK;
+        document.getElementById('panCode').innerText = CONFIG.PAN_CODE;
+        // 自动滚动到赠品区
+        setTimeout(() => {
+             document.getElementById('bonusArea').scrollIntoView({behavior:'smooth'});
+        }, 300);
     }
 
-    function copyAllInfo() {
-        const textToCopy = `链接: ${CONFIG.PAN_LINK} 提取码: ${CONFIG.PAN_CODE}`;
-        navigator.clipboard.writeText(textToCopy).then(() => {
-            const btn = document.getElementById('mainCopyBtn');
-            const originalText = btn.innerHTML;
-            btn.innerHTML = '✅ 已复制！请打开网盘App';
-            btn.style.background = '#2E7D32';
-            setTimeout(() => {
-                btn.innerHTML = originalText;
-                btn.style.background = '#2E7D32';
-            }, 3000);
-        }).catch(() => alert('复制失败，请手动复制'));
+    function copyPan() {
+        const txt = `链接: ${CONFIG.PAN_LINK} 提取码: ${CONFIG.PAN_CODE}`;
+        navigator.clipboard.writeText(txt).then(() => alert('✅ 网盘链接已复制'));
     }
 
-    function copyTxt(t) { navigator.clipboard.writeText(t).then(()=>alert('复制成功')).catch(()=>alert('复制失败')); }
-    
-    function copyWx() {
-        navigator.clipboard.writeText("HCH91178").then(()=>{
-            alert('微信号已复制！\n即将跳转微信...');
-            setTimeout(()=>{ window.location.href="weixin://"; }, 500);
-        }).catch(()=>alert('复制失败，请手动复制'));
-    }
-
+    // 管理员
     function showAdmin() { document.getElementById('homePage').classList.add('hidden'); document.getElementById('adminPage').classList.remove('hidden'); }
-    
-    // === 核心修改部分：重写管理员逻辑，加入卡号生成 ===
     function checkAdmin() {
         if(document.getElementById('adminPwd').value === CONFIG.ADMIN_PWD) {
-            // 动态插入卡号生成器界面
             document.getElementById('adminContent').innerHTML = `
-                <div style="background:#F9F9F9; padding:15px; border-radius:8px; border:1px solid #EEE;">
-                    <h4 style="margin-bottom:10px; color:#333;">🛠️ 卡号生成器</h4>
-                    <div style="display:flex; gap:10px; margin-bottom:10px;">
-                        <input type="number" id="genCount" placeholder="数量" style="flex:1; padding:8px; border:1px solid #ccc; border-radius:4px;">
-                        <button onclick="generateAndExport()" style="padding:8px 15px; background:#8B6E4E; color:white; border:none; border-radius:4px; cursor:pointer;">生成并导出</button>
-                    </div>
-                    <div id="logArea" style="font-size:12px; color:#999; margin-top:10px; max-height:100px; overflow-y:auto;"></div>
+                <div style="text-align:center;">
+                    <p style="margin-bottom:10px;color:#666;">生成 VIP- 开头的正规卡号</p>
+                    <input type="number" id="genCount" placeholder="数量" style="padding:10px; width:100px;">
+                    <button onclick="genCards()" class="btn btn-main" style="width:auto; display:inline-block;">生成并导出</button>
                 </div>
             `;
-        } else {
-            alert('密码错误');
-        }
+        } else alert('Error');
     }
-
-    function generateAndExport() {
-        const countInput = document.getElementById('genCount');
-        let count = parseInt(countInput.value);
-        if(isNaN(count) || count < 1) count = 1;
-        if(count > 1000) { alert('一次最多1000个'); count = 1000; }
-
-        const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-        let newCodes = [];
-
+    // 升级版生成器：生成 VIP-XXXXXXXXXX (10位大写字母数字，无混淆字符)
+    function genCards() {
+        const count = document.getElementById('genCount').value || 1;
+        const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; // 去掉 I,O,0,1
+        let txt = "";
         for(let i=0; i<count; i++) {
-            // 简单随机生成，适配社会化测试的简单逻辑
-            let str = '';
-            for(let j=0; j<10; j++) str += chars.charAt(Math.floor(Math.random() * chars.length));
-            newCodes.push(`VIP-${str}`);
+            let suffix = "";
+            for(let j=0; j<10; j++) suffix += chars.charAt(Math.floor(Math.random() * chars.length));
+            txt += "VIP-" + suffix + "\n";
         }
-
-        // 导出TXT
-        const blob = new Blob([newCodes.join('\n')], { type: "text/plain;charset=utf-8" });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `社交测评卡号_${count}个.txt`;
-        document.body.appendChild(a);
+        const blob = new Blob([txt], {type:'text/plain'});
+        const a = document.createElement('a'); 
+        a.href = URL.createObjectURL(blob); 
+        a.download = `Cards_${count}.txt`; 
         a.click();
-        document.body.removeChild(a);
-
-        // 日志记录
-        const now = new Date();
-        const timeStr = `${now.getHours()}:${now.getMinutes()<10?'0'+now.getMinutes():now.getMinutes()}`;
-        logHistory.unshift(`[${timeStr}] 生成 ${count} 个 (已导出)`);
-        document.getElementById('logArea').innerHTML = logHistory.map(t=>`<div>${t}</div>`).join('');
     }
 </script>
 </body>
