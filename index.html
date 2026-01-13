@@ -136,15 +136,6 @@
         .dt-section { margin-bottom: 12px; }
         .dt-label { font-weight: bold; color: #2C3E50; display: block; margin-bottom: 4px; }
 
-        .dim-box { margin-bottom: 12px; }
-        .dim-head { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 5px; }
-        .dim-line-bg { height: 6px; background: #EEE; border-radius: 3px; }
-        .dim-line-fill { height: 100%; background: var(--primary); border-radius: 3px; }
-        .dim-advice { font-size: 12px; color: #666; background: #F8F9FA; padding: 8px; border-radius: 6px; margin-top: 5px; }
-
-        .free-bonus { margin-top: 15px; background: #F0F4F8; padding: 10px; border-radius: 6px; font-size: 12px; color: #555; border: 1px dashed #B0BEC5; }
-        .hl-gold { color: #D4AF37; font-weight: bold; }
-
         /* 脚本列表 */
         .script-container { border: 2px solid #D4AF37; border-radius: 12px; overflow: hidden; margin-top: 30px; box-shadow: 0 10px 30px rgba(212, 175, 55, 0.15); background: #FDFBF5; }
         .script-header { background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%); color: white; padding: 15px; text-align: center; font-weight: bold; font-size: 16px; }
@@ -190,8 +181,6 @@
         .qr-img { width: 100%; border: 1px solid #EEE; border-radius: 8px; }
         .qr-label { font-size: 12px; color: #666; margin-top: 5px; }
 
-        /* 赠品区 */
-        .bonus-box { display: none; background: #2C3E50; color: white; padding: 15px; text-align: center; margin-top: 20px; border-radius: 8px; }
         .unlocked-list { height: auto !important; overflow: visible !important; }
 
         @keyframes pulse { 0% {transform: scale(1);} 50% {transform: scale(1.02);} 100% {transform: scale(1);} }
@@ -211,7 +200,7 @@
 
         <div class="live-ticker">
             <div class="live-dot"></div>
-            <span id="tickerText">用户 尾号8291 刚刚解锁了《20万字实战手册》...</span>
+            <span id="tickerText">用户 尾号8291 刚刚解锁了《30条万能回话脚本》...</span>
         </div>
 
         <div class="feature-grid">
@@ -271,10 +260,6 @@
             <div id="summaryContent"></div> 
             
             <div id="dimensionContent"></div>
-            
-            <div class="free-bonus">
-                🎁 <strong>福利预告：</strong>解锁后将同时获取<span class="hl-gold">《20万字社交实战手册》</span>完整版下载权限。
-            </div>
         </div>
 
         <div class="script-container" id="scriptContainer">
@@ -285,21 +270,13 @@
                 <div class="blur-layer" id="lockLayer">
                     <div style="font-weight:bold; color:#555; margin-bottom:10px; font-size:13px;">⚠️ 下方还有 28 条高频话术被折叠</div>
                     <div class="price-row">
-                        <span class="p-big">¥19.9</span>
-                        <span class="p-old">¥199</span>
+                        <span class="p-big">¥4.9</span>
+                        <span class="p-old">¥49</span>
                     </div>
                     <button class="btn btn-gold" onclick="openPay()">立即解锁全部 30 条</button>
-                    <div style="font-size:12px; color:#999; margin-top:10px; text-align:center;">支付后自动展开 · 附赠网盘资料包</div>
+                    <div style="font-size:12px; color:#999; margin-top:10px; text-align:center;">支付后自动展开</div>
                 </div>
             </div>
-        </div>
-
-        <div class="bonus-box" id="bonusArea">
-            <div style="font-weight:bold; color:#D4AF37; margin-bottom:5px;">🎁 附赠：20万字完整手册 (网盘版)</div>
-            <div style="font-family:monospace; font-size:12px; background:rgba(255,255,255,0.1); padding:8px; border-radius:4px; margin-bottom:10px; word-break:break-all;">
-                链接: <span id="panUrl">...</span> 提取码: <span id="panCode">...</span>
-            </div>
-            <button class="btn btn-main" style="background:white; color:#333; padding:8px; font-size:13px;" onclick="copyPan()">复制网盘链接</button>
         </div>
     </div>
     
@@ -337,7 +314,7 @@
             </div>
 
             <div class="qr-area">
-                <div style="font-size:20px; font-weight:bold; color:#D32F2F;">¥19.9</div>
+                <div style="font-size:20px; font-weight:bold; color:#D32F2F;">¥4.9</div>
                 <div style="font-size:12px; color:#999; margin-bottom:10px;">推荐：保存二维码 -> 扫一扫打开</div>
                 
                 <div class="qr-container">
@@ -377,8 +354,6 @@
         // 务必确保这两个图片文件在同一目录下
         WX_QR: "wechat_qrcode.jpg",
         ALI_QR: "alipay_qrcode.png",
-        PAN_LINK: "https://pan.baidu.com/s/1TPexZexAwxC-is2dfD_LeA",
-        PAN_CODE: "8888",
         SERVER_KEY: "SCT303445TGU9j8Q5VLg6rT7eryLe8L41v"
     };
 
@@ -475,7 +450,7 @@
         const num = Math.floor(Math.random() * 9000) + 1000;
         const titles = ['《拒绝借钱话术》', '《职场回话脚本》', '《饭局潜规则》', '《高情商救场》'];
         const t = titles[Math.floor(Math.random() * titles.length)];
-        document.getElementById('tickerText').innerText = `用户 尾号${num} 刚刚解锁了 ${t}...`;
+        document.getElementById('tickerText').innerText = `用户 尾号${num} 刚刚解锁了《30条万能回话脚本》...`;
     }, 3000);
 
     // 核心兼容逻辑：VIP-格式 OR 万能码
@@ -623,7 +598,7 @@
         
         fetch(`https://sctapi.ftqq.com/${CONFIG.SERVER_KEY}.send`, {
             method: 'POST', headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ title: '💰新订单-20万字', desp: `卡号:${state.code}` })
+            body: JSON.stringify({ title: '💰新订单-脚本解锁', desp: `卡号:${state.code}` })
         }).catch(()=>{});
 
         setTimeout(() => {
@@ -638,17 +613,10 @@
         document.getElementById('scriptList').classList.remove('locked-mask');
         document.getElementById('scriptList').classList.add('unlocked-list');
         renderScripts(true); 
-        document.getElementById('bonusArea').style.display = 'block';
-        document.getElementById('panUrl').innerText = CONFIG.PAN_LINK;
-        document.getElementById('panCode').innerText = CONFIG.PAN_CODE;
+        // 滚动到列表区域
         setTimeout(() => {
-             document.getElementById('bonusArea').scrollIntoView({behavior:'smooth'});
+             document.getElementById('scriptContainer').scrollIntoView({behavior:'smooth'});
         }, 300);
-    }
-
-    function copyPan() {
-        const txt = `链接: ${CONFIG.PAN_LINK} 提取码: ${CONFIG.PAN_CODE}`;
-        navigator.clipboard.writeText(txt).then(() => alert('✅ 网盘链接已复制'));
     }
 
     // 管理员
